@@ -1,30 +1,41 @@
-  <ion-content [fullscreen]="true">
-    <img src="assets/urbanizacionBg.jpg" alt="Fondo" class="background-image">
+<ion-content [fullscreen]="true">
+  <img src="assets/urbanizacionBg.jpg" alt="Fondo" class="background-image" />
 
-    <div class="ion-padding content-login" >
-      <div class="logo">
-        <img src="assets/logo-color.svg" alt="logo" />
-      </div>
-      <form class="form-credentials">
-        <div class="ion-padding">
-          <ion-item>
-            <ion-input placeholder="Usuario" class="input"></ion-input>
-            <ion-icon name="person-outline"></ion-icon>
-          </ion-item>
-          <ion-item>
-            <ion-input placeholder="Contraseña" class="input"></ion-input>
-            <ion-icon name="lock-closed-outline"></ion-icon>
-          </ion-item>
-          <div class="btn-iniciar-sesion">
-            <ion-button expand="block">Iniciar sesión</ion-button>
-          </div>
-          <div class="forgot-password">
-            <a href="#">¿Olvidaste tu contraseña?</a>
-          </div>
-          <div class="sign-up">
-            <!-- <p>No tienes cuenta?<a href="#">Regístrate</a></p> -->
-          </div>
-        </div>
-      </form>
+  <div class="ion-padding content-login">
+    <div class="logo">
+      <img src="assets/logo-color.svg" alt="logo" />
     </div>
-  </ion-content>
+    <form class="form-credentials" [formGroup]="signInForm">
+      <ion-item>
+        <ion-input
+        type="text"
+        pattern="^[a-zA-Z0-9\-_.]*$"
+        maxlength="14"
+        minlength="3"
+        formControlName="username"
+        placeholder="Usuario"
+        class="input"
+      ></ion-input>
+      
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          type="password"
+          formControlName="password"
+          placeholder="Contraseña"
+          class="input"
+        ></ion-input>
+        <ion-icon name="lock-closed-outline"></ion-icon>
+      </ion-item>
+      <div class="btn-iniciar-sesion">
+        <ion-button expand="block" (click)="signIn()"
+          >Iniciar sesión</ion-button
+        >
+      </div>
+      <div class="forgot-password">
+        <a [routerLink]="'/recovery-password'">¿Ha olvidado su contraseña?</a>
+      </div>
+    </form>
+  </div>
+</ion-content>

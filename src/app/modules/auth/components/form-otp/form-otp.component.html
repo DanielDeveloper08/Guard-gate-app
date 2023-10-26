@@ -1,0 +1,30 @@
+<div class="modal-otp ion-padding">
+  <!-- <div class="logo">
+    <img src="assets/logo-color.svg" alt="logo" />
+  </div> -->
+  <form class="content-otp">
+    <div class="title-otp">
+      <ion-icon name="mail-outline"></ion-icon>
+      <span>Te enviamos un correo</span>
+    </div>
+    <ion-text color="dark" class="description"
+      >Ingrese el código de seguridad enviado a su correo electrónico
+    </ion-text>
+
+    <div class="input-otp">
+      <shared-otp [quantity]="6" (code)="getCodeOtp($event)"></shared-otp>
+      <ion-text class="description-time-otp"
+        >La validez de tu código es de 3 minutos</ion-text
+      >
+    </div>
+
+    <div class="btn-iniciar-sesion">
+      <ion-button
+        expand="block"
+        id="open-modal"
+        (click)="validateOtp()"
+        >Continuar</ion-button
+      >
+    </div>
+  </form>
+</div>

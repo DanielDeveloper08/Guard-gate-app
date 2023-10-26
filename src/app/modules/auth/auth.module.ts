@@ -6,6 +6,8 @@ import { SplashScreenComponent } from './pages/splash-screen/splash-screen.compo
 import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LoginComponent } from './pages/login/login.component';
+import { FormNewPasswordComponent } from './components/form-new-password/form-new-password.component';
+import { FormOtpComponent } from './components/form-otp/form-otp.component';
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import { LoginComponent } from './pages/login/login.component';
   declarations: [
     LoginComponent,
     PasswordRecoveryComponent,
-    SplashScreenComponent
+    SplashScreenComponent,
+    FormNewPasswordComponent,
+    FormOtpComponent
   ]
 })
 export class AuthModule { }

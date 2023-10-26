@@ -1,0 +1,12 @@
+<div class="w-full mb-3">
+  <div class="d-flex justify-content-center">
+      <ng-otp-input 
+          (onInputChange)="onOtpChange($event)" 
+          [config]="{
+              length:quantity,
+              allowNumbersOnly:true,
+              inputStyles: {'font-size': '18px' , 'height': '40px', 'width':'40px', 'font-weight': 'bolder'}
+          }">
+      </ng-otp-input>
+  </div>
+</div>
