@@ -1,0 +1,15 @@
+<ion-item>
+  <ion-icon [name]="startIcon" *ngIf="startIcon"></ion-icon>
+  <ion-input
+    #inputTag
+    [type]="type"
+    [formControlName]="formControlName"
+    [placeholder]="placeholder"
+    [maxlength]="maxlength"
+    [minlength]="minlength"
+    class="input"
+    [pattern]="pattern"
+  ></ion-input>
+  <ion-icon (click)="togglePasswordVisibility()" [name]="showPasswordIcon" *ngIf="isPassword"></ion-icon>
+  <ion-icon [name]="endIcon" *ngIf="endIcon"></ion-icon>
+</ion-item>

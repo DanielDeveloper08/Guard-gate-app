@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Keyboard } from '@capacitor/keyboard';
-
+import { IonInput } from '@ionic/angular';
+import { LoginService } from '../../services/login.service';
+import { LoginRequestI, LoginResponseI } from '../../interfaces/auth.interface';
+import { ToastService } from 'src/app/shared/services';
+import { Position } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +14,12 @@ import { Keyboard } from '@capacitor/keyboard';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  private _loginService = inject(LoginService);
+  private _toastService = inject(ToastService);
+
   signInForm!: FormGroup;
+  setFocus: boolean = false;
+  
 
   constructor(private _formBuilder: FormBuilder) {}
 
@@ -41,14 +45,25 @@ export class LoginComponent implements OnInit {
   }
 
   async signIn() {
-    if(this.signInForm.get('username')?.value ===''){
-      this.signInForm.get('username')?.markAllAsTouched();
-      await Keyboard.show();
-    }else if(this.signInForm.get('password')?.value ===''){
-      this.signInForm.get('password')?.markAllAsTouched();
-      await Keyboard.show();
-    }else{
-      console.log('login')
+    const credentials: LoginRequestI = {
+      username: this.signInForm.get('username')?.value,
+      password: this.signInForm.get('password')?.value,
+      ip: '192.168.10.11',
+    };
+
+    if (credentials.username === '') {
+      this.setFocus = true;
+      // await Keyboard.show();
+    } else if (credentials.password === '') {
+      // this.passwordInput.setFocus();
+      // await Keyboard.show();
+    } else {
+      const response: LoginResponseI | string =
+        this._loginService.login(credentials);
+
+      (response as LoginResponseI).nombres
+        ? console.log('reedireccionar')
+        : this._toastService.showInfo(response as string, Position.Top);
     }
   }
 }

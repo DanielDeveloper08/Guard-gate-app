@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Position } from '../interfaces';
+import { AnimationBuilder } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToastService {
-  constructor(private toastController: ToastController) { }
+  constructor(private toastController: ToastController) {}
 
-  async showSuccess(message = 'Proceso exitoso', position: Position = Position.Bottom) {
+  async showSuccess(
+    message = 'Proceso exitoso',
+    position: Position = Position.Bottom
+  ) {
     await this.showToast(message, position, 'success', 'checkmark-circle');
   }
 
@@ -32,7 +36,6 @@ export class ToastService {
   ) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 1500,
       position: position,
       color: color,
       icon: icon,
@@ -40,15 +43,22 @@ export class ToastService {
         {
           text: 'Cerrar',
           role: 'cancel',
-          icon: 'close'
+          icon: 'close',
         },
       ],
+      animated: true,
+      cssClass: [
+        'animate__animated',
+        'animate__bounce',
+        'animate__fadeInDownBig',
+      ],
+      keyboardClose: true,
     });
 
     toast.buttons = [
       {
-        side: 'end', 
-        icon: 'close', 
+        side: 'end',
+        icon: 'close',
         role: 'cancel',
         handler: () => {
           toast.dismiss();
@@ -57,5 +67,14 @@ export class ToastService {
     ];
 
     await toast.present();
+
+    setTimeout(async () => {
+      const toastElement = await toast;
+      toastElement.classList.add('animate__fadeOutUpBig');
+
+      toast.onDidDismiss().then(() => {
+        toastElement.remove();
+      });
+    }, 5000);
   }
 }

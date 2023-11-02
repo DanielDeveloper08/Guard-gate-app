@@ -6,28 +6,30 @@
       <img src="assets/logo-color.svg" alt="logo" />
     </div>
     <form class="form-credentials" [formGroup]="signInForm">
-      <ion-item>
-        <ion-input
-        type="text"
-        pattern="^[a-zA-Z0-9\-_.]*$"
-        maxlength="14"
-        minlength="3"
-        formControlName="username"
-        placeholder="Usuario"
-        class="input"
-      ></ion-input>
-      
-        <ion-icon name="person-outline"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-input
-          type="password"
-          formControlName="password"
-          placeholder="Contraseña"
-          class="input"
-        ></ion-input>
-        <ion-icon name="lock-closed-outline"></ion-icon>
-      </ion-item>
+      <!-- INPUT USERNAME -->
+      <shared-input
+        [startIcon]="'person-outline'"
+        [formControlName]="'username'"
+        [type]="'text'"
+        [pattern]="'^[a-zA-Z0-9\-_.]*$'"
+        [maxlength]="14"
+        [minlength]="3"
+        [placeholder]="'Usuario'"
+        [setFocus]="setFocus"
+      ></shared-input>
+
+      <!-- INPUT PASSWORD -->
+      <shared-input
+        [startIcon]="'lock-closed-outline'"
+        [formControlName]="'password'"
+        [type]="'password'"
+        [maxlength]="14"
+        [isPassword]="true"
+        [minlength]="3"
+        [placeholder]="'Contraseña'"
+        [setFocus]="setFocus"
+      ></shared-input>
+
       <div class="btn-iniciar-sesion">
         <ion-button expand="block" (click)="signIn()"
           >Iniciar sesión</ion-button
