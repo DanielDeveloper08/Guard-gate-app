@@ -46,7 +46,6 @@ export class ToastService {
           icon: 'close',
         },
       ],
-      animated: true,
       cssClass: [
         'animate__animated',
         'animate__bounce',

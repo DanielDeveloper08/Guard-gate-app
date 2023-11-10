@@ -9,34 +9,34 @@
       <!-- INPUT USERNAME -->
       <shared-input
         [startIcon]="'person-outline'"
-        [formControlName]="'username'"
         [type]="'text'"
-        [pattern]="'^[a-zA-Z0-9\-_.]*$'"
+        [pattern]="'^[a-zA-Z0-9\-_.]*'"
         [maxlength]="14"
         [minlength]="3"
         [placeholder]="'Usuario'"
-        [setFocus]="setFocus"
+        [setFocus]="setFocusUsername"
+        (controlValueChange)="controlValueChangeUsername($event)"
       ></shared-input>
 
       <!-- INPUT PASSWORD -->
       <shared-input
         [startIcon]="'lock-closed-outline'"
-        [formControlName]="'password'"
         [type]="'password'"
         [maxlength]="14"
         [isPassword]="true"
         [minlength]="3"
         [placeholder]="'Contraseña'"
-        [setFocus]="setFocus"
+        [setFocus]="setFocusPassword"
+        (controlValueChange)="controlValueChangePassword($event)"
       ></shared-input>
 
       <div class="btn-iniciar-sesion">
         <ion-button expand="block" (click)="signIn()"
-          >Iniciar sesión</ion-button
-        >
+          >Iniciar sesión<ion-spinner *ngIf="isLoading"></ion-spinner
+        ></ion-button>
       </div>
       <div class="forgot-password">
-        <a [routerLink]="'/recovery-password'">¿Ha olvidado su contraseña?</a>
+        <a (click)="goToRecoveryPassword()">¿Ha olvidado su contraseña?</a>
       </div>
     </form>
   </div>

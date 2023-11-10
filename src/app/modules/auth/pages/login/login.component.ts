@@ -1,12 +1,19 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 import { Keyboard } from '@capacitor/keyboard';
-import { IonInput } from '@ionic/angular';
+import { IonInput, NavController } from '@ionic/angular';
 import { LoginService } from '../../services/login.service';
 import { LoginRequestI, LoginResponseI } from '../../interfaces/auth.interface';
 import { ToastService } from 'src/app/shared/services';
 import { Position } from 'src/app/shared/interfaces';
+import { Router } from '@angular/router';
+import { NavigationOptions } from '@ionic/angular/common/providers/nav-controller';
 
 @Component({
   selector: 'app-login',
@@ -16,16 +23,18 @@ import { Position } from 'src/app/shared/interfaces';
 export class LoginComponent implements OnInit {
   private _loginService = inject(LoginService);
   private _toastService = inject(ToastService);
+  private _formBuilder = inject(FormBuilder);
+  private _router = inject(Router);
+  private _navCtrl = inject(NavController);
+
 
   signInForm!: FormGroup;
-  setFocus: boolean = false;
-  
-
-  constructor(private _formBuilder: FormBuilder) {}
+  setFocusUsername: boolean = false;
+  setFocusPassword: boolean = false;
+  isLoading: boolean = false;
 
   ngOnInit() {
     this.createForm();
-    this.validateUsername();
   }
 
   createForm() {
@@ -35,13 +44,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  validateUsername() {
-    this.signInForm.get('username')?.valueChanges.subscribe((change) => {
-      const pattern = /^[a-zA-Z0-9\-_.]*$/;
-      if (!pattern.test(change)) {
-        this.signInForm.get('username')?.setValue(change.slice(0, -1));
-      }
-    });
+  controlValueChangeUsername(formControl: FormControl) {
+    if (this.signInForm.get('username') !== formControl) {
+      this.signInForm.setControl('username', formControl);
+    }
+  }
+
+  controlValueChangePassword(formControl: FormControl) {
+    if (this.signInForm.get('password') !== formControl) {
+      this.signInForm.setControl('password', formControl);
+    }
   }
 
   async signIn() {
@@ -52,18 +64,30 @@ export class LoginComponent implements OnInit {
     };
 
     if (credentials.username === '') {
-      this.setFocus = true;
+      this.setFocusUsername = true;
       // await Keyboard.show();
     } else if (credentials.password === '') {
-      // this.passwordInput.setFocus();
+      this.setFocusPassword = true;
       // await Keyboard.show();
     } else {
+      this.isLoading = true;
+
       const response: LoginResponseI | string =
         this._loginService.login(credentials);
 
-      (response as LoginResponseI).nombres
-        ? console.log('reedireccionar')
-        : this._toastService.showInfo(response as string, Position.Top);
+      setTimeout(() => {
+        this.isLoading = false;
+        (response as LoginResponseI).nombres
+          ? console.log('reedireccionar')
+          : this._toastService.showInfo(response as string, Position.Top);
+      }, 3000);
     }
+  }
+
+  goToRecoveryPassword(){
+    const navigationOptions: NavigationOptions = {
+      animated: true,
+    };
+    this._navCtrl.navigateRoot("/recovery-password", navigationOptions);
   }
 }

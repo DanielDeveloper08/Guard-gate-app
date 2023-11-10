@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { IonInput } from '@ionic/angular';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'shared-input',
@@ -18,18 +19,38 @@ export class InputComponent {
   @Input() startIcon: string = '';
   @Input() endIcon: string = '';
   @Input() isPassword: boolean = false;
-  @Input() formControlName: string = '';
   @Input() placeholder: string = '';
   @Input() maxlength: number = 20;
-  @Input() pattern: string = '';
+  @Input() pattern!: string;
   @Input() minlength: number = 0;
   @Input() setFocus: boolean = false;
   @Input() type: 'text' | 'password' = 'text';
 
   @Output() visibilityChanged = new EventEmitter<boolean>();
   @ViewChild('inputTag', { static: false }) inputTag!: IonInput;
+  @Output() controlValueChange: EventEmitter<FormControl> = new EventEmitter<FormControl>();
 
   showPasswordIcon: string = 'eye';
+
+  formControl: FormControl = new FormControl('');
+
+  ngOnInit(){
+    this.formControl.valueChanges.subscribe( change => {
+      this.controlValueChange.emit(this.formControl);
+      this.validatePattern(change);
+    })
+  }
+
+  validatePattern(value: string){
+    if(this.pattern){
+      const patternRegExp = new RegExp(this.pattern);
+      if (!patternRegExp.test(value)) {
+        console.log("ENTRO")
+        this.formControl.setValue(value.slice(0, -1), { emitEvent: false });
+      }
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['setFocus']) {
       changes['setFocus'].currentValue && this.inputTag.setFocus();

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IonInput } from '@ionic/angular';
 import { Position } from 'src/app/shared/interfaces';
 import { ToastService } from 'src/app/shared/services';
 
@@ -12,7 +13,10 @@ import { ToastService } from 'src/app/shared/services';
 export class PasswordRecoveryComponent implements OnInit {
   showNewPassword: boolean = false;
   username: FormControl = new FormControl('', Validators.required);
+  setFocus: boolean = false;
+  isModalOpen = false;
 
+  @ViewChild('inputUsernmae', { static: true }) inputUsername!: IonInput;
   async canDismiss(data?: any, role?: string) {
     return role !== 'gesture';
   }
@@ -22,9 +26,14 @@ export class PasswordRecoveryComponent implements OnInit {
   ngOnInit() {}
 
   recoveryPassword() {
-
-    this.username.reset();
-    // this.toastService.showInfo("Correo enviado exitosamente",Position.Top);
+    console.log("VALUE", this.username.value)
+    if(this.username.value === '' && this.username.value === null){
+      this.inputUsername.setFocus();
+    }else{
+      this.isModalOpen = true;
+      this.username.reset();
+      this.toastService.showInfo("Correo enviado exitosamente",Position.Top);
+    }
   }
 
   goToLogin() {
