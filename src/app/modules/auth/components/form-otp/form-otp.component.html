@@ -19,12 +19,11 @@
     </div>
 
     <div class="btn-iniciar-sesion">
-      <ion-button
-        expand="block"
-        id="open-modal"
+      <shared-button 
+        [label]="'Continuar'"
         (click)="validateOtp()"
-        >Continuar</ion-button
-      >
+        [disabled]="isDisabled">
+      </shared-button>
     </div>
   </form>
 </div>

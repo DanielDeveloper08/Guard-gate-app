@@ -31,9 +31,11 @@
       ></shared-input>
 
       <div class="btn-iniciar-sesion">
-        <ion-button expand="block" (click)="signIn()"
-          >Iniciar sesión<ion-spinner *ngIf="isLoading"></ion-spinner
-        ></ion-button>
+        <shared-button 
+          [label]="'Iniciar sesión'"
+          (click)="signIn()"
+          [isLoading]="isLoading">
+        </shared-button>
       </div>
       <div class="forgot-password">
         <a (click)="goToRecoveryPassword()">¿Ha olvidado su contraseña?</a>

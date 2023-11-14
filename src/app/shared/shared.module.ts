@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { OtpComponent } from './components/otp/otp.component';
 import { InputComponent } from './components/input/input.component';
+import { ButtonComponent } from './components/button/button.component';
 
 
 @NgModule({
@@ -19,11 +20,13 @@ import { InputComponent } from './components/input/input.component';
     ReactiveFormsModule,
     CommonModule,
     OtpComponent,
-    InputComponent
+    InputComponent,
+    ButtonComponent
   ],
   declarations: [
     OtpComponent,
-    InputComponent
+    InputComponent,
+    ButtonComponent
   ]
 })
 export class SharedModule { }

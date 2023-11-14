@@ -6,7 +6,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./form-otp.component.scss']
 })
 export class FormOtpComponent implements OnInit {
-
+  codeOtp: string = "";
+  isDisabled: boolean = true;
   @Output() validateOtpEvent: EventEmitter<boolean> = new EventEmitter<boolean>(false);
   constructor() { }
 
@@ -15,10 +16,22 @@ export class FormOtpComponent implements OnInit {
 
 
   getCodeOtp(event: string){
-    console.log(event);
+    this.codeOtp = event;
+    this.updateDisabledBtnState();
   }
 
   validateOtp(){
-    this.validateOtpEvent.emit(true);
+    if (this.isCodeOtpValid()) {
+      this.validateOtpEvent.emit(true);
+    }
+  }
+
+  private updateDisabledBtnState() {
+    this.isDisabled = this.codeOtp.length !== 6;
+  }
+
+  private isCodeOtpValid(): boolean {
+    return this.codeOtp.length === 6;
   }
 }
+

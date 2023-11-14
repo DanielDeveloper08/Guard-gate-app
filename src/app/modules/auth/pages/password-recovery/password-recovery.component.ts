@@ -26,8 +26,7 @@ export class PasswordRecoveryComponent implements OnInit {
   ngOnInit() {}
 
   recoveryPassword() {
-    console.log("VALUE", this.username.value)
-    if(this.username.value === '' && this.username.value === null){
+    if(this.username.value === '' || this.username.value === null){
       this.inputUsername.setFocus();
     }else{
       this.isModalOpen = true;
