@@ -45,7 +45,6 @@ export class InputComponent {
     if(this.pattern){
       const patternRegExp = new RegExp(this.pattern);
       if (!patternRegExp.test(value)) {
-        console.log("ENTRO")
         this.formControl.setValue(value.slice(0, -1), { emitEvent: false });
       }
     }
