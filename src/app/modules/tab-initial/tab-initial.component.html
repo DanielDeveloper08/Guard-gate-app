@@ -1,0 +1,35 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom" class="container-tabs">
+    <ion-tab-button tab="home">
+      <ion-icon name="home-outline"></ion-icon>
+      Inicio
+    </ion-tab-button>
+    <ion-tab-button tab="visit">
+      <ion-icon name="location-outline"></ion-icon>
+      Visitas
+    </ion-tab-button>
+    <ion-tab-button (click)="openModalMenu()" [style]="{ contain: 'none content' }" tab="menu" class="menu-tab">
+      <ion-fab-button
+        [style.width.px]="50"
+        [style.height.px]="50"
+        [style.marginTop.px]="-34"
+        [style.marginBottom.px]="7"
+        [style.--box-shadow]="'0 5px 10px blue'">
+        <ion-icon name="grid-outline"></ion-icon>
+      </ion-fab-button>
+      Menú
+    </ion-tab-button>
+
+     
+  
+
+    <ion-tab-button tab="panic-alert">
+      <ion-icon name="notifications-outline"></ion-icon>
+      Alerta
+    </ion-tab-button>
+    <ion-tab-button tab="profile">
+      <ion-icon name="person-outline"></ion-icon>
+      Perfil
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

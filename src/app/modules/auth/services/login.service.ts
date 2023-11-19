@@ -6,7 +6,7 @@ import { LoginRequestI, LoginResponseI } from '../interfaces/auth.interface';
 })
 export class LoginService {
   private user: string = 'dasanza79';
-  private pass: string = 'test123';
+  private pass: string = '12345';
 
   constructor() {}
 

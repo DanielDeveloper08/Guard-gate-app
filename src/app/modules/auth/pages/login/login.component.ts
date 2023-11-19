@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 
 import { Keyboard } from '@capacitor/keyboard';
-import { IonInput, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { LoginService } from '../../services/login.service';
 import { LoginRequestI, LoginResponseI } from '../../interfaces/auth.interface';
 import { ToastService } from 'src/app/shared/services';
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
       setTimeout(() => {
         this.isLoading = false;
         (response as LoginResponseI).nombres
-          ? console.log('reedireccionar')
+          ? this._router.navigateByUrl("/home")
           : this._toastService.showInfo(response as string, Position.Top);
       }, 3000);
     }

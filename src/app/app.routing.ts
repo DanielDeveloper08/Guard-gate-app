@@ -3,16 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: "home",
+    loadChildren: () => import('./modules/tab-initial/tab-initial.module').then(m => m.TabInitialModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: "home",
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
-  },
-  {
     path: "**",
-    redirectTo: "/home",
+    redirectTo: "home",
   },
 ];
 

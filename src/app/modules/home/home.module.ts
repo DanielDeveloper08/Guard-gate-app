@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
-import { HomeRoutingModule } from './home-routing.module';
+import { HomeRoutingModule } from './home.routing';
 
 @NgModule({
   imports: [

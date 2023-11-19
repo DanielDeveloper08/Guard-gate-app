@@ -1,0 +1,17 @@
+.container-tabs {
+    background-color: white;
+  
+    ion-tab-button.menu-tab::part(native) {
+      overflow: visible !important;
+      z-index: 9999 !important;
+    }
+  
+    ion-icon {
+      width: 1.5rem;
+    }
+    
+    ion-tab-bar {
+      z-index: 9998; /* Asegúrate de que este valor sea menor que el z-index del botón del menú */
+    }
+  }
+  
