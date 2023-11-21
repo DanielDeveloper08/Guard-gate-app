@@ -6,14 +6,17 @@
     gap: 1rem;
 
     .container-icon-home{
-        width: 20%;
+        width: 40%;
         display: flex;
         justify-content: center;
         align-items: center;
 
-        .icon-home{
-            font-size: 3rem;
+        .img-home{
+            height: 100%; 
+            border-radius: 10px;
+            background-color: red;
         }
+        
     }
 
     .home-data{
