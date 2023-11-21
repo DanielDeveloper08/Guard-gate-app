@@ -1,0 +1,29 @@
+.background-home {
+    background-color: var(--royal-blue-500);
+    height: 15%;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    position: relative;
+  
+    .logo {
+      position: absolute;
+      display: flex;
+      left: 50%; 
+      top: 50%; 
+      transform: translate(-50%, -50%);
+      justify-content: start;
+    
+      img {
+        width: 100%;
+      }
+    }
+    
+  .container-home-information{
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+  }
+  
+  }
