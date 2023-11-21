@@ -1,0 +1,32 @@
+.item-menu {
+    width: 100%;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 110px !important;
+    background-color: var(--silver-50);
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+    
+    ion-avatar{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        ion-icon{
+            color: white;
+        }
+    }
+
+    .item-label{
+        margin-top: .5rem;
+    }
+    ion-card {
+      height: 100%;
+    }
+  }
+
