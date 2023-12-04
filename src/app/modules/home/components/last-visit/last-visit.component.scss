@@ -1,0 +1,28 @@
+.container-last-visit{
+    border-radius: 1rem;
+    width: 8rem;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    padding: .7rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    .img-last-visit{
+        width: 80%;
+        height:5rem;
+        object-fit: cover;
+        border-radius: 50%;
+        // border: 1px solid gray;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+    .information-last-visit{
+        font-size: 14px;
+        gap: .2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,29 +1,62 @@
 .background-home {
-    background-color: var(--royal-blue-500);
-    height: 8%;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-    position: relative;
-  
-    .logo {
-      position: absolute;
-      display: flex;
-      left: 50%; 
-      top: 50%; 
-      transform: translate(-50%, -50%);
-      justify-content: start;
-    
-      img {
-        width: 100%;
-      }
-    }
-    
-  .container-home-information{
+  background-color: var(--royal-blue-500);
+  height: 8%;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  position: relative;
+
+  .logo {
     position: absolute;
-    top: 80%;
+    display: flex;
     left: 50%;
-    transform: translateX(-50%);
-    width: 75%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: start;
+
+    img {
+      width: 100%;
+    }
+
+
+  }
+}
+
+
+.container-dashboard{
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  .panic-button {
+    background-image: radial-gradient(circle, #ff9494, #fc8584, #f87574, #f36463, #ee5353);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1rem;
+    color: white;
+    font-weight: 700;
+
+    ion-icon{
+      font-size: 1.5rem;
+    }
+  }
+
+  .last-visits{
+    .tittle{
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .list-last-visits{
+      display: flex;
+      max-width: 100%;
+      overflow-x: scroll;
+      gap: 1rem;
+      padding: 1rem 1px;
+    }
   }
   
-  }
+}
+

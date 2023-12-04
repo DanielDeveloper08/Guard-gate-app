@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
 import { HomeRoutingModule } from './home.routing';
 import { HomeInformationComponent } from './components/home-information/home-information.component';
+import { LastVisitComponent } from './components/last-visit/last-visit.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HomeInformationComponent } from './components/home-information/home-inf
   declarations: [
     DashboardComponent,
     HomeComponent,
-    HomeInformationComponent
+    HomeInformationComponent,
+    LastVisitComponent
   ],
 })
 export class HomeModule { }
