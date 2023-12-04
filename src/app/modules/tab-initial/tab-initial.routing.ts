@@ -15,10 +15,10 @@ const routes: Routes = [
         path: 'visit',
         loadChildren: () => import('../visit/visit.module').then(m => m.VisitModule)
       },
-      {
-        path: 'menu',
-        loadChildren: () => import('../menu/menu.module').then(m => m.MenuModule)
-      },
+      // {
+      //   path: 'menu',
+      //   loadChildren: () => import('../menu/menu.module').then(m => m.MenuModule)
+      // },
       {
         path: 'panic-alert',
         loadChildren: () => import('../panic-alert/panic-alert.module').then(m => m.PanicAlertModule)

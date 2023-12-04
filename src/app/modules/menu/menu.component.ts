@@ -35,7 +35,6 @@ export class MenuComponent {
 
     this._menuService.isOpenMenu.subscribe( value => {
       this.isMenuOpen = value;
-      console.log("change", this.isMenuOpen)
     })
   }
 

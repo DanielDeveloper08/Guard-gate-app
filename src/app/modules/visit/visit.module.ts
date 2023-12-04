@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VisitComponent } from './visit.component';
+import { VisitComponent } from './pages/list-visit/visit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { VisitRoutingModule } from './visit.routing';
+import { CardVisitComponent } from './components/card-visit/card-visit.component';
 
 @NgModule({
   imports: [
@@ -10,6 +11,9 @@ import { VisitRoutingModule } from './visit.routing';
     SharedModule,
     VisitRoutingModule
   ],
-  declarations: [VisitComponent]
+  declarations: [
+    VisitComponent,
+    CardVisitComponent
+  ]
 })
 export class VisitModule { }

@@ -6,6 +6,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { OtpComponent } from './components/otp/otp.component';
 import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
@@ -21,12 +22,14 @@ import { ButtonComponent } from './components/button/button.component';
     CommonModule,
     OtpComponent,
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    HeaderComponent
   ],
   declarations: [
     OtpComponent,
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    HeaderComponent
   ]
 })
 export class SharedModule { }

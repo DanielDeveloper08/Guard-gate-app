@@ -1,0 +1,29 @@
+<ion-card>
+  <ion-card-content>
+    <div class="container-detail-visit">
+      <!-- Left column - Circular image -->
+      <div class="container-img">
+        <img [src]="visit.imageUrl" class="circular-image" alt="visit-image"/>
+      </div>
+      
+      <!-- Right column - Visitor information -->
+      <div class="detail-visit">
+        <ion-row>
+          <ion-label class="name">{{ visit.name }}</ion-label>
+        </ion-row>
+        <ion-row>
+          <ion-label class="label">Placa:</ion-label>
+          <ion-label>{{ visit.licensePlate }}</ion-label>
+        </ion-row>
+        <ion-row>
+          <ion-label class="label">CI:</ion-label>
+          <ion-label>{{ visit.id }}</ion-label>
+        </ion-row>
+        <ion-row>
+          <ion-label class="label">Fecha:</ion-label>
+          <ion-label>{{ visit.date }}</ion-label>
+        </ion-row>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>

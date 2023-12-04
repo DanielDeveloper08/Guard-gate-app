@@ -8,9 +8,12 @@ import { OptionMenuComponent } from './components/option-menu/option-menu.compon
 @NgModule({
   imports: [
     CommonModule,
-    MenuRoutingModule,
+    // MenuRoutingModule,
     SharedModule
   ],
-  declarations: [MenuComponent,OptionMenuComponent]
+  declarations: [MenuComponent,OptionMenuComponent],
+  exports: [
+    MenuComponent
+  ]
 })
 export class MenuModule { }

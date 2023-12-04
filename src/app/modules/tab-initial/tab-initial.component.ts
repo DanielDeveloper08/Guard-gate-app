@@ -12,7 +12,7 @@ export class TabInitialComponent {
 
   openModalMenu(){
     const stateModal = this._menuService.isOpenMenu;
-    console.log("state", stateModal)
+    console.log("state", stateModal.value)
     this._menuService.setIsOpenMenu(!stateModal.value);
   }
 

@@ -1,15 +1,12 @@
 
-ion-col {
-    
-    display: flex;
-  }
 
   .content-menu{
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: .8rem;
+    margin: 0 auto;
 
     .item-content-menu{
-        width: 48.5%;
+        width: 47%;
     }
   }

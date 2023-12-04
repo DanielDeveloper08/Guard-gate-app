@@ -1,0 +1,27 @@
+.circular-image {
+  border-radius: 60%;
+  object-fit: cover;
+  width: 6rem;
+  height: 6rem;
+}
+
+.name {
+  font-weight: bold;
+  padding: .5rem 0;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.container-detail-visit {
+  display: flex;
+  gap: 1rem;
+
+  .container-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
