@@ -22,6 +22,7 @@ export class FormOtpComponent implements OnInit {
 
   validateOtp(){
     if (this.isCodeOtpValid()) {
+      
       this.validateOtpEvent.emit(true);
     }
   }
