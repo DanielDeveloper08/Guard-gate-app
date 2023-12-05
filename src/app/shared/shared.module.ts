@@ -7,6 +7,7 @@ import { OtpComponent } from './components/otp/otp.component';
 import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { HeaderComponent } from './components/header/header.component';
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+    HttpClientModule
   ],
   exports:[
     IonicModule,
@@ -23,7 +25,8 @@ import { HeaderComponent } from './components/header/header.component';
     OtpComponent,
     InputComponent,
     ButtonComponent,
-    HeaderComponent
+    HeaderComponent,
+    HttpClientModule
   ],
   declarations: [
     OtpComponent,

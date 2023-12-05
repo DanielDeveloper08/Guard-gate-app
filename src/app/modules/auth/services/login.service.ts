@@ -1,29 +1,27 @@
-import { Injectable } from '@angular/core';
-import { LoginRequestI, LoginResponseI } from '../interfaces/auth.interface';
+import { Injectable, inject } from '@angular/core';
+import { ILoginRequest, ILoginResponse } from '../interfaces/auth.interface';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { IGeneralResponse } from 'src/app/shared/interfaces/general.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private user: string = 'dasanza79';
-  private pass: string = '12345';
-
+  private _httpClient = inject(HttpClient);
+  urlBase: string = environment.URL_API;
   constructor() {}
 
-  login(loginRequest: LoginRequestI): LoginResponseI | string {
-    
-    if (
-      loginRequest.username != this.user &&
-      loginRequest.password != this.pass
-    ) {
-      return 'Usuario o contraseña incorrecta';
-    }
-
-    return {
-      usuario: 'dasanza79',
-      apellidos: 'Asanza Erazo',
-      correo: 'dasanza79@gmail.com',
-      nombres: 'Daniel Steven',
-    };
+  /**
+   * Login
+   * @param params
+   * @returns
+   */
+  signIn(params: ILoginRequest): Observable<IGeneralResponse<ILoginResponse>> {
+    return this._httpClient.post<IGeneralResponse<ILoginResponse>>(
+      `${this.urlBase}/auth/login`,
+      params
+    );
   }
 }

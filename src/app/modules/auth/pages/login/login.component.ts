@@ -9,11 +9,12 @@ import {
 import { Keyboard } from '@capacitor/keyboard';
 import { NavController } from '@ionic/angular';
 import { LoginService } from '../../services/login.service';
-import { LoginRequestI, LoginResponseI } from '../../interfaces/auth.interface';
 import { ToastService } from 'src/app/shared/services';
 import { Position } from 'src/app/shared/interfaces';
 import { Router } from '@angular/router';
 import { NavigationOptions } from '@ionic/angular/common/providers/nav-controller';
+import { ILoginRequest } from '../../interfaces/auth.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,6 @@ export class LoginComponent implements OnInit {
   private _formBuilder = inject(FormBuilder);
   private _router = inject(Router);
   private _navCtrl = inject(NavController);
-
 
   signInForm!: FormGroup;
   setFocusUsername: boolean = false;
@@ -57,10 +57,10 @@ export class LoginComponent implements OnInit {
   }
 
   async signIn() {
-    const credentials: LoginRequestI = {
+    this.isLoading = true;
+    const credentials: ILoginRequest = {
       username: this.signInForm.get('username')?.value,
       password: this.signInForm.get('password')?.value,
-      ip: '192.168.10.11',
     };
 
     if (credentials.username === '') {
@@ -70,24 +70,25 @@ export class LoginComponent implements OnInit {
       this.setFocusPassword = true;
       // await Keyboard.show();
     } else {
-      this.isLoading = true;
-
-      const response: LoginResponseI | string =
-        this._loginService.login(credentials);
-
-      setTimeout(() => {
-        this.isLoading = false;
-        (response as LoginResponseI).nombres
-          ? this._router.navigateByUrl("/home")
-          : this._toastService.showInfo(response as string, Position.Top);
-      }, 3000);
+      this._loginService.signIn(credentials).subscribe({
+        next: (res) => {
+          if (res.data.user) {
+            this._router.navigateByUrl('/home');
+            this.isLoading = false;
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          this.isLoading = false;
+          this._toastService.showInfo(error.error.message, Position.Top);
+        }
+      });
     }
   }
 
-  goToRecoveryPassword(){
+  goToRecoveryPassword() {
     const navigationOptions: NavigationOptions = {
       animated: true,
     };
-    this._navCtrl.navigateRoot("/recovery-password", navigationOptions);
+    this._navCtrl.navigateRoot('/recovery-password', navigationOptions);
   }
 }

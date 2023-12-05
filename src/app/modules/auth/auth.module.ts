@@ -13,7 +13,7 @@ import { FormOtpComponent } from './components/form-otp/form-otp.component';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     LoginComponent,
