@@ -1,7 +1,4 @@
 <div class="modal-otp ion-padding">
-  <!-- <div class="logo">
-    <img src="assets/logo-color.svg" alt="logo" />
-  </div> -->
   <form class="content-otp">
     <div class="title-otp">
       <ion-icon name="mail-outline"></ion-icon>
@@ -22,7 +19,9 @@
       <shared-button 
         [label]="'Continuar'"
         (click)="validateOtp()"
-        [disabled]="isDisabled">
+        [disabled]="isDisabled"
+        [isLoading]="isLoading"
+        >
       </shared-button>
     </div>
   </form>

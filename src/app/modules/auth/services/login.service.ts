@@ -1,5 +1,11 @@
 import { Injectable, inject } from '@angular/core';
-import { ILoginRequest, ILoginResponse, IRecoveryRequest } from '../interfaces/auth.interface';
+import {
+  ICodeOtpRequest,
+  ILoginRequest,
+  ILoginResponse,
+  IRecoveryRequest,
+  IResetPasswordRequest,
+} from '../interfaces/auth.interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IGeneralResponse } from 'src/app/shared/interfaces/general.interface';
@@ -25,14 +31,38 @@ export class LoginService {
     );
   }
 
-   /**
+  /**
    * Recovery password
    * @param params
    * @returns
    */
-   recovery(params: IRecoveryRequest): Observable<IGeneralResponse<string>> {
+  recovery(params: IRecoveryRequest): Observable<IGeneralResponse<string>> {
     return this._httpClient.post<IGeneralResponse<string>>(
       `${this.urlBase}/auth/recover-password`,
+      params
+    );
+  }
+
+  /**
+   * Send code otp
+   * @param params
+   * @returns
+   */
+  sendCodeOTP(params: ICodeOtpRequest): Observable<IGeneralResponse<string>> {
+    return this._httpClient.post<IGeneralResponse<string>>(
+      `${this.urlBase}/auth/validate-otp`,
+      params
+    );
+  }
+
+  /**
+   * Reset password
+   * @param params
+   * @returns
+   */
+  reset(params: IResetPasswordRequest): Observable<IGeneralResponse<string>> {
+    return this._httpClient.post<IGeneralResponse<string>>(
+      `${this.urlBase}/auth/reset-password`,
       params
     );
   }

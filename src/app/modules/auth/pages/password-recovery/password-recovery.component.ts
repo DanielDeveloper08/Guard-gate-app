@@ -2,12 +2,19 @@ import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonInput } from '@ionic/angular';
-import { IonModal } from '@ionic/angular/common';
+import { IonModal, NavController } from '@ionic/angular/common';
 import { Position } from 'src/app/shared/interfaces';
 import { ToastService } from 'src/app/shared/services';
 import { LoginService } from '../../services/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IRecoveryRequest } from '../../interfaces/auth.interface';
+import {
+  ICodeData,
+  ICodeOtpRequest,
+  INewPasswordData,
+  IRecoveryRequest,
+  IResetPasswordRequest,
+} from '../../interfaces/auth.interface';
+import { NavigationOptions } from '@ionic/angular/common/providers/nav-controller';
 
 @Component({
   selector: 'app-password-recovery',
@@ -17,12 +24,16 @@ import { IRecoveryRequest } from '../../interfaces/auth.interface';
 export class PasswordRecoveryComponent implements OnInit {
   private _loginService = inject(LoginService);
   private _toastService = inject(ToastService);
+  private _navCtrl = inject(NavController);
 
   showNewPassword: boolean = false;
   username: FormControl = new FormControl('', Validators.required);
   setFocus: boolean = false;
+  isLoadingRecoveryPassword: boolean = false;
+  isLoadingOtp: boolean = false;
+  isLoadingNewPassword: boolean = false;
 
-  @ViewChild('modal') modal!:IonModal;
+  @ViewChild('modal') modal!: IonModal;
   @ViewChild('inputUsernmae', { static: true }) inputUsername!: IonInput;
   async canDismiss(data?: any, role?: string) {
     return role !== 'gesture';
@@ -33,27 +44,27 @@ export class PasswordRecoveryComponent implements OnInit {
   ngOnInit() {}
 
   recoveryPassword() {
+    this.isLoadingRecoveryPassword = true;
     this.showNewPassword = false;
-    if(this.username.value === '' || this.username.value === null){
+    if (this.username.value === '' || this.username.value === null) {
       this.inputUsername.setFocus();
-    }else{
+    } else {
       const usernameData: IRecoveryRequest = {
-        username: this.username.value.trim()
-      }
+        username: this.username.value.trim(),
+      };
       this._loginService.recovery(usernameData).subscribe({
         next: (res) => {
-          if(res.statusCode == 200){
+          if (res.statusCode == 200) {
             this.modal.present();
-            this.username.reset();
-            this.toastService.showInfo(res.data,Position.Top);
+            this.toastService.showInfo(res.data, Position.Top);
           }
+          this.isLoadingRecoveryPassword = false;
         },
-        error: (err:HttpErrorResponse) => {
-          this._toastService.showInfo(err.error.message, Position.Top);
-        }
-      })
-
-      
+        error: (err: HttpErrorResponse) => {
+          this.isLoadingRecoveryPassword = false;
+          this._toastService.showError(err.error.message, Position.Top);
+        },
+      });
     }
   }
 
@@ -61,11 +72,60 @@ export class PasswordRecoveryComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  validateOtp(clickContinuar: boolean){
-    this.showNewPassword = true;
+  validateOtp(codeData: ICodeData) {
+    if (codeData.eventClick) {
+      this.isLoadingOtp = true;
+      const dataCodeOtp: ICodeOtpRequest = {
+        username: this.username.value.trim(),
+        code: codeData.code,
+      };
+
+      this._loginService.sendCodeOTP(dataCodeOtp).subscribe({
+        next: (res) => {
+          if (res.statusCode == 200) {
+            this.showNewPassword = true;
+            this.isLoadingOtp = false;
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          this.isLoadingOtp = false;
+          this._toastService.showError(err.error.message, Position.Top);
+        },
+      });
+    }
   }
 
-  setCloseModal(event:boolean){
+  saveNewPassword(event: INewPasswordData) {
+    if (event.eventClick) {
+      this.isLoadingNewPassword = true;
+      const dataNewPassword: IResetPasswordRequest = {
+        username: this.username.value.trim(),
+        newPassword: event.newPassword,
+      };
+
+      this._loginService.reset(dataNewPassword).subscribe({
+        next: (res) => {
+          if (res.statusCode == 200) {
+            this.isLoadingNewPassword = false;
+            this._toastService.showSuccess(res.data, Position.Top);
+            const navigationOptions: NavigationOptions = {
+              animated: true,
+            };
+            this._navCtrl.navigateRoot('/login', navigationOptions);
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          this.isLoadingNewPassword = false;
+          this._toastService.showError(err.error.message, Position.Top);
+        },
+      });
+      this.modal.dismiss();
+      this.username.reset();
+    }
+  }
+
+  closeModal() {
     this.modal.dismiss();
+    this.username.reset();
   }
 }

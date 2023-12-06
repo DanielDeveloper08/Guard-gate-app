@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ICodeData } from '../../interfaces/auth.interface';
 
 @Component({
   selector: 'form-otp',
@@ -8,7 +9,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class FormOtpComponent implements OnInit {
   codeOtp: string = "";
   isDisabled: boolean = true;
-  @Output() validateOtpEvent: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+  @Input() isLoading:boolean = false;
+  @Output() validateOtpEvent: EventEmitter<ICodeData> = new EventEmitter<ICodeData>();
   constructor() { }
 
   ngOnInit() {
@@ -22,8 +24,7 @@ export class FormOtpComponent implements OnInit {
 
   validateOtp(){
     if (this.isCodeOtpValid()) {
-      
-      this.validateOtpEvent.emit(true);
+      this.validateOtpEvent.emit({code: this.codeOtp, eventClick: true});
     }
   }
 

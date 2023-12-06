@@ -20,4 +20,24 @@ export interface ILoginRequest{
 export interface IRecoveryRequest{
     username:string;
 }
+
+export interface ICodeOtpRequest{
+    username: string;
+    code: string;
+}
+
+export interface ICodeData{
+    eventClick: boolean;
+    code: string;
+}
+
+export interface IResetPasswordRequest{
+    username: string;
+    newPassword: string;
+}
+
+export interface INewPasswordData{
+    eventClick: boolean;
+    newPassword: string;
+}
   
