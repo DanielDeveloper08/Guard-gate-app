@@ -1,0 +1,7 @@
+<div class="card-item-profile main-residence">
+  <div class="option" [ngClass]="{'log-out': redText}">
+    <ion-icon [name]="iconName"></ion-icon>
+    <span>{{ label }}</span>
+  </div>
+  <ion-icon *ngIf="!redText" name="chevron-forward-outline"></ion-icon>
+</div>

@@ -1,27 +1,18 @@
 <shared-header [title]="'Perfil'"></shared-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-
   <div class="container-profile">
     <div class="top-profile">
-      <div class="title-user">
-        Hola, <span class="name-user">Daniel</span>
-      </div>
-
-      <div class="card-item-profile main-residence">
-        <div class="option">
-          <ion-icon name="home-outline"></ion-icon>
-          <span>Seleccionar residencia</span>
-        </div>
-        <ion-icon name="chevron-forward-outline"></ion-icon>
-      </div>
+      <div class="title-user">Hola, <span class="name-user">Daniel</span></div>
+      <card-option
+        [iconName]="'home-outline'"
+        [label]="'Seleccionar residencia'"
+      ></card-option>
     </div>
 
-    <div class="card-item-profile go-out">
-      <div class="option">
-        <ion-icon name="log-out-outline"></ion-icon>
-        <span>Cerrar sesión</span>
-      </div>
-    </div>
+    <card-option
+      [iconName]="'log-out-outline'"
+      [label]="'Cerrar sesión'"
+      [redText]="true"
+    ></card-option>
   </div>
-
 </ion-content>
