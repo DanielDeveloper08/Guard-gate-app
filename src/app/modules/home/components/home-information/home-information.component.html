@@ -1,13 +1,13 @@
-<ion-card>
+<ion-card *ngIf="home">
   <div class="container-card">
     <div class="container-icon-home">
       <img src="assets/home-information.jpg" alt="img-home" class="img-home"/>
     </div>
     
     <div class="home-data">
-      <ion-label class="resident-name">Daniel Asanza Erazo</ion-label><br>
-      <ion-label>Urb. Ciudad del Valle</ion-label><br>
-      <ion-label>Mz. 14  V.20</ion-label>
+      <ion-label class="resident-name">{{home.names | camelCase}} {{home.surnames | camelCase}}</ion-label><br>
+      <ion-label>{{home.residence.urbanization | camelCase}}</ion-label><br>
+      <ion-label>Mz.<span>{{home.residence.block}}</span>   V.<span>{{home.residence.town}}</span></ion-label>
     </div>
   </div>
 </ion-card>

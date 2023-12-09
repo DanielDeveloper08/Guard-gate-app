@@ -17,7 +17,8 @@ export class ProfileComponent implements OnInit {
   private modalCtrl = inject(ModalController);
   private _residenceService = inject(ResidenceService);
   private _toastService = inject(ToastService);
-  
+  private _router = inject(Router);
+
   ngOnInit() {
   }
 
@@ -37,6 +38,7 @@ export class ProfileComponent implements OnInit {
     
     this._residenceService.setMainResidence(idResidence).subscribe({
       next: (res) => {
+        // this._router.navigateByUrl("/home");
         this._toastService.showSuccess(res.data, Position.Top);
       },
       error: (err:HttpErrorResponse) => {

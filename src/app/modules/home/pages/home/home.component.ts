@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, inject } from '@angular/core';
+import { IResidence } from 'src/app/modules/profile/interfaces/residences';
+import { ResidenceService } from 'src/app/modules/profile/services/residence.service';
+import { IMainHome } from '../../interfaces/home.interface';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
-
+  private _residenceService = inject(ResidenceService);
+  mainResidence!: IMainHome;
   ngOnInit() {
+    this.getResidences();
+  }
+
+  ionViewDidEnter(){
+    this.getResidences();
   }
 
   visitData:any = [
@@ -64,5 +73,24 @@ export class HomeComponent implements OnInit {
       image: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
     },
   ];
+
+  getResidences(){
+    // this.isLoadingResidences = true;
+    this._residenceService.getResidencesByUser().subscribe({
+      next: (res) => {
+        // this.isLoadingResidences = false;
+        const home: IMainHome = {
+          id: res.data.id,
+          names: res.data.names,
+          surnames: res.data.surnames,
+          residence: res.data.residences.find(residence => residence.isMain)! ?? null,
+        }
+        this.mainResidence = home;
+      },
+      error: (err:HttpErrorResponse) => {
+        // this.isLoadingResidences = false;
+      }
+    });
+  }
 
 }
