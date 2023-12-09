@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from './shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './shared/services/interceptor';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,13 @@ import { SharedModule } from './shared/shared.module';
     IonicModule.forRoot(),
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

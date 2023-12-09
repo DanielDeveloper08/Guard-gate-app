@@ -1,0 +1,34 @@
+.container-card-residence{
+    display: flex;
+    padding: 1rem;
+    font-size: 1.1rem;
+    gap: 1.5rem;
+    align-items: center;
+
+    .icon-residence{
+        width: 4rem;
+        height: 4rem;
+        border: 1px solid var(--royal-blue-600);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        ion-icon{
+            font-size: 2rem;
+            color: var(--royal-blue-600);
+        }
+    }
+    
+    .information-residence{
+        display: flex;
+        flex-direction: column;
+        font-weight: 600;
+        row-gap: .5rem;
+    }
+}
+
+.residence-main{
+    border: 1px solid var(--royal-blue-300);
+    box-shadow: rgba(59, 61, 156, 0.829) 0px 3px 5px;
+}

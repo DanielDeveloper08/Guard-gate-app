@@ -73,6 +73,8 @@ export class LoginComponent implements OnInit {
       this._loginService.signIn(credentials).subscribe({
         next: (res) => {
           if (res.data.user) {
+            localStorage.setItem("token",res.data.token);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
             this._router.navigateByUrl('/home');
             this.isLoading = false;
           }

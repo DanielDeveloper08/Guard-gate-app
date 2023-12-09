@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { OtpComponent } from './components/otp/otp.component';
 import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CamelCasePipe } from './pipes/CamelCase.pipe';
 
 
 @NgModule({
@@ -26,13 +27,16 @@ import { HttpClientModule } from '@angular/common/http';
     InputComponent,
     ButtonComponent,
     HeaderComponent,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    CamelCasePipe
   ],
   declarations: [
     OtpComponent,
     InputComponent,
     ButtonComponent,
-    HeaderComponent
+    HeaderComponent,
+    CamelCasePipe
   ]
 })
 export class SharedModule { }

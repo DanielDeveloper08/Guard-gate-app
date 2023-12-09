@@ -1,0 +1,9 @@
+<ion-card class="container-card-residence" [ngClass]="{'residence-main': residence.isMain}">
+  <div class="icon-residence">
+      <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+  </div>
+  <div class="information-residence">
+    <span>{{residence.urbanization | camelCase}}</span>
+    <span>Mz.{{residence.block}} / V.{{residence.town}}</span>
+  </div>
+</ion-card>
