@@ -4,7 +4,7 @@
       <img src="assets/logo-white.svg" alt="logo" />
     </div>
   </div>
-  <div class="container-dashboard">
+  <div class="container-dashboard" *ngIf="userRole == 'RESIDENTE'">
     <div class="container-home-information">
       <home-information [home]="mainResidence"></home-information>
     </div>

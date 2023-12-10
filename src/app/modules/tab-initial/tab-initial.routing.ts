@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabInitialComponent } from './tab-initial.component';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { MenuGuard } from '../auth/guards/menu.guard';
 
 const routes: Routes = [
   {
     path: 'tabs',
-    canActivate: [AuthGuard],
-    canLoad:  [AuthGuard],
+    canActivate: [AuthGuard, MenuGuard],
+    canLoad:  [AuthGuard,MenuGuard],
     component: TabInitialComponent,
     children: [
       {

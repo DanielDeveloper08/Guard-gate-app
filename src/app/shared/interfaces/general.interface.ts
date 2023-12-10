@@ -3,3 +3,10 @@ export interface IGeneralResponse<T> {
     message:    string;
     data:       T;
 }
+
+
+export enum RoleTypeEnum {
+    ADMIN = 'ADMINISTRADOR',
+    RESIDENT = 'RESIDENTE',
+    OPERATIONAL = 'OPERATIVO',
+}

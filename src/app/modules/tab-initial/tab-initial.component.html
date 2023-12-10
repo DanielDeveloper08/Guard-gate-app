@@ -4,13 +4,13 @@
       <ion-icon name="home-outline"></ion-icon>
       Inicio
     </ion-tab-button>
-    <ion-tab-button tab="visit" class="tab-item">
+    <ion-tab-button tab="visit" class="tab-item" *ngIf="userRole == 'RESIDENTE'">
       <ion-icon name="location-outline"></ion-icon>
       Visitas
     </ion-tab-button>
     <ion-tab-button class="label-menu-tab tab-item"> Menu </ion-tab-button>
 
-    <ion-tab-button tab="panic-alert" class="tab-item">
+    <ion-tab-button tab="panic-alert" class="tab-item" *ngIf="userRole == 'RESIDENTE'">
       <ion-icon name="notifications-outline"></ion-icon>
       Alerta
     </ion-tab-button>
@@ -37,3 +37,14 @@
     <ion-icon name="grid-outline"></ion-icon
   ></ion-fab-button>
 </ion-fab>
+
+<ion-modal id="emergency-modal" #modal *ngIf="userRole == 'OPERATIVO'">
+  <ng-template>
+    <div class="container-modal ion-padding">
+      <span class="message-alert">{{dataEmergency.residences[0].urbanization}}</span>
+      <img src="assets/escudo-de-seguridad.png" alt="escudo">
+      <span class="message-alert">Hay una emergencia de seguridad</span>
+      <span class="message-alert">Mz.{{dataEmergency.residences[0].block}} / V.{{dataEmergency.residences[0].town}}</span>
+    </div>
+  </ng-template>
+</ion-modal>

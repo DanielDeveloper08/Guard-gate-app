@@ -6,6 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { Position } from '../../../../shared/interfaces/toast.interface';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
+import { RoleTypeEnum } from 'src/app/shared/interfaces/general.interface';
 
 @Component({
   selector: 'app-profile',
@@ -49,6 +51,15 @@ export class ProfileComponent implements OnInit {
 
   logOut(){
     localStorage.clear();
+  }
+
+  isResident(){
+    const user: IUser = JSON.parse(localStorage.getItem('user')!);
+    if(user.role == RoleTypeEnum.RESIDENT){
+      return true;
+    }
+
+    return false;
   }
 
 }

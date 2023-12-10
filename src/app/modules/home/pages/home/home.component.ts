@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { IResidence } from 'src/app/modules/profile/interfaces/residences';
 import { ResidenceService } from 'src/app/modules/profile/services/residence.service';
 import { IMainHome } from '../../interfaces/home.interface';
+import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,12 @@ export class HomeComponent implements OnInit {
 
   private _residenceService = inject(ResidenceService);
   mainResidence!: IMainHome;
+  userRole!:string;
+
   ngOnInit() {
     this.getResidences();
+    const user: IUser = JSON.parse(localStorage.getItem('user')!);
+    this.userRole = user.role;
   }
 
   ionViewWillEnter(){

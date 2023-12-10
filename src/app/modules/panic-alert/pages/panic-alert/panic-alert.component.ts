@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { PanicAlertService } from '../../services/panic-alert.service';
 import { IUser } from '../../../auth/interfaces/auth.interface';
@@ -14,21 +14,8 @@ export class PanicAlertComponent {
   counter: number = 0;
   @ViewChild('modal') modal!: IonModal;
   timer: any;
-  private panicAlertSubscription!: Subscription;
+  private _panicAlertService = inject(PanicAlertService);
 
-  constructor(private panicAlertService: PanicAlertService) {}
-
-  ionViewWillEnter() {
-    this.panicAlertSubscription = this.panicAlertService.listenToAlerts().subscribe((res:IResidencesData) => {
-      console.log(res.residences)
-    });
-  }
-
-  ionViewDidLeave() {
-    if (this.panicAlertSubscription) {
-      this.panicAlertSubscription.unsubscribe();
-    }
-  }
 
   async onButtonPress(): Promise<void> {
     this.timer = setInterval(() => {
@@ -42,7 +29,7 @@ export class PanicAlertComponent {
       const user: IUser = JSON.parse(localStorage.getItem('user')!);
 
       this.modal.present();
-      this.panicAlertService.sendAlertToGuard(user.id);
+      this._panicAlertService.sendAlertToGuard(user.id);
       clearInterval(this.timer);
       this.counter = 0;
     }
