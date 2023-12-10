@@ -10,12 +10,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IGeneralResponse } from 'src/app/shared/interfaces/general.interface';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   private _httpClient = inject(HttpClient);
+  private _router = inject(Router);
   urlBase: string = environment.URL_API;
   constructor() {}
 
@@ -66,4 +68,11 @@ export class LoginService {
       params
     );
   }
+
+  logout(){
+    localStorage.clear();
+    this._router.navigateByUrl('/login');
+  }
+  
 }
+

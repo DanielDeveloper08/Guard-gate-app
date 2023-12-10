@@ -7,6 +7,7 @@ const routes: Routes = [
   {
     path: "guard-gate",
     canActivate: [AuthGuard],
+
     loadChildren: () => import('./modules/tab-initial/tab-initial.module').then(m => m.TabInitialModule)
   },
   {

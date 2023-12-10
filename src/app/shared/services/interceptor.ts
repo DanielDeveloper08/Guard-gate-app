@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   HttpInterceptor,
   HttpEvent,
@@ -8,12 +8,15 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, finalize, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/modules/auth/services/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InterceptorService implements HttpInterceptor {
   private countRequest = 0;
+
+  private _loginService = inject(LoginService);
 
   constructor(private router: Router) {}
 
@@ -61,7 +64,8 @@ export class InterceptorService implements HttpInterceptor {
         // Token caducado
         if (err.status === 401) {
           if (!req.headers.has('service')) {
-            // this.loginService.logout();
+
+            this._loginService.logout();
             // TERMINAR CUALQUIER INSTANCIA
           }
         }

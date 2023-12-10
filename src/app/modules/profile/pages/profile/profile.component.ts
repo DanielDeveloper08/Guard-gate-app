@@ -47,4 +47,8 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  logOut(){
+    localStorage.clear();
+  }
+
 }
