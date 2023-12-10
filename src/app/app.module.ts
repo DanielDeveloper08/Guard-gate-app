@@ -7,6 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './shared/services/interceptor';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
+const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
+
 
 @NgModule({
   declarations: [
@@ -16,7 +20,8 @@ import { InterceptorService } from './shared/services/interceptor';
     BrowserModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    SharedModule
+    SharedModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     {

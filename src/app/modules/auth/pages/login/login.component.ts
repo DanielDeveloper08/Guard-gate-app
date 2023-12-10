@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
           if (res.data.user) {
             localStorage.setItem("token",res.data.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
-            this._router.navigateByUrl('/home');
+            this._router.navigateByUrl('/guard-gate');
             this.isLoading = false;
           }
         },
