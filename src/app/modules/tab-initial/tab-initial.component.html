@@ -8,12 +8,23 @@
       <ion-icon name="location-outline"></ion-icon>
       Visitas
     </ion-tab-button>
+    <ion-tab-button tab="" class="tab-item" *ngIf="userRole == 'OPERATIVO'">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      Escanear
+    </ion-tab-button>
+
     <ion-tab-button class="label-menu-tab tab-item"> Menu </ion-tab-button>
+
+    <ion-tab-button tab="" class="tab-item" *ngIf="userRole == 'OPERATIVO'">
+      <ion-icon name="location-outline"></ion-icon>
+      Visitas
+    </ion-tab-button>
 
     <ion-tab-button tab="panic-alert" class="tab-item" *ngIf="userRole == 'RESIDENTE'">
       <ion-icon name="notifications-outline"></ion-icon>
       Alerta
     </ion-tab-button>
+
     <ion-tab-button tab="profile" class="tab-item">
       <ion-icon name="person-outline"></ion-icon>
       Perfil
