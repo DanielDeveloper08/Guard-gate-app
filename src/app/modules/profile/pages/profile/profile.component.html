@@ -2,7 +2,7 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="container-profile">
     <div class="top-profile">
-      <div class="title-user">Hola, <span class="name-user">Daniel</span></div>
+      <div class="title-user">Hola, <span class="name-user">{{getUser()}}</span></div>
       <card-option
         [iconName]="'home-outline'"
         [label]="'Seleccionar residencia'"

@@ -5,7 +5,6 @@ import { ResidenceService } from '../../services/residence.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { Position } from '../../../../shared/interfaces/toast.interface';
-import { Router } from '@angular/router';
 import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 import { RoleTypeEnum } from 'src/app/shared/interfaces/general.interface';
 
@@ -19,7 +18,6 @@ export class ProfileComponent implements OnInit {
   private modalCtrl = inject(ModalController);
   private _residenceService = inject(ResidenceService);
   private _toastService = inject(ToastService);
-  private _router = inject(Router);
 
   ngOnInit() {
   }
@@ -60,6 +58,11 @@ export class ProfileComponent implements OnInit {
     }
 
     return false;
+  }
+
+  getUser(){
+    const user: IUser = JSON.parse(localStorage.getItem('user')!);
+    return user.names.split(' ')[0];
   }
 
 }
