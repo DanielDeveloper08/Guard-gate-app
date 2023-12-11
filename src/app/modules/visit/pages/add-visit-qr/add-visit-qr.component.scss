@@ -1,0 +1,98 @@
+/* The div container */
+.qrcodeImage {
+
+  }
+  
+  /* Add custom styles here */
+  
+
+
+  ion-content{
+    --background: var(--silver-50);
+  }
+
+  .container-qr{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    .title-qr{
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .qrcodeImage{
+        background-color: white ;
+        display: flex;   
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 1rem;
+        padding-bottom:1rem;
+        border-radius: 1rem;
+        font-weight: 600;
+        // margin: 0 1rem;
+
+        .logo {
+            display: flex;
+            border-radius: 1rem 1rem 0 0;
+            padding: 0.5rem;
+            justify-content: center;
+            background-color: var(--royal-blue-600);
+        
+            img {
+              width: 50%;
+            }
+          }
+
+          .description-qr{ 
+            margin: 0 1rem;
+            line-height: 1.2rem;
+            font-size: 14px;
+            padding: .5rem;
+            text-align: center;
+            border-radius: .5rem;
+            border: 1px solid var(--silver-200);
+          }
+    }
+
+
+    .form-qr{
+      display: flex;
+      flex-direction: column;
+      row-gap: 1rem;
+      .item-input{
+        label{
+          font-weight: 600;
+          font-size: .875rem;  
+        }
+        display: flex;
+        flex-direction: column;
+        row-gap: .5rem;
+        align-items: start;
+
+        .select-hours,.select-datetime{
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          background-color: var(--silver-100);
+          border-radius: .6rem;
+          
+        }
+
+        .select-hours{
+          padding: .2rem 1rem;
+        }
+
+        .select-datetime{
+          padding: .5rem;
+        }
+      }
+    }
+
+    .btn-select-visitant{
+
+
+    }
+
+  }

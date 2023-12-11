@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { IonModal } from '@ionic/angular';
 
 @Component({
   selector: 'app-visit',
@@ -8,6 +10,9 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class VisitComponent implements OnInit {
   filterInput: FormControl = new FormControl('', Validators.required);
+  private _router = inject(Router);
+  @ViewChild('modalTypeVisit') modalTypeVisit!: IonModal;
+
   visitData = [
     {
       name: 'John Doe',
@@ -92,8 +97,14 @@ export class VisitComponent implements OnInit {
     }
   }
 
-  newVisit(){
+  goToAddVisit(typeVisit:string){
+    typeVisit == 'qr'
+      ? this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr')
+      : this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-preauthorized');
 
-  }
+      this.modalTypeVisit.dismiss();
+  } 
+
+  
 
 }

@@ -9,6 +9,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CamelCasePipe } from './pipes/CamelCase.pipe';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { CamelCasePipe } from './pipes/CamelCase.pipe';
     HeaderComponent,
     HttpClientModule,
     FormsModule,
-    CamelCasePipe
+    CamelCasePipe,
+    QRCodeModule
   ],
   declarations: [
     OtpComponent,
