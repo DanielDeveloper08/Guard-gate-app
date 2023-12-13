@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { NavigationOptions } from '@ionic/angular/common/providers/nav-controller';
 import { ILoginRequest } from '../../interfaces/auth.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,12 @@ export class LoginComponent implements OnInit {
   setFocusUsername: boolean = false;
   setFocusPassword: boolean = false;
   isLoading: boolean = false;
+
+  isMobile: boolean = false;
+
+  constructor(private platform: Platform){
+    this.platform.ready().then(()=>this.isMobile = this.platform.is('android') || this.platform.is('ios'));
+  }
 
   ngOnInit() {
     this.createForm();

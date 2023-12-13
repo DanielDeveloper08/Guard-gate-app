@@ -1,7 +1,7 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="login-container">
   <img src="assets/urbanizacionBg.jpg" alt="Fondo" class="background-image" />
 
-  <div class="ion-padding content-login">
+  <div [class]="'ion-padding ' + (isMobile ? 'content-login':'content-login-web')">
     <div class="logo">
       <img src="assets/logo-color.svg" alt="logo" />
     </div>

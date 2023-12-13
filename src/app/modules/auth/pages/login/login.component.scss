@@ -1,3 +1,5 @@
+  @import 'src/theme/_mixins.scss';
+  
   ion-content::part(scroll) {
     color: #fff;
   }
@@ -6,18 +8,30 @@
 .background-image {
   position: absolute;
   z-index: -1;
+
+  @include md{
+    width: 100%;
+    height: 100vh;
+    top: 0;
+  }
 }
 
-.content-login {
+.login-container{
+  @include md{
+    position: relative;
+  }
+}
+
+@mixin content-login {
   border-radius: 1.25rem 1.25rem 0 0;
   margin-top: 70%;
   background-color: white;
-  max-height:calc(100% - 70%); ;
+  max-height:calc(100% - 70%);
   height: calc(100% - 70%);
   display: flex;
   flex-direction: column;
   gap: 32px;
-
+  
   .logo {
     margin-top: 1.5rem;
     display: flex;
@@ -51,4 +65,25 @@
       }
     }
   }
+}
+
+.content-login-web{
+  @include content-login;
+  @include md{
+    position: relative;
+    top:25%;
+    z-index: 2;
+    width: 50%;
+    margin: auto;
+    height:auto;
+    max-height: 100%;
+    border-radius: 1.25rem 1.25rem 1.25rem 1.25rem;
+  }
+  @include xl{
+    width: 30%;
+  }
+}
+
+.content-login{
+  @include content-login;
 }
