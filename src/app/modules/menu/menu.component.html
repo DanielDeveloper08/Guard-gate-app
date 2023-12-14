@@ -16,7 +16,7 @@
       <ion-content class="ion-padding">
         <div class="content-menu">
           <div *ngFor="let item of optionsMenu" class="item-content-menu">
-            <option-menu [optionMenu]="item"></option-menu>
+            <option-menu [optionMenu]="item" (click)="goToOption(item.route)"></option-menu>
           </div>
         </div>
       </ion-content>

@@ -1,5 +1,5 @@
 <shared-header [title]="'Visita QR'"> </shared-header>
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding" id="containerQR" #containerQR>
   <div class="container-qr">
     <div class="title-qr">Preautorizar por QR</div>
 
@@ -31,7 +31,7 @@
         23H55
       </div>
     </div>
-    <shared-button [label]="'Seleccionar visitantes'"> </shared-button>
+    <shared-button [label]="'Seleccionar visitantes'" (click)="showVisitors()"> </shared-button>
 
     <div class="form-qr">
       <div class="item-input">
@@ -58,4 +58,5 @@
       </div>
     </div>
   </div>
+<router-outlet></router-outlet>
 </ion-content>

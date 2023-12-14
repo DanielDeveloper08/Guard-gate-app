@@ -1,0 +1,34 @@
+<ion-modal #modal>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Visitantes</ion-title>
+        <ion-buttons slot="start" (click)="closeModalVisitors()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+          <ion-button class="button-back">Regresar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <div class="container-list-visitors">
+        <shared-button [label]="'Nuevo visitante'" id="open-modal" *ngIf="!isNewVisit">
+        </shared-button>
+        <shared-input
+          [startIcon]="'search'"
+          [type]="'text'"
+          [pattern]="'^[a-zA-Z0-9\-_.]*'"
+          [maxlength]="14"
+          [minlength]="3"
+          [placeholder]="'Buscar visitante'"
+          (controlValueChange)="controlValueChangeFilter($event)"
+        ></shared-input>
+
+        <selected-visitors [listVisitor]="getSelectedVisitors()"></selected-visitors>
+
+        <div class="list-visitors">
+          <item-visitor *ngFor="let visitor of listVisitors" [visitor]="visitor" [isNewVisit]="isNewVisit"></item-visitor>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

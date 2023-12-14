@@ -10,6 +10,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CamelCasePipe } from './pipes/CamelCase.pipe';
 import { QRCodeModule } from 'angularx-qrcode';
+import { AvatarComponent } from './components/avatar/avatar.component';
+import { TruncateWordPipe } from './pipes/TruncateWord.pipe';
 
 
 @NgModule({
@@ -31,14 +33,18 @@ import { QRCodeModule } from 'angularx-qrcode';
     HttpClientModule,
     FormsModule,
     CamelCasePipe,
-    QRCodeModule
+    TruncateWordPipe,
+    QRCodeModule,
+    AvatarComponent,
   ],
   declarations: [
     OtpComponent,
     InputComponent,
     ButtonComponent,
     HeaderComponent,
-    CamelCasePipe
+    CamelCasePipe,
+    TruncateWordPipe,
+    AvatarComponent
   ]
 })
 export class SharedModule { }

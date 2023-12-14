@@ -1,0 +1,51 @@
+.container-item-visitor {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: white;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  .information-visitor {
+    display: flex;
+    gap: 1rem;
+    align-items: center;    
+
+    .description-visitor {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .names-visitor {
+        font-weight: 600;
+      }
+      span {
+        display: block;
+        padding: 0.2rem;
+      }
+    }
+  }
+  .action-visitor {
+    background-color: var(--silver-50);
+    border-radius: 50%;
+    border: 0.5px solid var(--silver-200);
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+    font-size: 1.3rem;
+
+    .checkIcon {
+        transition: all 0.5ms ease-in-out;
+      color: white;
+    }
+  }
+
+  .selected-visitor {
+    background-color: var(--royal-blue-500);
+  }
+}

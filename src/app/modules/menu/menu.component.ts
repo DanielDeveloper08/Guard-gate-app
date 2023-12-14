@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MenuService } from './services/menu.service';
 import { IOptionMenu } from './interfaces/menu.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -11,23 +12,22 @@ export class MenuComponent {
   private _menuService = inject(MenuService);
   presentingElement:Element | null = null;
   isMenuOpen!: boolean;
+  private _router = inject(Router);
+
 
   optionsMenu: IOptionMenu[]= [
     {
       iconName: "people-outline",
       avatarColor: "var(--mandy-900)",
-      label: "Empleados"
+      label: "Visitantes",
+      route: "/guard-gate/tabs/visit/add-visit-qr/visitors"
     },
     {
-      iconName: "qr-code-outline",
+      iconName: "thumbs-down-outline",
       avatarColor: "var(--royal-blue-950)",
-      label: "Generar QR"
+      label: "Lista negra",
+      route: "/guard-gate/tabs/visit/add-visit-qr/visitors"
     },
-    {
-      iconName: "document-text-outline",
-      avatarColor: "var(--royal-blue-800)",
-      label: "Reportes"
-    }
   ];
 
   ngOnInit() {
@@ -40,6 +40,10 @@ export class MenuComponent {
 
   closeMenu(){
     this._menuService.setIsOpenMenu(false);
+  }
+
+  goToOption(route : string){
+    this._router.navigateByUrl(route);
   }
 
 }

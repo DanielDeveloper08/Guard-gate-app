@@ -11,7 +11,13 @@ const routes: Routes = [
   },
   {
     path: 'add-visit-qr',
-    component: AddVisitQrComponent
+    component: AddVisitQrComponent,
+    children: [
+      {
+        path: 'visitors',
+        loadChildren: () => import('../visitors/visitors.module').then(m => m.VisitorsModule),
+      }
+    ]
   },
   {
     path: 'add-visit-preauthorized',

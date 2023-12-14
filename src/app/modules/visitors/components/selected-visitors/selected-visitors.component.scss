@@ -1,0 +1,21 @@
+.container-selected-visitors{
+    border: 1px solid white;
+    background-color: white;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    .list-visitor-selected{
+        display: flex;
+        width:100%;
+        gap: 1rem;
+        overflow-x: scroll;
+        .item-selected-visitor{
+            min-width: 20%;
+
+            .names-visitors{
+                padding-top: .5rem !important;
+                font-size: .875rem;
+            }
+        }
+       
+    }
+}
