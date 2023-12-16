@@ -1,15 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'shared-avatar',
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss']
 })
-export class AvatarComponent implements OnInit {
+export class AvatarComponent {
   @Input() initials!: string;
-  constructor() { }
+  @Input() showCloseIcon = false;
+  @Output() removeVisitor: EventEmitter<void> = new EventEmitter<void>();
 
-  ngOnInit() {
+  handleAvatarClick(event: Event) {
+    event.stopPropagation();
   }
 
+  remove(event: Event) {
+    this.removeVisitor.emit();
+    event.stopPropagation();
+  }
 }

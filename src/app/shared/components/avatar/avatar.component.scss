@@ -1,4 +1,9 @@
 .avatar-visitor {
+  position: relative;
+  width: 3rem;
+  height: 3.75rem;
+  display: flex;
+  align-items: center;
   .circle-avatar {
     width: 3rem;
     height: 3rem;
@@ -7,6 +12,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .close-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.3rem;
+      color: var(--silver-500);
+    }
+
     span {
       font-weight: 700;
     }

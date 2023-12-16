@@ -99,7 +99,6 @@ export class ListVisitorsComponent implements OnInit {
     });
 
     this.listVisitors.map( visitor =>this.getInitialVisitor(visitor));
-    console.log("listVIsiro", this.listVisitors)
   }
 
   ngAfterViewInit() {

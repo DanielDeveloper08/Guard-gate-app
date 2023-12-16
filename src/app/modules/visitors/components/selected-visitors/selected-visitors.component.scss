@@ -8,8 +8,9 @@
         width:100%;
         gap: 1rem;
         overflow-x: scroll;
+        padding-bottom: .5rem;
         .item-selected-visitor{
-            min-width: 20%;
+            min-width: 4rem;
 
             .names-visitors{
                 padding-top: .5rem !important;

@@ -1,7 +1,7 @@
 <div class="container-selected-visitors" *ngIf="listVisitor.length > 0">
     <div class="list-visitor-selected" >
       <div class="item-selected-visitor" *ngFor="let visitor of listVisitor">
-        <shared-avatar [initials]="visitor.initials"></shared-avatar>
+        <shared-avatar [showCloseIcon]="true" [initials]="visitor.initials" (removeVisitor)="removeVisitor(visitor)"></shared-avatar>
         <span class="names-visitors">{{visitor.names | truncateWord: 6}}</span>
       </div>
     </div>

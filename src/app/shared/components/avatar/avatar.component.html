@@ -1,3 +1,6 @@
 <div class="avatar-visitor">
-  <div class="circle-avatar"><span>{{initials}}</span></div>
+  <div class="circle-avatar" (click)="handleAvatarClick($event)">
+    <ion-icon *ngIf="showCloseIcon" class="close-icon" name="close-circle" (click)="remove($event)"></ion-icon>
+    <span>{{initials}}</span>
+  </div>
 </div>

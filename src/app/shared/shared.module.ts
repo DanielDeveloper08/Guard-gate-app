@@ -12,6 +12,7 @@ import { CamelCasePipe } from './pipes/CamelCase.pipe';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { TruncateWordPipe } from './pipes/TruncateWord.pipe';
+import { CustomFilterPipe } from './pipes/CustomFilter.pipe';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { TruncateWordPipe } from './pipes/TruncateWord.pipe';
     TruncateWordPipe,
     QRCodeModule,
     AvatarComponent,
+    CustomFilterPipe
   ],
   declarations: [
     OtpComponent,
@@ -44,7 +46,8 @@ import { TruncateWordPipe } from './pipes/TruncateWord.pipe';
     HeaderComponent,
     CamelCasePipe,
     TruncateWordPipe,
-    AvatarComponent
+    AvatarComponent,
+    CustomFilterPipe
   ]
 })
 export class SharedModule { }

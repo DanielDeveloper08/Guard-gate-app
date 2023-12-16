@@ -13,4 +13,10 @@ export class SelectedVisitorsComponent implements OnInit {
   ngOnInit() {
   }
 
+  
+  removeVisitor(visitor: IVisitor){
+    console.log("sdsd")
+    visitor.isSelected = false;
+  }
+
 }

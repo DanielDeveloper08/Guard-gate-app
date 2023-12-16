@@ -26,7 +26,7 @@
         <selected-visitors [listVisitor]="getSelectedVisitors()"></selected-visitors>
 
         <div class="list-visitors">
-          <item-visitor *ngFor="let visitor of listVisitors" [visitor]="visitor" [isNewVisit]="isNewVisit"></item-visitor>
+          <item-visitor *ngFor="let visitor of listVisitors | customFilter: filterInput.value " [visitor]="visitor" [isNewVisit]="isNewVisit"></item-visitor>
         </div>
       </div>
     </ion-content>
