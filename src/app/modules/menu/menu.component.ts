@@ -20,7 +20,7 @@ export class MenuComponent {
       iconName: "people-outline",
       avatarColor: "var(--mandy-900)",
       label: "Visitantes",
-      route: "/guard-gate/tabs/visit/add-visit-qr/visitors"
+      route: "/guard-gate/visitors"
     },
     {
       iconName: "thumbs-down-outline",
@@ -35,6 +35,7 @@ export class MenuComponent {
 
     this._menuService.isOpenMenu.subscribe( value => {
       this.isMenuOpen = value;
+      console.log("menu", this.isMenuOpen);
     })
   }
 

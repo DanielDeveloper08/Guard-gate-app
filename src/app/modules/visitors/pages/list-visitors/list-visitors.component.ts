@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IonContent, IonModal } from '@ionic/angular';
+import { ActivatedRoute, NavigationStart, Router, RouterEvent } from '@angular/router';
+import { IonModal } from '@ionic/angular';
 import { IVisitor } from '../../interfaces/visitor.interface';
 import { FormControl, Validators } from '@angular/forms';
+import { VisitorService } from '../../services/visitors.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { filter } from 'rxjs';
+import { IGeneralRequestPagination } from '../../../../shared/interfaces/general.interface';
 
 @Component({
   selector: 'app-list-visitors',
@@ -15,90 +19,23 @@ export class ListVisitorsComponent implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
   filterInput: FormControl = new FormControl('', Validators.required);
   isNewVisit: boolean = false;
-
-  listVisitors: IVisitor[] = [
-    {
-      id: 3,
-      names: 'Robert Michael',
-      surnames: 'Johnson Garcia',
-      docNumber: '0912345678',
-      idResidency: 23,
-      isSelected: false,
-      initials: ""
-    },
-    {
-      id: 4,
-      names: 'Emma Grace',
-      surnames: 'Williams Lopez',
-      docNumber: '0923456789',
-      idResidency: 36,
-      isSelected: false,
-      initials: ""
-    },
-    {
-      id: 5,
-      names: 'William Thomas',
-      surnames: 'Davis Martinez',
-      docNumber: '0934567890',
-      idResidency: 58,
-      isSelected: false,
-      initials: ""
-    },
-    {
-      id: 6,
-      names: 'Olivia Rose',
-      surnames: 'Smith Hernandez',
-      docNumber: '0945678901',
-      idResidency: 19,
-      isSelected: false,
-      initials: ""
-    },
-    {
-      id: 7,
-      names: 'Alexander James',
-      surnames: 'Miller Rodriguez',
-      docNumber: '0956789012',
-      idResidency: 42,
-      isSelected: false,
-      initials: ""
-    },
-    {
-      id: 8,
-      names: 'Sophia Grace',
-      surnames: 'Johnson Perez',
-      docNumber: '0967890123',
-      idResidency: 17,
-      isSelected: false,
-      initials: ""
-    },
-    {
-      id: 9,
-      names: 'Ethan Daniel',
-      surnames: 'Jones Gomez',
-      docNumber: '0978901234',
-      idResidency: 36,
-      isSelected: false,
-      initials: ""
-    },
-    {
-      id: 10,
-      names: 'Ava Elizabeth',
-      surnames: 'Taylor Smith',
-      docNumber: '0989012345',
-      idResidency: 58,
-      isSelected: false,
-      initials: ""
-    },
-  ];
-  
-  constructor() {}
+  isLoadingVisitors: boolean = false;
+  private _visitorService = inject(VisitorService);
+  listVisitors: IVisitor[] = [];
 
   ngOnInit() {
-    this._activatedRoute.paramMap.subscribe((params) => {
-      this.isNewVisit = params.get('isVisit') == 'true' ? true : false;
-    });
+    this.getVisitors();
+    this.handleRouteParams();
+  }
 
-    this.listVisitors.map( visitor =>this.getInitialVisitor(visitor));
+  private handleRouteParams() {
+    this._activatedRoute.paramMap.subscribe(
+      (params) => (this.isNewVisit = params.get('isVisit') === 'true')
+    );
+  }
+
+  private initializeVisitors() {
+    this.listVisitors.forEach((visitor) => this.getInitialVisitor(visitor));
   }
 
   ngAfterViewInit() {
@@ -107,7 +44,10 @@ export class ListVisitorsComponent implements OnInit {
 
   closeModalVisitors() {
     this.modal.dismiss();
-    this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr');
+    this.isNewVisit 
+      ? this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr')
+      : this._router.navigateByUrl('/guard-gate/tabs/home');
+    
   }
 
   controlValueChangeFilter(formControl: FormControl) {
@@ -116,14 +56,37 @@ export class ListVisitorsComponent implements OnInit {
 
   getInitialVisitor(visitor: IVisitor) {
     const getFirstLetter = (str: string): string => str.split(' ')[0].charAt(0);
-  
+
     const letterName = getFirstLetter(visitor.names);
     const letterSurname = getFirstLetter(visitor.surnames);
-  
+
     visitor.initials = letterName.concat(letterSurname);
   }
 
-  getSelectedVisitors(){
-    return this.listVisitors.filter( visitor => visitor.isSelected);
+  getSelectedVisitors() {
+    return this.listVisitors.filter((visitor) => visitor.isSelected);
+  }
+
+  getVisitors() {
+    this.isLoadingVisitors = true;
+
+    const queryParams: IGeneralRequestPagination = {
+      limit: 1000
+    }
+
+    this._visitorService.getVisitors(queryParams).subscribe({
+      next: (res) => {
+        this.isLoadingVisitors = false;
+        this.listVisitors = res.data.records;
+        this.initializeVisitors();
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoadingVisitors = false;
+      },
+    });
+  }
+
+  goToNewVisitor(){
+    this._router.navigateByUrl('/guard-gate/visitors/add-visitor')
   }
 }

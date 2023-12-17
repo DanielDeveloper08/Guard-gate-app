@@ -1,9 +1,7 @@
-
-    .button-back{
-        --color: var(--silver-950);
-        font-weight: 600;
-    }
-
+.button-back {
+  --color: var(--silver-950);
+  font-weight: 600;
+}
 
 ion-content {
   --background: var(--silver-50);
@@ -12,9 +10,9 @@ ion-content {
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
-  .list-visitors{
+  .list-visitors {
     display: flex;
     flex-direction: column;
-    row-gap: .9rem;
+    row-gap: 0.9rem;
   }
 }

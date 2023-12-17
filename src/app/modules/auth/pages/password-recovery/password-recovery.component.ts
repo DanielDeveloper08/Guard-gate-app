@@ -25,6 +25,7 @@ export class PasswordRecoveryComponent implements OnInit {
   private _loginService = inject(LoginService);
   private _toastService = inject(ToastService);
   private _navCtrl = inject(NavController);
+  private _router = inject(Router);
 
   showNewPassword: boolean = false;
   username: FormControl = new FormControl('', Validators.required);
@@ -38,8 +39,6 @@ export class PasswordRecoveryComponent implements OnInit {
   async canDismiss(data?: any, role?: string) {
     return role !== 'gesture';
   }
-
-  constructor(private router: Router, private toastService: ToastService) {}
 
   ngOnInit() {}
 
@@ -56,7 +55,7 @@ export class PasswordRecoveryComponent implements OnInit {
         next: (res) => {
           if (res.statusCode == 200) {
             this.modal.present();
-            this.toastService.showInfo(res.data, Position.Top);
+            this._toastService.showInfo(res.data, Position.Top);
           }
           this.isLoadingRecoveryPassword = false;
         },
@@ -69,7 +68,7 @@ export class PasswordRecoveryComponent implements OnInit {
   }
 
   goToLogin() {
-    this.router.navigateByUrl('/login');
+    this._router.navigateByUrl('/login');
   }
 
   validateOtp(codeData: ICodeData) {

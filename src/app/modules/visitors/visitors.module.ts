@@ -6,6 +6,7 @@ import { VisitorRoutingModule } from './visitors.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ItemVisitorComponent } from './components/item-visitor/item-visitor.component';
 import { SelectedVisitorsComponent } from './components/selected-visitors/selected-visitors.component';
+import { FormVisitorComponent } from './components/form-visitor/form-visitor.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SelectedVisitorsComponent } from './components/selected-visitors/select
     ListVisitorsComponent,
     AddVisitorComponent,
     ItemVisitorComponent,
-    SelectedVisitorsComponent
-  ]
+    SelectedVisitorsComponent,
+    FormVisitorComponent
+  ],
 })
 export class VisitorsModule { }

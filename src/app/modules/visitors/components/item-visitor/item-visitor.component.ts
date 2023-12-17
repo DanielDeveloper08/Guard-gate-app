@@ -9,12 +9,11 @@ import { IVisitor } from '../../interfaces/visitor.interface';
 export class ItemVisitorComponent implements OnInit {
   @Input() visitor!: IVisitor;
   @Input() isNewVisit: boolean=false;
-  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   selectVisitor(visitor: IVisitor){
+    if(!this.isNewVisit) return
     visitor.isSelected = !visitor.isSelected;
   }
 }

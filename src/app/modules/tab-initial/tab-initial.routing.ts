@@ -34,6 +34,10 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'visitors',
+    loadChildren: () => import('../visitors/visitors.module').then(m => m.VisitorsModule)
+  },
+  {
     path: '',
     redirectTo: 'tabs/home',
     pathMatch: 'full'

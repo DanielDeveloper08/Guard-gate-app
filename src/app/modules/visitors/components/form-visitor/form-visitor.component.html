@@ -1,0 +1,43 @@
+<form *ngIf="visitorForm" [formGroup]="visitorForm">
+  <div class="container-icon">
+    <ion-icon name="people-circle-outline" class="visitor-icon"></ion-icon>
+  </div>
+  <div class="label">Nombres</div>
+  <!-- INPUT NAMES -->
+  <shared-input
+    [startIcon]="'person-outline'"
+    [type]="'text'"
+    [pattern]="'^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$'"
+    [maxlength]="20"
+    [minlength]="3"
+    [placeholder]="'Nombres'"
+    (controlValueChange)="controlValueChangeNames($event)"
+  ></shared-input>
+  <div class="error-message" *ngIf="visitorForm.get('names')?.hasError('required') && visitorForm.get('names')?.touched">
+    Campo obligatorio!
+  </div>
+
+  <div class="label">Apellidos</div>
+  <!-- INPUT SURNAMES -->
+  <shared-input
+    [startIcon]="'person-outline'"
+    [type]="'text'"
+    [pattern]="'^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$'"
+    [maxlength]="20"
+    [minlength]="3"
+    [placeholder]="'Apellidos'"
+    (controlValueChange)="controlValueChangeSurnames($event)"
+  ></shared-input>
+
+  <div class="label">Cédula</div>
+  <!-- INPUT DOCNUMBER -->
+  <shared-input
+    [startIcon]="'id-card-outline'"
+    [type]="'text'"
+    [pattern]="'^[0-9]*$'"
+    [maxlength]="10"
+    [minlength]="10"
+    [placeholder]="'Cédula'"
+    (controlValueChange)="controlValueChangeDocnumber($event)"
+  ></shared-input>
+</form>

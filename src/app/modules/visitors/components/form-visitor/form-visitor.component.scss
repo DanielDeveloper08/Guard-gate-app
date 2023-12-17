@@ -1,0 +1,18 @@
+.label {
+  font-weight: 600;
+  margin-top: .8rem;
+  margin-bottom: .5rem;
+}
+.container-icon{
+    display: flex;
+    justify-content: center;
+    .visitor-icon{
+        font-size: 8rem;
+        color: var(--silver-400);
+    }
+}
+
+.error-message{
+    color:red;
+}
+
