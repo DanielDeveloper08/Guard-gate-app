@@ -1,0 +1,23 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu Content</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">This is the menu content.</ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar  color="royal-blue-500">
+      <ion-buttons slot="start">
+        <ion-menu-button color="silver-50"></ion-menu-button>
+      </ion-buttons>
+      <div class="logo">
+        <img src="assets/logo-white.svg" alt="logo" />
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <router-outlet></router-outlet>
+  </ion-content>
+</div>

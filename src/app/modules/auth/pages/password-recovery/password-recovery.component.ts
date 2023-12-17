@@ -15,6 +15,7 @@ import {
   IResetPasswordRequest,
 } from '../../interfaces/auth.interface';
 import { NavigationOptions } from '@ionic/angular/common/providers/nav-controller';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-password-recovery',
@@ -34,10 +35,16 @@ export class PasswordRecoveryComponent implements OnInit {
   isLoadingOtp: boolean = false;
   isLoadingNewPassword: boolean = false;
 
+  isMobile: boolean = false;
+
   @ViewChild('modal') modal!: IonModal;
   @ViewChild('inputUsernmae', { static: true }) inputUsername!: IonInput;
   async canDismiss(data?: any, role?: string) {
     return role !== 'gesture';
+  }
+
+  constructor(private platform: Platform){
+    this.platform.ready().then(()=>this.isMobile = this.platform.is('android') || this.platform.is('ios'));
   }
 
   ngOnInit() {}
