@@ -2,10 +2,15 @@
     height: 2rem;
     width: 100%;
 
-    .logo img{
+    img{
         height: 100%;
         color: #000;
         margin-left: 2rem;
     }
     
+}
+
+ion-menu ion-title{
+    margin-left: 1rem;
+    color: #FFF;
 }
