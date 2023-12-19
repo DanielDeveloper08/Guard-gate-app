@@ -1,13 +1,32 @@
-<shared-header [title]="'Visita QR'"> </shared-header>
-<ion-content [fullscreen]="true" class="ion-padding" id="containerQR" #containerQR>
+<shared-header [title]="'Visita QR'" [backUrl]="'guard-gate/tabs/visit/list-visit'"> </shared-header>
+<ion-content
+  [fullscreen]="true"
+  class="ion-padding"
+  id="containerQR"
+  #containerQR
+>
   <div class="container-qr">
-    <div class="title-qr">Preautorizar por QR</div>
+    <!-- <div class="title-qr">Preautorizar por QR</div> -->
 
     <div class="qrcodeImage">
       <div class="logo">
         <img src="assets/logo-white.svg" alt="logo" />
       </div>
-      <div>Princesa Kate Mz.14 V.21</div>
+
+      <ng-container *ngIf="!mainResidence; else residenceDetails">
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 70%; height: 1rem;"
+        ></ion-skeleton-text>
+      </ng-container>
+
+      <ng-template #residenceDetails>
+        <div>
+          {{ mainResidence.residence.urbanization | camelCase }}
+          Mz.{{ mainResidence.residence.block }} V.{{ mainResidence.residence.town }}
+        </div>
+      </ng-template>
+
       <qrcode
         [qrdata]="'https://github.com/Cordobo/angularx-qrcode'"
         [allowEmptyString]="true"
@@ -25,36 +44,46 @@
         [title]="'A custom title attribute'"
         [width]="210"
       ></qrcode>
-      <div>Autorizado por: Daniel Asanza Erazo</div>
+      <div>Autorizado por: {{ user.names }} {{ user.surnames }}</div>
       <div class="description-qr">
         Código válido para un ingreso desde 10/12/2023 23H00 hasta 11/12/2023
         23H55
       </div>
     </div>
-    <shared-button [label]="'Seleccionar visitantes'" (click)="showVisitors()"> </shared-button>
+    <shared-button [label]="'Seleccionar visitantes'" (click)="showVisitors()">
+    </shared-button>
 
-    <div class="form-qr">
+    <div class="form-qr" [formGroup]="visitForm">
       <div class="item-input">
         <label>Fecha de inicio de validez</label>
-        <ion-datetime-button class="select-datetime" datetime="datetime"></ion-datetime-button>
+        <ion-datetime-button
+          class="select-datetime"
+          datetime="datetime"
+        ></ion-datetime-button>
 
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="datetime"></ion-datetime>
+            <ion-datetime  id="datetime" ngDefaultControl></ion-datetime>
           </ng-template>
         </ion-modal>
       </div>
       <div class="item-input">
         <label>Horas de validez</label>
 
-          <ion-select label="Horas" justify="space-between" class="select-hours" interface="action-sheet" placeholder="0H">
-            <ion-select-option value="1">1H</ion-select-option>
-            <ion-select-option value="3">3H</ion-select-option>
-            <ion-select-option value="6">6H</ion-select-option>
-            <ion-select-option value="12">12H</ion-select-option>
-            <ion-select-option value="24">24H</ion-select-option>
-          </ion-select>
-   
+        <ion-select
+          label="Horas"
+          justify="space-between"
+          class="select-hours"
+          interface="action-sheet"
+          placeholder="0H"
+          formControlName="validityHours"
+        >
+          <ion-select-option value="1">1H</ion-select-option>
+          <ion-select-option value="3">3H</ion-select-option>
+          <ion-select-option value="6">6H</ion-select-option>
+          <ion-select-option value="12">12H</ion-select-option>
+          <ion-select-option value="24">24H</ion-select-option>
+        </ion-select>
       </div>
     </div>
   </div>

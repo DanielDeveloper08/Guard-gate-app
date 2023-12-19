@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
-import { IResidence } from 'src/app/modules/profile/interfaces/residences';
 import { ResidenceService } from 'src/app/modules/profile/services/residence.service';
 import { IMainHome } from '../../interfaces/home.interface';
 import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';

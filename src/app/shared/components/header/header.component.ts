@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'shared-header',
@@ -7,9 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Input() title!: string;
+  @Input() backUrl!:string;
+  private _router = inject(Router);
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  back(){
+   this._router.navigateByUrl(this.backUrl);
   }
 
 }

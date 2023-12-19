@@ -5,10 +5,11 @@ import {
   IGeneralRequestPagination,
   IGeneralResponse,
 } from '../../../shared/interfaces/general.interface';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
   IAddVisitorRequest,
   IAddVisitorResponse,
+  IVisitor,
   IVisitorResponse,
 } from '../interfaces/visitor.interface';
 
@@ -18,6 +19,7 @@ import {
 export class VisitorService {
   private _httpClient = inject(HttpClient);
   private urlBase: string = environment.URL_API;
+  listSelectedVisitors: BehaviorSubject<IVisitor[]> = new BehaviorSubject<IVisitor[]>([]);
 
   /**
    * Obtener todos los visitantes registrados
@@ -62,5 +64,9 @@ export class VisitorService {
     }
 
     return queryParts.length > 0 ? '?' + queryParts.join('&') : '';
+  }
+
+  updateListSelectedVisitors(listVisitor: IVisitor[]){
+    this.listSelectedVisitors.next(listVisitor);
   }
 }

@@ -1,0 +1,16 @@
+<shared-header [title]="'Scanner'"></shared-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" sizeMd="3" *ngFor="let photo of photos">
+        <ion-img [src]="photo"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="takePhoto()">
+    <ion-fab-button>
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

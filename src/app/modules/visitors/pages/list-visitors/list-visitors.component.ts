@@ -64,6 +64,7 @@ export class ListVisitorsComponent implements OnInit {
   }
 
   getSelectedVisitors() {
+    console.log("si")
     return this.listVisitors.filter((visitor) => visitor.isSelected);
   }
 
@@ -88,5 +89,10 @@ export class ListVisitorsComponent implements OnInit {
 
   goToNewVisitor(){
     this._router.navigateByUrl('/guard-gate/visitors/add-visitor')
+  }
+
+  confirmVisitors(){
+    this.modal.dismiss();
+    this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr')
   }
 }

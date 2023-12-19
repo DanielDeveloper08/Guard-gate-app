@@ -1,5 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start" (click)="back()" *ngIf="backUrl">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button class="button-back">Regresar</ion-button>
+    </ion-buttons>
     <ion-title class="ion-text-center">{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>

@@ -11,7 +11,12 @@
     </ion-header>
     <ion-content class="ion-padding">
       <div class="container-list-visitors">
-        <shared-button [label]="'Nuevo visitante'" id="open-modal" *ngIf="!isNewVisit" (click)="goToNewVisitor()">
+        <shared-button
+          [label]="'Nuevo visitante'"
+          id="open-modal"
+          *ngIf="!isNewVisit"
+          (click)="goToNewVisitor()"
+        >
         </shared-button>
         <shared-input
           [startIcon]="'search'"
@@ -23,15 +28,28 @@
           (controlValueChange)="controlValueChangeFilter($event)"
         ></shared-input>
 
-        <selected-visitors [listVisitor]="getSelectedVisitors()"  *ngIf="getSelectedVisitors().length > 0"></selected-visitors>
-   
+        <selected-visitors
+          [listVisitor]="getSelectedVisitors()"
+          *ngIf="getSelectedVisitors().length > 0"
+        ></selected-visitors>
+
         <div class="list-visitors">
-          <item-visitor *ngFor="let visitor of listVisitors | customFilter: filterInput.value " [visitor]="visitor" [isNewVisit]="isNewVisit"></item-visitor>
+          <item-visitor
+            *ngFor="
+              let visitor of listVisitors | customFilter : filterInput.value
+            "
+            [visitor]="visitor"
+            [isNewVisit]="isNewVisit"
+          ></item-visitor>
         </div>
       </div>
+      <div></div>
     </ion-content>
+    <ion-footer collapse="fade" class="ion-padding"    *ngIf="isNewVisit">
+      <shared-button [label]="'Confirmar visitantes'" class="confirm-button" (click)="confirmVisitors()">
+      </shared-button>
+    </ion-footer>
   </ng-template>
 </ion-modal>
 
-<router-outlet></router-outlet>
-
+<ion-router-outlet></ion-router-outlet>

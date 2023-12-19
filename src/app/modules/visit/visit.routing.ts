@@ -7,6 +7,11 @@ import { AddVisitPreAuthorizedComponent } from "./pages/add-visit-pre-authorized
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    redirectTo: 'list-visit'
+  },
+  {
+    path: 'list-visit',
     component: VisitComponent
   },
   {
