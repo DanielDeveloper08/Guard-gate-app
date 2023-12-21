@@ -26,10 +26,10 @@
   <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]" #modalTypeVisit>
     <ng-template>
       <div class="block container-type-visit">
-        <ion-card class="item-type-visit" (click)="goToAddVisit('qr')">
+        <ion-card class="item-type-visit" (click)="showVisitors('qr')">
           <span>Visita por QR</span>
         </ion-card>
-        <ion-card class="item-type-visit" (click)="goToAddVisit('preauthorized')">
+        <ion-card class="item-type-visit" (click)="showVisitors('preatorizada')">
           <span>Visita preautorizada</span>
         </ion-card>
       </div>

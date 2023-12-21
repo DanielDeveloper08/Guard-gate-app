@@ -17,8 +17,6 @@ export class ScannerComponent implements OnInit {
 
   async takePhoto(){
    await this._scannerService.addNewPhoto();
-
-   console.log(this.photos);
   }
 
 }

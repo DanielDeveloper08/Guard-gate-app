@@ -2,15 +2,18 @@ import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
+import { VisitService } from '../../services/visit.service';
 
 @Component({
-  selector: 'app-visit',
-  templateUrl: './visit.component.html',
-  styleUrls: ['./visit.component.scss']
+  selector: 'list-visit',
+  templateUrl: './list-visit.component.html',
+  styleUrls: ['./list-visit.component.scss']
 })
-export class VisitComponent implements OnInit {
+export class ListVisitComponent implements OnInit {
   filterInput: FormControl = new FormControl('', Validators.required);
   private _router = inject(Router);
+  private _visitService = inject(VisitService);
+
   @ViewChild('modalTypeVisit') modalTypeVisit!: IonModal;
 
   visitData = [
@@ -104,6 +107,11 @@ export class VisitComponent implements OnInit {
 
       this.modalTypeVisit.dismiss();
   } 
+
+  showVisitors(visitType:string){
+    this._visitService.setVisitType(visitType);
+    this._router.navigateByUrl('/guard-gate/tabs/visit/visitors');
+  }
 
   
 

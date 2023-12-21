@@ -1,17 +1,14 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {
-  ActivatedRoute,
-  NavigationStart,
   Router,
-  RouterEvent,
 } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { IVisitor } from '../../interfaces/visitor.interface';
 import { FormControl, Validators } from '@angular/forms';
 import { VisitorService } from '../../services/visitors.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { filter } from 'rxjs';
 import { IGeneralRequestPagination } from '../../../../shared/interfaces/general.interface';
+import { VisitService } from '../../../visit/services/visit.service';
 
 @Component({
   selector: 'app-list-visitors',
@@ -21,8 +18,8 @@ import { IGeneralRequestPagination } from '../../../../shared/interfaces/general
 export class ListVisitorsComponent implements OnInit {
   @ViewChild('modal') modal!: IonModal;
   private _router = inject(Router);
-  private _activatedRoute = inject(ActivatedRoute);
   private _visitorService = inject(VisitorService);
+  private _visitService = inject(VisitService);
 
   filterInput: FormControl = new FormControl('', Validators.required);
   isNewVisit: boolean = false;
@@ -33,12 +30,17 @@ export class ListVisitorsComponent implements OnInit {
   ngOnInit() {
     this.getVisitors();
     this.handleRouteParams();
+
+    this._visitorService.listSelectedVisitors.subscribe( change => {
+      this.listVisitorsSelected = change;
+    })
   }
 
   private handleRouteParams() {
-    this._activatedRoute.paramMap.subscribe(
-      (params) => (this.isNewVisit = params.get('isVisit') === 'true')
-    );
+    const visitType = this._visitService.visitState.visitType;
+    if (visitType === 'qr' || visitType === 'preautorizado') {
+      this.isNewVisit = true;
+    }
   }
 
   private initializeVisitors() {
@@ -51,11 +53,13 @@ export class ListVisitorsComponent implements OnInit {
 
   getBackRoute() {
     return this.isNewVisit
-      ? '/guard-gate/tabs/visit/add-visit-qr'
+      ? '/guard-gate/tabs/visit/list-visit'
       : '/guard-gate/tabs/home';
   }
 
   closeModal() {
+    this._visitorService.updateListSelectedVisitors([]);
+    this._visitService.clearVisitState();
     this.modal.dismiss();
   }
 
@@ -73,10 +77,10 @@ export class ListVisitorsComponent implements OnInit {
   }
 
   changeVisitor() {
-    this.listVisitorsSelected = this.listVisitors.filter(
+    const filterVisitorsSelected = this.listVisitors.filter(
       (visitor) => visitor.isSelected
     );
-    this._visitorService.updateListSelectedVisitors(this.listVisitorsSelected);
+    this._visitorService.updateListSelectedVisitors(filterVisitorsSelected);
   }
 
   getVisitors() {
@@ -102,9 +106,4 @@ export class ListVisitorsComponent implements OnInit {
     this._router.navigateByUrl('/guard-gate/visitors/add-visitor');
   }
 
-  confirmVisitors() {
-    if (!(this.listVisitorsSelected.length > 0)) return;
-    this.modal.dismiss();
-    this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr');
-  }
 }

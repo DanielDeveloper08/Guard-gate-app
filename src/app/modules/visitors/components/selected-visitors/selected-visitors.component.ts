@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IVisitor } from '../../interfaces/visitor.interface';
 
 @Component({
@@ -6,16 +6,13 @@ import { IVisitor } from '../../interfaces/visitor.interface';
   templateUrl: './selected-visitors.component.html',
   styleUrls: ['./selected-visitors.component.scss']
 })
-export class SelectedVisitorsComponent implements OnInit {
+export class SelectedVisitorsComponent{
   @Input() listVisitor: IVisitor[]=[];
-  constructor() { }
+  @Output() changeVisitors: EventEmitter<void> = new EventEmitter<void>();
 
-  ngOnInit() {
-  }
-
-  
   removeVisitor(visitor: IVisitor){
     visitor.isSelected = false;
+    this.changeVisitors.emit();
   }
 
 }

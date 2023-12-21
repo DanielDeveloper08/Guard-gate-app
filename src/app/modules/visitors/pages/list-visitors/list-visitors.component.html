@@ -1,6 +1,14 @@
 <ion-modal #modal [isOpen]="true">
   <ng-template>
-    <shared-header [title]="'Visitantes'" (backClick)="closeModal()" [backUrl]="getBackRoute()"></shared-header>
+    <shared-header
+      [title]="isNewVisit ?'Añade visitantes' : 'Visitantes'"
+      (backClick)="closeModal()"
+      [urlBack]="getBackRoute()"
+      [cancelButton]="isNewVisit && true"
+      [backIcon]="!isNewVisit && true"
+      [disabledNextButton]="listVisitorsSelected.length==0"
+      [urlNext]="isNewVisit ?'/guard-gate/tabs/visit/add-visit-qr': ''"
+    ></shared-header>
     <ion-content class="ion-padding">
       <div class="container-list-visitors">
         <shared-button
@@ -23,6 +31,7 @@
         <selected-visitors
           [listVisitor]="listVisitorsSelected"
           *ngIf="listVisitorsSelected.length > 0"
+          (changeVisitors)="changeVisitor()"
         ></selected-visitors>
 
         <div class="list-visitors">
@@ -38,7 +47,7 @@
       </div>
       <div></div>
     </ion-content>
-    <ion-footer collapse="fade" class="ion-padding" *ngIf="isNewVisit">
+    <!-- <ion-footer collapse="fade" class="ion-padding" *ngIf="isNewVisit">
       <shared-button
         [label]="'Confirmar visitantes'"
         class="confirm-button"
@@ -46,7 +55,7 @@
         [disabled]="!(listVisitorsSelected.length > 0)"
       >
       </shared-button>
-    </ion-footer>
+    </ion-footer> -->
   </ng-template>
 </ion-modal>
 

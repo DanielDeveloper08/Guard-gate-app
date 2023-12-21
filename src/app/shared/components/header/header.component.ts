@@ -8,7 +8,12 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   @Input() title!: string;
-  @Input() backUrl!:string;
+  @Input() backIcon!:boolean;
+  @Input() urlBack!:string;
+  @Input() urlNext!:string;
+  @Input() disabledNextButton!: boolean;
+  @Input() cancelButton!:boolean;
+
   @Output() backClick: EventEmitter<void> = new EventEmitter<void>();
   private _router = inject(Router);
 
@@ -19,7 +24,12 @@ export class HeaderComponent implements OnInit {
 
   back(){
     this.backClick.emit();
-   this._router.navigateByUrl(this.backUrl);   
+   this._router.navigateByUrl(this.urlBack);   
+  }
+
+  next(){
+    if(this.disabledNextButton) return;  
+    this._router.navigateByUrl(this.urlNext);   
   }
 
 }

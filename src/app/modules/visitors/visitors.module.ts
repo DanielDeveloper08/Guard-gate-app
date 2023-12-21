@@ -21,5 +21,8 @@ import { FormVisitorComponent } from './components/form-visitor/form-visitor.com
     SelectedVisitorsComponent,
     FormVisitorComponent
   ],
+  exports: [
+    SelectedVisitorsComponent
+  ]
 })
 export class VisitorsModule { }
