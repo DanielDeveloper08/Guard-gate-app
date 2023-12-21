@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router, RouterEvent } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationStart,
+  Router,
+  RouterEvent,
+} from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { IVisitor } from '../../interfaces/visitor.interface';
 import { FormControl, Validators } from '@angular/forms';
@@ -17,11 +22,13 @@ export class ListVisitorsComponent implements OnInit {
   @ViewChild('modal') modal!: IonModal;
   private _router = inject(Router);
   private _activatedRoute = inject(ActivatedRoute);
+  private _visitorService = inject(VisitorService);
+
   filterInput: FormControl = new FormControl('', Validators.required);
   isNewVisit: boolean = false;
   isLoadingVisitors: boolean = false;
-  private _visitorService = inject(VisitorService);
   listVisitors: IVisitor[] = [];
+  listVisitorsSelected: IVisitor[] = [];
 
   ngOnInit() {
     this.getVisitors();
@@ -42,12 +49,14 @@ export class ListVisitorsComponent implements OnInit {
     this.modal.present();
   }
 
-  closeModalVisitors() {
+  getBackRoute() {
+    return this.isNewVisit
+      ? '/guard-gate/tabs/visit/add-visit-qr'
+      : '/guard-gate/tabs/home';
+  }
+
+  closeModal() {
     this.modal.dismiss();
-    this.isNewVisit 
-      ? this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr')
-      : this._router.navigateByUrl('/guard-gate/tabs/home');
-    
   }
 
   controlValueChangeFilter(formControl: FormControl) {
@@ -63,17 +72,19 @@ export class ListVisitorsComponent implements OnInit {
     visitor.initials = letterName.concat(letterSurname);
   }
 
-  getSelectedVisitors() {
-    console.log("si")
-    return this.listVisitors.filter((visitor) => visitor.isSelected);
+  changeVisitor() {
+    this.listVisitorsSelected = this.listVisitors.filter(
+      (visitor) => visitor.isSelected
+    );
+    this._visitorService.updateListSelectedVisitors(this.listVisitorsSelected);
   }
 
   getVisitors() {
     this.isLoadingVisitors = true;
 
     const queryParams: IGeneralRequestPagination = {
-      limit: 1000
-    }
+      limit: 1000,
+    };
 
     this._visitorService.getVisitors(queryParams).subscribe({
       next: (res) => {
@@ -87,12 +98,13 @@ export class ListVisitorsComponent implements OnInit {
     });
   }
 
-  goToNewVisitor(){
-    this._router.navigateByUrl('/guard-gate/visitors/add-visitor')
+  goToNewVisitor() {
+    this._router.navigateByUrl('/guard-gate/visitors/add-visitor');
   }
 
-  confirmVisitors(){
+  confirmVisitors() {
+    if (!(this.listVisitorsSelected.length > 0)) return;
     this.modal.dismiss();
-    this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr')
+    this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr');
   }
 }

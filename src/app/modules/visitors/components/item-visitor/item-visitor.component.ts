@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IVisitor } from '../../interfaces/visitor.interface';
 
 @Component({
@@ -9,11 +9,13 @@ import { IVisitor } from '../../interfaces/visitor.interface';
 export class ItemVisitorComponent implements OnInit {
   @Input() visitor!: IVisitor;
   @Input() isNewVisit: boolean=false;
+  @Output() changeVisitors: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit() {}
 
   selectVisitor(visitor: IVisitor){
     if(!this.isNewVisit) return
     visitor.isSelected = !visitor.isSelected;
+    this.changeVisitors.emit();
   }
 }

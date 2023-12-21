@@ -15,7 +15,6 @@ export class SelectedVisitorsComponent implements OnInit {
 
   
   removeVisitor(visitor: IVisitor){
-    console.log("sdsd")
     visitor.isSelected = false;
   }
 

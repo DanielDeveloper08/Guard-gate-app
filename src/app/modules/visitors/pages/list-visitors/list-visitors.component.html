@@ -1,14 +1,6 @@
 <ion-modal #modal [isOpen]="true">
   <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Visitantes</ion-title>
-        <ion-buttons slot="start" (click)="closeModalVisitors()">
-          <ion-icon name="chevron-back-outline"></ion-icon>
-          <ion-button class="button-back">Regresar</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+    <shared-header [title]="'Visitantes'" (backClick)="closeModal()" [backUrl]="getBackRoute()"></shared-header>
     <ion-content class="ion-padding">
       <div class="container-list-visitors">
         <shared-button
@@ -29,8 +21,8 @@
         ></shared-input>
 
         <selected-visitors
-          [listVisitor]="getSelectedVisitors()"
-          *ngIf="getSelectedVisitors().length > 0"
+          [listVisitor]="listVisitorsSelected"
+          *ngIf="listVisitorsSelected.length > 0"
         ></selected-visitors>
 
         <div class="list-visitors">
@@ -40,13 +32,19 @@
             "
             [visitor]="visitor"
             [isNewVisit]="isNewVisit"
+            (changeVisitors)="changeVisitor()"
           ></item-visitor>
         </div>
       </div>
       <div></div>
     </ion-content>
-    <ion-footer collapse="fade" class="ion-padding"    *ngIf="isNewVisit">
-      <shared-button [label]="'Confirmar visitantes'" class="confirm-button" (click)="confirmVisitors()">
+    <ion-footer collapse="fade" class="ion-padding" *ngIf="isNewVisit">
+      <shared-button
+        [label]="'Confirmar visitantes'"
+        class="confirm-button"
+        (click)="confirmVisitors()"
+        [disabled]="!(listVisitorsSelected.length > 0)"
+      >
       </shared-button>
     </ion-footer>
   </ng-template>

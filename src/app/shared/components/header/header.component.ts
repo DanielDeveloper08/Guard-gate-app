@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   @Input() title!: string;
   @Input() backUrl!:string;
+  @Output() backClick: EventEmitter<void> = new EventEmitter<void>();
   private _router = inject(Router);
 
   constructor() { }
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
   }
 
   back(){
-   this._router.navigateByUrl(this.backUrl);
+    this.backClick.emit();
+   this._router.navigateByUrl(this.backUrl);   
   }
 
 }

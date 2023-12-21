@@ -5,6 +5,7 @@ import { ResidenceService } from '../../../profile/services/residence.service';
 import { IMainHome } from 'src/app/modules/home/interfaces/home.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { VisitorService } from 'src/app/modules/visitors/services/visitors.service';
 
 @Component({
   selector: 'app-add-visit-qr',
@@ -12,10 +13,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-visit-qr.component.scss']
 })
 export class AddVisitQrComponent implements OnInit {
-  private _router = inject(Router);
-  user: IUser = JSON.parse(localStorage.getItem("user")!);
   private _residenceService = inject(ResidenceService);
   private _formBuilder = inject(FormBuilder);
+  private _visitorService = inject(VisitorService);
+  private _router = inject(Router);
+
+  user: IUser = JSON.parse(localStorage.getItem("user")!);
   mainResidence!: IMainHome;
   visitForm!: FormGroup;
 
@@ -24,6 +27,10 @@ export class AddVisitQrComponent implements OnInit {
     this.createForm();
     this.visitForm.valueChanges.subscribe( change => {
       console.log("change", change)
+    })
+
+    this._visitorService.listSelectedVisitors.subscribe( visitors => {
+      console.log("listVisitors", visitors);
     })
   }
 
