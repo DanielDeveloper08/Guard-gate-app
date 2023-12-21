@@ -17,7 +17,8 @@
         <div class="title-qr">Visitantes</div>
         <selected-visitors
           [listVisitor]="selectedVisitors"
-          (changeVisitors)="changeVisitors()">
+          (changeVisitors)="changeVisitors()"
+        >
         </selected-visitors>
         <div class="qrcodeImage">
           <div class="logo">
@@ -59,24 +60,23 @@
           ></qrcode>
           <div>Autorizado por: {{ user.names }} {{ user.surnames }}</div>
           <div class="description-qr">
-            Código válido para un ingreso desde 10/12/2023 23H00 hasta
-            11/12/2023 23H55
+            Código válido para un ingreso desde {{startDateValue}} hasta
+            {{endDateValue}}
           </div>
         </div>
 
         <div class="form-qr" [formGroup]="visitForm">
           <div class="item-input">
             <label>Fecha de inicio de validez</label>
-            <ion-datetime-button
-              class="select-datetime"
-              datetime="datetime"
-            ></ion-datetime-button>
-
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime id="datetime" ngDefaultControl></ion-datetime>
-              </ng-template>
-            </ion-modal>
+            <shared-select-date
+              [isOpen]="isOpenDateTime"
+              (selectedDateTime)="selectedDateTime($event)"
+            >
+            </shared-select-date>
+            <div class="select-datetime" (click)="openDateTimeModal()">
+              <span>{{startDateValue.split(',')[0]}}</span>
+              <span>{{startDateValue.split(',')[1]}}</span>
+            </div>
           </div>
           <div class="item-input">
             <label>Horas de validez</label>

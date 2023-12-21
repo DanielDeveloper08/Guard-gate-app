@@ -12,7 +12,7 @@ import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface'
 @Component({
   selector: 'app-add-visit-qr',
   templateUrl: './add-visit-qr.component.html',
-  styleUrls: ['./add-visit-qr.component.scss']
+  styleUrls: ['./add-visit-qr.component.scss'],
 })
 export class AddVisitQrComponent implements OnInit {
   private _residenceService = inject(ResidenceService);
@@ -20,24 +20,31 @@ export class AddVisitQrComponent implements OnInit {
   private _visitorService = inject(VisitorService);
 
   @ViewChild('modal') modal!: IonModal;
-  user: IUser = JSON.parse(localStorage.getItem("user")!);
+  user: IUser = JSON.parse(localStorage.getItem('user')!);
   mainResidence!: IMainHome;
   visitForm!: FormGroup;
-  selectedVisitors: IVisitor[]=[];
-  
+  selectedVisitors: IVisitor[] = [];
+  isOpenDateTime: boolean = false;
+  startDateValue!: string;
+  startDateSameFormat!: string;
+  endDateValue!: string;
 
   ngOnInit() {
     this.getResidences();
     this.createForm();
-    this.visitForm.valueChanges.subscribe( change => {
-    })
+    this.visitForm.valueChanges.subscribe((change) => {
+      console.log('change', change);
+    });
 
-    this._visitorService.listSelectedVisitors.subscribe( visitors => {
+    this._visitorService.listSelectedVisitors.subscribe((visitors) => {
       this.selectedVisitors = visitors;
-    })
+    });
+
+    this.startDateValue = this.visitForm.get('startDate')?.value;
+    this.endDateValue = this.calcularFechaFin();
   }
 
-  changeVisitors(){
+  changeVisitors() {
     const filterVisitorsSelected = this.selectedVisitors.filter(
       (visitor) => visitor.isSelected
     );
@@ -46,30 +53,65 @@ export class AddVisitQrComponent implements OnInit {
 
   createForm() {
     this.visitForm = this._formBuilder.group({
-      startDate: ["" , [Validators.required]],
-      validityHours: ["" , [Validators.required]],
+      startDate: [this.formatDate(), [Validators.required]],
+      validityHours: ['0', [Validators.required]],
       listVisitors: [[], [Validators.required]],
     });
   }
 
-  getResidences(){
+  getResidences() {
     this._residenceService.getResidencesByUser().subscribe({
       next: (res) => {
         const home: IMainHome = {
           id: res.data.id,
           names: res.data.names,
           surnames: res.data.surnames,
-          residence: res.data.residences.find(residence => residence.isMain)! ?? null,
-        }
+          residence:
+            res.data.residences.find((residence) => residence.isMain)! ?? null,
+        };
         this.mainResidence = home;
       },
-      error: (err:HttpErrorResponse) => {
-      }
+      error: (err: HttpErrorResponse) => {},
     });
   }
 
-  closeModal(){
+  openDateTimeModal() {
+    this.isOpenDateTime = true;
+  }
+
+  selectedDateTime(value: string) {
+    if (value !== '') {
+      const fechaFormateada = this.formatDate(value);
+      this.startDateValue = fechaFormateada;
+      this.startDateSameFormat = value;
+      this.visitForm.get('startDate')?.setValue(fechaFormateada);
+    }
+    this.isOpenDateTime = false;
+  }
+
+
+ private formatDate(value: string | Date = new Date()): string {
+  const fecha = new Date(value);
+  const options: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  };
+  return fecha.toLocaleDateString('es-ES', options);
+}
+  
+
+  closeModal() {
     this.modal.dismiss();
   }
 
+  calcularFechaFin(): string {
+    console.log("startDate", this.startDateSameFormat)
+    const fechaInicio = new Date(this.startDateSameFormat);
+    const horasValidas = this.visitForm.get('validityHours')?.value;
+    const fechaFin = new Date(fechaInicio.getTime() + horasValidas * 60 * 60 * 1000);
+    return this.formatDate(fechaFin);
+  }
 }
