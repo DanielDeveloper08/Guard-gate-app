@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button color="medium" (click)="cancel()">Cancelar</ion-button>
+    <ion-buttons slot="start" class="button-back">
+      <ion-label (click)="cancel()">Cancelar</ion-label>
     </ion-buttons>
-    <ion-title>Residencias</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button>
+    <ion-title class="ion-text-center">Residencias</ion-title>
+    <ion-buttons slot="end" class="button-next">
+      <ion-label (click)="confirm()">Confirmar</ion-label>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

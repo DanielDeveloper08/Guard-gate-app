@@ -42,7 +42,7 @@
           </ng-template>
 
           <qrcode
-            [qrdata]="'https://github.com/Cordobo/angularx-qrcode'"
+            [qrdata]="idNewVisit"
             [allowEmptyString]="true"
             [ariaLabel]="'QR Code image with the following content...'"
             [cssClass]="'center'"
@@ -51,8 +51,8 @@
             [elementType]="'canvas'"
             [errorCorrectionLevel]="'M'"
             [imageSrc]="'./assets/icono-guard-gate.png'"
-            [imageHeight]="40"
-            [imageWidth]="40"
+            [imageHeight]="35"
+            [imageWidth]="35"
             [margin]="0"
             [scale]="1"
             [title]="'A custom title attribute'"
@@ -97,8 +97,17 @@
             </ion-select>
           </div>
         </div>
+        
       </div>
       <router-outlet></router-outlet>
+      
     </ion-content>
+    <ion-footer collapse="fade" class="ion-padding footer">
+      <shared-button
+        [label]="'Compartir código QR'"
+        (click)="saveVisitQR()"
+      >
+      </shared-button>
+    </ion-footer>
   </ng-template>
 </ion-modal>

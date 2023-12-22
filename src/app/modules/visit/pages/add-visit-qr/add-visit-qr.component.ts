@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VisitorService } from 'src/app/modules/visitors/services/visitors.service';
 import { IonModal } from '@ionic/angular';
 import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface';
+import { VisitService } from '../../services/visit.service';
+import { IAddVisitRequest } from '../../interfaces/visit.interface';
 
 @Component({
   selector: 'app-add-visit-qr',
@@ -18,6 +20,7 @@ export class AddVisitQrComponent implements OnInit {
   private _residenceService = inject(ResidenceService);
   private _formBuilder = inject(FormBuilder);
   private _visitorService = inject(VisitorService);
+  private _visitService = inject(VisitService);
 
   @ViewChild('modal') modal!: IonModal;
   user: IUser = JSON.parse(localStorage.getItem('user')!);
@@ -28,12 +31,14 @@ export class AddVisitQrComponent implements OnInit {
   startDateValue!: string;
   startDateSameFormat!: string;
   endDateValue!: string;
+  isLoadingVisit: boolean = false;
+  idNewVisit: string = "No existe visita registrada";
 
   ngOnInit() {
     this.getResidences();
     this.createForm();
     this.visitForm.valueChanges.subscribe((change) => {
-      console.log('change', change);
+      this.endDateValue = this.calcularFechaFin();
     });
 
     this._visitorService.listSelectedVisitors.subscribe((visitors) => {
@@ -53,7 +58,7 @@ export class AddVisitQrComponent implements OnInit {
 
   createForm() {
     this.visitForm = this._formBuilder.group({
-      startDate: [this.formatDate(), [Validators.required]],
+      startDate: [ this.obtenerFechaActualEnFormato(), [Validators.required]],
       validityHours: ['0', [Validators.required]],
       listVisitors: [[], [Validators.required]],
     });
@@ -84,7 +89,7 @@ export class AddVisitQrComponent implements OnInit {
       const fechaFormateada = this.formatDate(value);
       this.startDateValue = fechaFormateada;
       this.startDateSameFormat = value;
-      this.visitForm.get('startDate')?.setValue(fechaFormateada);
+      this.visitForm.get('startDate')?.setValue(value);
     }
     this.isOpenDateTime = false;
   }
@@ -101,6 +106,21 @@ export class AddVisitQrComponent implements OnInit {
   };
   return fecha.toLocaleDateString('es-ES', options);
 }
+
+obtenerFechaActualEnFormato = (): string => {
+  const fechaActual = new Date();
+  
+  const formato = new Intl.DateTimeFormat('es-ES', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZone: 'UTC' 
+  });
+  return formato.format(fechaActual);
+}
   
 
   closeModal() {
@@ -108,10 +128,33 @@ export class AddVisitQrComponent implements OnInit {
   }
 
   calcularFechaFin(): string {
-    console.log("startDate", this.startDateSameFormat)
-    const fechaInicio = new Date(this.startDateSameFormat);
+    const fechaInicio = this.startDateSameFormat ? new Date(this.startDateSameFormat) : new Date();
     const horasValidas = this.visitForm.get('validityHours')?.value;
-    const fechaFin = new Date(fechaInicio.getTime() + horasValidas * 60 * 60 * 1000);
+    const fechaFin = new Date(fechaInicio.getTime() + (horasValidas || 0) * 60 * 60 * 1000);
     return this.formatDate(fechaFin);
+  }
+
+  saveVisitQR(){
+    const visitData : IAddVisitRequest= {
+      type: "QR",
+      startDate:  this.visitForm.get('startDate')?.value,
+      validityHours: this.visitForm.get('validityHours')?.value,
+      listVisitors: this.selectedVisitors.map( visitors => visitors.id)
+    }
+    this.isLoadingVisit = true;
+    this._visitService.saveVisit(visitData).subscribe({
+      next: (res) => {
+        // this._toastService.showSuccess("Visitante registrado con éxito", Position.Top);
+        this.isLoadingVisit = false;
+        this.sharedQR(res.data.id);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoadingVisit = false;
+      },
+    });
+  }
+
+  sharedQR(idVisit: number){
+      this.idNewVisit = idVisit.toString();
   }
 }
