@@ -14,6 +14,7 @@ import { AvatarComponent } from './components/avatar/avatar.component';
 import { TruncateWordPipe } from './pipes/TruncateWord.pipe';
 import { CustomFilterPipe } from './pipes/CustomFilter.pipe';
 import { SelectDateComponent } from './components/select-date/select-date.component';
+import { CustomDatePipe } from './pipes/CustomDate.pipe';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { SelectDateComponent } from './components/select-date/select-date.compon
     QRCodeModule,
     AvatarComponent,
     CustomFilterPipe,
-    SelectDateComponent
+    SelectDateComponent,
+    CustomDatePipe
   ],
   declarations: [
     OtpComponent,
@@ -50,7 +52,8 @@ import { SelectDateComponent } from './components/select-date/select-date.compon
     TruncateWordPipe,
     AvatarComponent,
     CustomFilterPipe,
-    SelectDateComponent
+    SelectDateComponent,
+    CustomDatePipe
   ]
 })
 export class SharedModule { }

@@ -1,4 +1,5 @@
 import { IVisitor } from '../../visitors/interfaces/visitor.interface';
+import { IGeneralResponsePagination } from '../../../shared/interfaces/general.interface';
 
 export interface IVisitorState{
     visitType: string;
@@ -6,11 +7,27 @@ export interface IVisitorState{
     visitConfig: any;
 }
 
+export interface IVisitResponse {
+    records: IVisit[];
+    meta:    IGeneralResponsePagination;
+}
+
+export interface IVisit {
+    id:            number;
+    startDate:     string;
+    endDate:       string;
+    validityHours: number;
+    reason:        string;
+    type:          string;
+    visitors:      IVisitor[];
+}
+
 export interface IAddVisitRequest{
     startDate:     string;
     validityHours: number;
     listVisitors:  number[];
     type:          string;
+    reason?:       string;
 }
 
 

@@ -6,6 +6,7 @@ import {
   IGeneralResponse,
 } from '../../../shared/interfaces/general.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { QueryBuilderService } from '../../../shared/services/query-builder.service';
 import {
   IAddVisitorRequest,
   IAddVisitorResponse,
@@ -19,6 +20,7 @@ import {
 export class VisitorService {
   private _httpClient = inject(HttpClient);
   private urlBase: string = environment.URL_API;
+  private _queryBuilderService = inject(QueryBuilderService);
   listSelectedVisitors: BehaviorSubject<IVisitor[]> = new BehaviorSubject<IVisitor[]>([]);
 
   /**
@@ -29,7 +31,7 @@ export class VisitorService {
   getVisitors(
     params?: IGeneralRequestPagination
   ): Observable<IGeneralResponse<IVisitorResponse>> {
-    const queryParams = this.buildQueryParams(params);
+    const queryParams = this._queryBuilderService.buildQueryParams(params);
 
     return this._httpClient.get<IGeneralResponse<IVisitorResponse>>(
       `${this.urlBase}/visitors/${queryParams}`
@@ -48,22 +50,6 @@ export class VisitorService {
       `${this.urlBase}/visitors`,
       params
     );
-  }
-
-  private buildQueryParams(params?: IGeneralRequestPagination): string {
-    const queryParts: string[] = [];
-
-    if (params?.search) {
-      queryParts.push(`search=${params.search}`);
-    }
-    if (params?.limit) {
-      queryParts.push(`limit=${params.limit}`);
-    }
-    if (params?.page) {
-      queryParts.push(`page=${params.page}`);
-    }
-
-    return queryParts.length > 0 ? '?' + queryParts.join('&') : '';
   }
 
   updateListSelectedVisitors(listVisitor: IVisitor[]){

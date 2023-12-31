@@ -15,13 +15,15 @@ export class CameraService {
 
   async addNewPhoto() {
     const photo = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.Base64,
       source: CameraSource.Camera,
       quality: 100,
     });
 
-    if (photo.webPath) {
-      this.photos.unshift(photo.webPath!);
+    if (photo.base64String && photo.format) {
+      const base64Image = `data:image/${photo.format.toLowerCase()};base64,${photo.base64String}`;
+      this.photos.unshift(base64Image);
+      console.log(this.photos);
     }
   }
 }

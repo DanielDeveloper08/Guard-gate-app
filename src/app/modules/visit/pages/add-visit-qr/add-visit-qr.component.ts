@@ -4,7 +4,7 @@ import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 import { ResidenceService } from '../../../profile/services/residence.service';
 import { IMainHome } from 'src/app/modules/home/interfaces/home.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { VisitorService } from 'src/app/modules/visitors/services/visitors.service';
 import { IonModal } from '@ionic/angular';
 import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface';
@@ -61,6 +61,7 @@ export class AddVisitQrComponent implements OnInit {
       startDate: [ this.obtenerFechaActualEnFormato(), [Validators.required]],
       validityHours: ['0', [Validators.required]],
       listVisitors: [[], [Validators.required]],
+      reason: [""]
     });
   }
 
@@ -109,7 +110,7 @@ export class AddVisitQrComponent implements OnInit {
 
 obtenerFechaActualEnFormato = (): string => {
   const fechaActual = new Date();
-  
+
   const formato = new Intl.DateTimeFormat('es-ES', {
     year: 'numeric',
     month: '2-digit',
@@ -117,11 +118,11 @@ obtenerFechaActualEnFormato = (): string => {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    timeZone: 'UTC' 
+    timeZone: 'UTC'
   });
   return formato.format(fechaActual);
 }
-  
+
 
   closeModal() {
     this.modal.dismiss();
@@ -139,8 +140,13 @@ obtenerFechaActualEnFormato = (): string => {
       type: "QR",
       startDate:  this.visitForm.get('startDate')?.value,
       validityHours: this.visitForm.get('validityHours')?.value,
-      listVisitors: this.selectedVisitors.map( visitors => visitors.id)
+      listVisitors: this.selectedVisitors.map( visitors => visitors.id),
     }
+
+    if(this.visitForm.get('reason')?.value !== ""){
+      visitData.reason = this.visitForm.get('reason')?.value
+    }
+
     this.isLoadingVisit = true;
     this._visitService.saveVisit(visitData).subscribe({
       next: (res) => {
@@ -156,5 +162,11 @@ obtenerFechaActualEnFormato = (): string => {
 
   sharedQR(idVisit: number){
       this.idNewVisit = idVisit.toString();
+  }
+
+  controlValueReason(formControl: FormControl){
+    if (this.visitForm.get('reason') !== formControl) {
+      this.visitForm.setControl('reason', formControl);
+    }
   }
 }

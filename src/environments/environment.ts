@@ -1,5 +1,4 @@
 export const environment = {
     production: false,
-    URL_API: 'http://localhost:8000/api/v1', 
+    URL_API: 'https://guardgatedeploy.onrender.com/api/v1',
   };
-    

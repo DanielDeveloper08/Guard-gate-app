@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonModal } from '@ionic/angular';
+import { IonModal, ModalController } from '@ionic/angular';
 import { VisitService } from '../../services/visit.service';
+import { IGeneralRequestPagination } from '../../../../shared/interfaces/general.interface';
+import { IVisit } from '../../interfaces/visit.interface';
+import { HttpErrorResponse } from '@angular/common/http';
+import { DetailVisitComponent } from '../../components/detail-visit/detail-visit.component';
 
 @Component({
   selector: 'list-visit',
@@ -14,89 +18,24 @@ export class ListVisitComponent implements OnInit {
   private _router = inject(Router);
   private _visitService = inject(VisitService);
 
-  @ViewChild('modalTypeVisit') modalTypeVisit!: IonModal;
+  isLoadingVisit: boolean = false;
+  listVisits: IVisit[]=[];
+  selectedVisit!: IVisit;
+  isOpenDetail: boolean = false;
 
-  visitData = [
-    {
-      name: 'John Doe',
-      licensePlate: 'ABC123',
-      id: '123456789',
-      date: '01/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-    {
-      name: 'Mary Smith',
-      licensePlate: 'XYZ789',
-      id: '987654321',
-      date: '02/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-    {
-      name: 'Carlos Rodriguez',
-      licensePlate: 'DEF456',
-      id: '456789012',
-      date: '03/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-    {
-      name: 'Ana Martinez',
-      licensePlate: 'GHI789',
-      id: '345678901',
-      date: '04/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-    {
-      name: 'Luisa Gonzalez',
-      licensePlate: 'JKL012',
-      id: '901234567',
-      date: '05/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-    {
-      name: 'Pedro Sanchez',
-      licensePlate: 'MNO345',
-      id: '678901234',
-      date: '06/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-    {
-      name: 'Isabel Ramirez',
-      licensePlate: 'PQR678',
-      id: '123450987',
-      date: '07/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-    {
-      name: 'Ricardo Flores',
-      licensePlate: 'STU901',
-      id: '890123456',
-      date: '08/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-    {
-      name: 'Elena Herrera',
-      licensePlate: 'VWX234',
-      id: '567890123',
-      date: '09/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-    {
-      name: 'Mario Jimenez',
-      licensePlate: 'YZA567',
-      id: '234567890',
-      date: '10/12/2023',
-      imageUrl: 'https://img.freepik.com/foto-gratis/mujer-sentada-su-auto-nuevo_1303-31672.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais',
-    },
-  ];
-  
-  constructor() { }
+  @ViewChild('modalTypeVisit') modalTypeVisit!: IonModal;
+  @ViewChild('modalDetailVisit') modalDetailVisit!: IonModal;
+
+
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {
+    this.getVisits();
   }
 
   controlValueChangeFilter(formControl: FormControl) {
     if (this.filterInput !== formControl) {
-      
+
     }
   }
 
@@ -106,13 +45,52 @@ export class ListVisitComponent implements OnInit {
       : this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-preauthorized');
 
       this.modalTypeVisit.dismiss();
-  } 
+  }
 
   showVisitors(visitType:string){
     this._visitService.setVisitType(visitType);
     this._router.navigateByUrl('/guard-gate/tabs/visit/visitors');
   }
 
-  
+  getVisits() {
+    this.isLoadingVisit = true;
+
+    const queryParams: IGeneralRequestPagination = {
+      limit: 1000,
+    };
+
+    this._visitService.getVisits(queryParams).subscribe({
+      next: (res) => {
+        this.isLoadingVisit = false;
+        this.listVisits = res.data.records;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoadingVisit = false;
+      },
+    });
+  }
+
+
+
+
+
+
+
+
+/*******DETAIL VISIT****************/
+
+  openDetailVisit(visit: IVisit){
+    this.selectedVisit = visit;
+    this.isOpenDetail = true;
+  }
+
+  async modalDidDismiss() {
+    this.isOpenDetail = false;
+  }
+
+  closeDetail(){
+    this.isOpenDetail = false;
+  }
+
 
 }
