@@ -69,8 +69,8 @@
           <span class="visitors-title">Visitantes (2)</span>
           <div class="list-visitors">
 
-            <div class="item-visitor">
-              <shared-avatar [initials]="'DA'"></shared-avatar>
+            <div class="item-visitor" *ngFor="let visitor of selectedVisit.visitors">
+              <shared-avatar [initials]="visitor.initials"></shared-avatar>
               <span>Daniel Asanza</span>
             </div>
             <div class="item-visitor">

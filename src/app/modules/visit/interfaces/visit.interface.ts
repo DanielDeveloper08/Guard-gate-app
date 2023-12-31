@@ -27,6 +27,7 @@ export interface IAddVisitRequest{
     validityHours: number;
     listVisitors:  number[];
     type:          string;
+    reason?:       string;
 }
 
 
