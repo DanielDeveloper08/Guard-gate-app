@@ -9,6 +9,7 @@ import { VisitorService } from '../../services/visitors.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IGeneralRequestPagination } from '../../../../shared/interfaces/general.interface';
 import { VisitService } from '../../../visit/services/visit.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-list-visitors',
@@ -20,6 +21,7 @@ export class ListVisitorsComponent implements OnInit {
   private _router = inject(Router);
   private _visitorService = inject(VisitorService);
   private _visitService = inject(VisitService);
+  private _modalService = inject(ModalService);
 
   filterInput: FormControl = new FormControl('', Validators.required);
   isNewVisit: boolean = false;
@@ -33,6 +35,11 @@ export class ListVisitorsComponent implements OnInit {
 
     this._visitorService.listSelectedVisitors.subscribe( change => {
       this.listVisitorsSelected = change;
+    })
+
+    //Se cierra modal cuando se termina el flujo de visita
+    this._modalService.closeModalEvent.subscribe(()=>{
+      this.closeModal();
     })
   }
 

@@ -6,7 +6,7 @@ import { VisitService } from '../../services/visit.service';
 import { IGeneralRequestPagination } from '../../../../shared/interfaces/general.interface';
 import { IVisit } from '../../interfaces/visit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DetailVisitComponent } from '../../components/detail-visit/detail-visit.component';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'list-visit',
@@ -17,6 +17,7 @@ export class ListVisitComponent implements OnInit {
   filterInput: FormControl = new FormControl('', Validators.required);
   private _router = inject(Router);
   private _visitService = inject(VisitService);
+  private _modalService = inject(ModalService);
 
   isLoadingVisit: boolean = false;
   listVisits: IVisit[]=[];
@@ -24,13 +25,16 @@ export class ListVisitComponent implements OnInit {
   isOpenDetail: boolean = false;
 
   @ViewChild('modalTypeVisit') modalTypeVisit!: IonModal;
-  @ViewChild('modalDetailVisit') modalDetailVisit!: IonModal;
 
 
   constructor(private modalController: ModalController) { }
 
   ngOnInit() {
     this.getVisits();
+
+    this._modalService.closeModalEvent.subscribe(()=> {
+      this.modalTypeVisit.dismiss();
+    })
   }
 
   ionViewWillEnter(){
@@ -41,14 +45,6 @@ export class ListVisitComponent implements OnInit {
     if (this.filterInput !== formControl) {
 
     }
-  }
-
-  goToAddVisit(typeVisit:string){
-    typeVisit == 'qr'
-      ? this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr')
-      : this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-preauthorized');
-
-      this.modalTypeVisit.dismiss();
   }
 
   showVisitors(visitType:string){

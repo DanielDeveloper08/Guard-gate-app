@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 import { ResidenceService } from '../../../profile/services/residence.service';
 import { IMainHome } from 'src/app/modules/home/interfaces/home.interface';
@@ -10,6 +10,9 @@ import { IonModal } from '@ionic/angular';
 import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface';
 import { VisitService } from '../../services/visit.service';
 import { IAddVisitRequest } from '../../interfaces/visit.interface';
+import { ToastService } from 'src/app/shared/services';
+import { Position } from '../../../../shared/interfaces/toast.interface';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-add-visit-qr',
@@ -17,14 +20,15 @@ import { IAddVisitRequest } from '../../interfaces/visit.interface';
   styleUrls: ['./add-visit-qr.component.scss'],
 })
 export class AddVisitQrComponent implements OnInit {
-  private _residenceService = inject(ResidenceService);
   private _formBuilder = inject(FormBuilder);
   private _visitorService = inject(VisitorService);
   private _visitService = inject(VisitService);
+  private _router = inject(Router);
+  private _toastService = inject(ToastService);
+  private _modalService = inject(ModalService);
 
   @ViewChild('modal') modal!: IonModal;
   user: IUser = JSON.parse(localStorage.getItem('user')!);
-  mainResidence!: IMainHome;
   visitForm!: FormGroup;
   selectedVisitors: IVisitor[] = [];
   isOpenDateTime: boolean = false;
@@ -35,7 +39,6 @@ export class AddVisitQrComponent implements OnInit {
   idNewVisit: string = "No existe visita registrada";
 
   ngOnInit() {
-    this.getResidences();
     this.createForm();
     this.visitForm.valueChanges.subscribe((change) => {
       this.endDateValue = this.calcularFechaFin();
@@ -62,22 +65,6 @@ export class AddVisitQrComponent implements OnInit {
       validityHours: ['0', [Validators.required]],
       listVisitors: [[], [Validators.required]],
       reason: [""]
-    });
-  }
-
-  getResidences() {
-    this._residenceService.getResidencesByUser().subscribe({
-      next: (res) => {
-        const home: IMainHome = {
-          id: res.data.id,
-          names: res.data.names,
-          surnames: res.data.surnames,
-          residence:
-            res.data.residences.find((residence) => residence.isMain)! ?? null,
-        };
-        this.mainResidence = home;
-      },
-      error: (err: HttpErrorResponse) => {},
     });
   }
 
@@ -150,18 +137,21 @@ obtenerFechaActualEnFormato = (): string => {
     this.isLoadingVisit = true;
     this._visitService.saveVisit(visitData).subscribe({
       next: (res) => {
-        // this._toastService.showSuccess("Visitante registrado con éxito", Position.Top);
+        this._toastService.showSuccess("Visita registrada con éxito", Position.Top);
         this.isLoadingVisit = false;
-        this.sharedQR(res.data.id);
+
+        this._router.navigate(["/guard-gate/tabs/visit/success-qr", {
+          startDate: this.startDateValue,
+          endDate: this.endDateValue,
+          idVisita: res.data.id
+        }]);
+        this.modal.dismiss();
+        this._modalService.emitCloseModalEvent();
       },
       error: (err: HttpErrorResponse) => {
         this.isLoadingVisit = false;
       },
     });
-  }
-
-  sharedQR(idVisit: number){
-      this.idNewVisit = idVisit.toString();
   }
 
   controlValueReason(formControl: FormControl){
