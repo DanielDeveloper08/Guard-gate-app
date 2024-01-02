@@ -33,6 +33,10 @@ export class ListVisitComponent implements OnInit {
     this.getVisits();
   }
 
+  ionViewWillEnter(){
+    this.getVisits();
+  }
+
   controlValueChangeFilter(formControl: FormControl) {
     if (this.filterInput !== formControl) {
 

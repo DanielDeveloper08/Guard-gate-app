@@ -1,4 +1,7 @@
+const BASE_URL:string = 'https://guardgatedeploy.onrender.com';
+
 export const environment = {
-    production: false,
-    URL_API: 'https://guardgatedeploy.onrender.com/api/v1',
-  };
+  production: false,
+  URL_API: `${BASE_URL}/api/v1`,
+  SOCKET_URL: BASE_URL
+};

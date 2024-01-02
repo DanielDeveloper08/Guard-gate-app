@@ -10,36 +10,44 @@ import { Position } from '../../../../shared/interfaces/toast.interface';
 @Component({
   selector: 'app-add-visitor',
   templateUrl: './add-visitor.component.html',
-  styleUrls: ['./add-visitor.component.scss']
+  styleUrls: ['./add-visitor.component.scss'],
 })
 export class AddVisitorComponent implements OnInit {
   @ViewChild('modal') modal!: IonModal;
   isLoadingSave: boolean = false;
+  validForm: boolean = false;
+  validVisitForm: boolean = false;
   visitor!: IAddVisitorRequest;
   private _router = inject(Router);
   private _toastService = inject(ToastService);
   private _visitorService = inject(VisitorService);
 
+  constructor() {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-  closeModalVisitors(){
+  closeModalVisitors() {
     this._router.navigateByUrl('/guard-gate/visitors');
     this.modal.dismiss();
   }
 
-  getValuesVisitor(visitor: IAddVisitorRequest){
+  visitorFormEvent(visitor: IAddVisitorRequest) {
     this.visitor = visitor;
   }
 
-  saveVisitor(){
+  saveVisitor() {
+    if (!this.validForm) {
+      this.validVisitForm = true;
+      return;
+    }
+
     this.isLoadingSave = true;
     this._visitorService.saveVisitors(this.visitor).subscribe({
       next: (res) => {
-        this._toastService.showSuccess("Visitante registrado con éxito", Position.Top);
+        this._toastService.showSuccess(
+          'Visitante registrado con éxito',
+          Position.Top
+        );
         this.isLoadingSave = false;
         this.closeModalVisitors();
       },
@@ -49,4 +57,7 @@ export class AddVisitorComponent implements OnInit {
     });
   }
 
+  setValidForm(event: boolean) {
+    this.validForm = event;
+  }
 }

@@ -10,11 +10,16 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-        <form-visitor (visitorFormEvent)="getValuesVisitor($event)"></form-visitor>
-        <shared-button 
+      <form-visitor
+        [validForm]="validVisitForm"
+        (visitorFormEvent)="visitorFormEvent($event)"
+        (validVisitFormEvent)="setValidForm($event)"
+      ></form-visitor>
+      <shared-button
         [label]="'Guardar'"
         (click)="saveVisitor()"
-        [isLoading]="isLoadingSave">
+        [isLoading]="isLoadingSave"
+      >
       </shared-button>
     </ion-content>
   </ng-template>
