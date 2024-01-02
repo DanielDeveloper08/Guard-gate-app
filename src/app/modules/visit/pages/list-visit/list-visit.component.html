@@ -1,6 +1,9 @@
 <shared-header [title]="'Visitas'"> </shared-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="container-filter-new-visit">
     <shared-button [label]="'Nueva visita'" id="open-modal"> </shared-button>
 
@@ -15,7 +18,7 @@
     ></shared-input>
   </div>
 
-  <div *ngFor="let visit of listVisits" class="item-visit">
+  <div *ngFor="let visit of listVisits | customFilter : filterInput.value" class="item-visit">
     <card-visit
       [visit]="visit"
       (emitOpenDetail)="openDetailVisit($event)"

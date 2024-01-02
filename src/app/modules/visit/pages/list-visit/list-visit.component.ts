@@ -41,10 +41,15 @@ export class ListVisitComponent implements OnInit {
     this.getVisits();
   }
 
-  controlValueChangeFilter(formControl: FormControl) {
-    if (this.filterInput !== formControl) {
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      this.getVisits();
+      event.target.complete();
+    }, 2000);
+  }
 
-    }
+  controlValueChangeFilter(formControl: FormControl) {
+    this.filterInput = formControl;
   }
 
   showVisitors(visitType:string){

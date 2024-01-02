@@ -27,7 +27,6 @@ export class AddVisitorComponent implements OnInit {
   ngOnInit() {}
 
   closeModalVisitors() {
-    this._router.navigateByUrl('/guard-gate/visitors');
     this.modal.dismiss();
   }
 
@@ -49,6 +48,7 @@ export class AddVisitorComponent implements OnInit {
           Position.Top
         );
         this.isLoadingSave = false;
+        this._router.navigateByUrl('/guard-gate/visitors');
         this.closeModalVisitors();
       },
       error: (err: HttpErrorResponse) => {

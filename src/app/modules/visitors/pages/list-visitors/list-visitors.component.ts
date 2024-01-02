@@ -43,6 +43,19 @@ export class ListVisitorsComponent implements OnInit {
     })
   }
 
+  ionViewWillEnter(){
+    if(!this.isNewVisit){
+      this.getVisitors();
+    }
+  }
+
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      this.getVisitors();
+      event.target.complete();
+    }, 2000);
+  }
+
   private handleRouteParams() {
     const visitType = this._visitService.visitState.visitType;
     if (visitType === 'qr' || visitType === 'preautorizado') {

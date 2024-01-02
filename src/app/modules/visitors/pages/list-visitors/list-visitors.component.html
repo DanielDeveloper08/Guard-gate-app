@@ -10,6 +10,9 @@
       [urlNext]="isNewVisit ?'/guard-gate/tabs/visit/add-visit-qr': ''"
     ></shared-header>
     <ion-content class="ion-padding">
+      <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
       <div class="container-list-visitors">
         <shared-button
           [label]="'Nuevo visitante'"

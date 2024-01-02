@@ -7,6 +7,7 @@ import { ToastService } from '../../../../shared/services/toast.service';
 import { Position } from '../../../../shared/interfaces/toast.interface';
 import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 import { RoleTypeEnum } from 'src/app/shared/interfaces/general.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,8 @@ export class ProfileComponent implements OnInit {
   private modalCtrl = inject(ModalController);
   private _residenceService = inject(ResidenceService);
   private _toastService = inject(ToastService);
+  private _router = inject(Router);
+
   namesUser!: string;
 
   ngOnInit() {
@@ -37,7 +40,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getResidences(idResidence: number){
-    
+
     this._residenceService.setMainResidence(idResidence).subscribe({
       next: (res) => {
         // this._router.navigateByUrl("/home");
@@ -50,8 +53,8 @@ export class ProfileComponent implements OnInit {
   }
 
   logOut(){
-
     localStorage.clear();
+    this._router.navigateByUrl('/login');
   }
 
   isResident(){
