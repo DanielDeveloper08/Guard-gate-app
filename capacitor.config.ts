@@ -3,7 +3,7 @@ import { KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
   appId: 'com.guardgate.app',
-  appName: 'guard-gate-app',
+  appName: 'Guard Gate',
   webDir: 'dist/guard-gate-app',
   server: {
     androidScheme: 'https'

@@ -4,8 +4,7 @@ import { ResidenceService } from '../../../profile/services/residence.service';
 import { IMainHome } from 'src/app/modules/home/interfaces/home.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VisitService } from '../../services/visit.service';
-import { IonModal, ModalController } from '@ionic/angular';
+import { IonModal } from '@ionic/angular';
 
 @Component({
   selector: 'success-visit-qr-modal',
@@ -15,7 +14,6 @@ import { IonModal, ModalController } from '@ionic/angular';
 export class SuccessVisitQrComponent implements OnInit {
   private _residenceService = inject(ResidenceService);
   private _router = inject(Router);
-  private _visitService = inject(VisitService);
 
   mainResidence!: IMainHome;
   user: IUser = JSON.parse(localStorage.getItem('user')!);

@@ -17,7 +17,6 @@
       (controlValueChange)="controlValueChangeFilter($event)"
     ></shared-input>
   </div>
-
   <div *ngFor="let visit of listVisits | customFilter : filterInput.value" class="item-visit">
     <card-visit
       [visit]="visit"
