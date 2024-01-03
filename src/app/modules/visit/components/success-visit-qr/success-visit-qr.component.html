@@ -1,0 +1,64 @@
+<ion-modal [isOpen]="true" #visitSuccess>
+
+  <ng-template>
+    <shared-header
+    [title]="'Visita QR'"
+    ></shared-header>
+    <div class="container-success-visit">
+
+      <div class="header-success-visit">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        <span> Visita generada exitosamente </span>
+      </div>
+      <span>Recuerda que los visitantes recibirán el código QR en sus conversaciones de WhatsApp.</span>
+      <div class="qrcodeImage">
+        <div class="logo">
+          <img src="assets/logo-white.svg" alt="logo" />
+        </div>
+
+        <ng-container *ngIf="!mainResidence; else residenceDetails">
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 70%; height: 1rem"
+          ></ion-skeleton-text>
+        </ng-container>
+
+        <ng-template #residenceDetails>
+          <div>
+            {{ mainResidence.residence.urbanization | camelCase }}
+            Mz.{{ mainResidence.residence.block }} V.{{
+              mainResidence.residence.town
+            }}
+          </div>
+        </ng-template>
+
+        <qrcode
+          [qrdata]="idNewVisit"
+          [allowEmptyString]="true"
+          [ariaLabel]="'QR Code image with the following content...'"
+          [cssClass]="'center'"
+          [colorDark]="'#2755e9'"
+          [colorLight]="'#ffffffff'"
+          [elementType]="'canvas'"
+          [errorCorrectionLevel]="'M'"
+          [imageSrc]="'./assets/icono-guard-gate.png'"
+          [imageHeight]="35"
+          [imageWidth]="35"
+          [margin]="0"
+          [scale]="1"
+          [title]="'A custom title attribute'"
+          [width]="210"
+        ></qrcode>
+        <div>Autorizado por: {{ user.names }} {{ user.surnames }}</div>
+        <div class="description-qr">
+          Código válido para un ingreso desde {{ startDateValue }} hasta
+          {{ endDateValue }}
+        </div>
+      </div>
+      <shared-button
+        [label]="'Ver lista de visitas'"
+        (click)="goToListVisits()"
+      ></shared-button>
+    </div>
+  </ng-template>
+</ion-modal>

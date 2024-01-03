@@ -1,5 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title class="ion-text-center">{{title}}</ion-title>
+    <ion-buttons slot="start" (click)="back()" class="button-back">
+      <ion-icon
+        *ngIf="backIcon"
+        name="chevron-back-outline"
+        class="icon"
+      ></ion-icon>
+      <ion-label *ngIf="backIcon">Atrás</ion-label>
+      <ion-label *ngIf="cancelButton">Cancelar</ion-label>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{ title }}</ion-title>
+    <ion-buttons
+      slot="end"
+      (click)="next()"
+      *ngIf="urlNext"
+      class="button-next"
+    >
+      <ion-label [ngClass]="{'disabled-next': disabledNextButton}">Sig.</ion-label>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>

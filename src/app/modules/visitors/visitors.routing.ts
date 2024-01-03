@@ -4,20 +4,16 @@ import { AddVisitorComponent } from './pages/add-visitor/add-visitor.component';
 import { ListVisitorsComponent } from "./pages/list-visitors/list-visitors.component";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'view-visitors' },
+  { path: '', pathMatch: 'full', redirectTo: 'list-visitors' },
   {
-    path: 'view-visitors',
+    path: 'list-visitors',
     component: ListVisitorsComponent,
   },
   {
     path: 'add-visitor',
     component: AddVisitorComponent
   },
-  {
-    path: 'list-visitor/:isVisit',
-    component: ListVisitorsComponent
-  },
-  { path: '**', redirectTo: 'view-visitors' } // Cambiado a 'view-visitors' para redirigir a esa ruta en caso de ruta no válida
+  { path: '**', redirectTo: 'list-visitors' }
 ];
 
 @NgModule({

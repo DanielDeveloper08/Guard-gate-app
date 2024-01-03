@@ -17,11 +17,30 @@
 
 .container-detail-visit {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 
   .container-img {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    ion-icon{
+      font-size: 3rem;
+    }
+  }
+
+  .action-visit {
+    background-color: var(--silver-50);
+    border-radius: 50%;
+    border: 0.5px solid var(--silver-200);
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+    font-size: 1.3rem;
   }
 }

@@ -1,62 +1,77 @@
-<shared-header [title]="'Visita QR'"> </shared-header>
-<ion-content [fullscreen]="true" class="ion-padding" id="containerQR" #containerQR>
-  <div class="container-qr">
-    <div class="title-qr">Preautorizar por QR</div>
+<ion-modal #modal [isOpen]="true">
+  <ng-template>
+    <shared-header
+      [title]="'Visita QR'"
+      [urlBack]="'guard-gate/tabs/visit/visitors/list-visitors'"
+      [backIcon]="true"
+      (backClick)="closeModal()"
+    >
+    </shared-header>
+    <ion-content
+      [fullscreen]="true"
+      class="ion-padding"
+      id="containerQR"
+      #containerQR
+    >
+      <div class="container-qr">
 
-    <div class="qrcodeImage">
-      <div class="logo">
-        <img src="assets/logo-white.svg" alt="logo" />
-      </div>
-      <div>Princesa Kate Mz.14 V.21</div>
-      <qrcode
-        [qrdata]="'https://github.com/Cordobo/angularx-qrcode'"
-        [allowEmptyString]="true"
-        [ariaLabel]="'QR Code image with the following content...'"
-        [cssClass]="'center'"
-        [colorDark]="'#2755e9'"
-        [colorLight]="'#ffffffff'"
-        [elementType]="'canvas'"
-        [errorCorrectionLevel]="'M'"
-        [imageSrc]="'./assets/icono-guard-gate.png'"
-        [imageHeight]="40"
-        [imageWidth]="40"
-        [margin]="0"
-        [scale]="1"
-        [title]="'A custom title attribute'"
-        [width]="210"
-      ></qrcode>
-      <div>Autorizado por: Daniel Asanza Erazo</div>
-      <div class="description-qr">
-        Código válido para un ingreso desde 10/12/2023 23H00 hasta 11/12/2023
-        23H55
-      </div>
-    </div>
-    <shared-button [label]="'Seleccionar visitantes'" (click)="showVisitors()"> </shared-button>
+        <div class="title-qr">Visitantes ({{selectedVisitors.length}})</div>
+        <selected-visitors
+          [listVisitor]="selectedVisitors"
+          (changeVisitors)="changeVisitors()"
+        >
+        </selected-visitors>
 
-    <div class="form-qr">
-      <div class="item-input">
-        <label>Fecha de inicio de validez</label>
-        <ion-datetime-button class="select-datetime" datetime="datetime"></ion-datetime-button>
+        <div class="form-qr" [formGroup]="visitForm">
 
-        <ion-modal [keepContentsMounted]="true">
-          <ng-template>
-            <ion-datetime id="datetime"></ion-datetime>
-          </ng-template>
-        </ion-modal>
-      </div>
-      <div class="item-input">
-        <label>Horas de validez</label>
+          <div class="item-input">
+            <label>Fecha de inicio de validez</label>
+            <shared-select-date
+              [isOpen]="isOpenDateTime"
+              (selectedDateTime)="selectedDateTime($event)"
+            >
+            </shared-select-date>
+            <div class="select-datetime" (click)="openDateTimeModal()">
+              <span>{{ startDateValue.split(",")[0] }}</span>
+              <span>{{ startDateValue.split(",")[1] }}</span>
+            </div>
+          </div>
+          <div class="item-input">
+            <label>Horas de validez</label>
 
-          <ion-select label="Horas" justify="space-between" class="select-hours" interface="action-sheet" placeholder="0H">
-            <ion-select-option value="1">1H</ion-select-option>
-            <ion-select-option value="3">3H</ion-select-option>
-            <ion-select-option value="6">6H</ion-select-option>
-            <ion-select-option value="12">12H</ion-select-option>
-            <ion-select-option value="24">24H</ion-select-option>
-          </ion-select>
-   
+            <ion-select
+              label="Horas"
+              justify="space-between"
+              class="select-hours"
+              interface="action-sheet"
+              placeholder="0H"
+              formControlName="validityHours"
+            >
+              <ion-select-option value="1">1H</ion-select-option>
+              <ion-select-option value="3">3H</ion-select-option>
+              <ion-select-option value="6">6H</ion-select-option>
+              <ion-select-option value="12">12H</ion-select-option>
+              <ion-select-option value="24">24H</ion-select-option>
+            </ion-select>
+          </div>
+          <div class="item-input">
+            <label>Motivo de visita (opcional)</label>
+            <div class="container-input-reason">
+              <shared-input
+              [type]="'text'"
+              [maxlength]="30"
+              [placeholder]="'Motivo'"
+              (controlValueChange)="controlValueReason($event)"
+            ></shared-input>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <router-outlet></router-outlet>
-</ion-content>
+      <router-outlet></router-outlet>
+    </ion-content>
+    <ion-footer collapse="fade" class="footer">
+      <shared-button [label]="'Crear Visita'" (click)="saveVisitQR()">
+      </shared-button>
+    </ion-footer>
+  </ng-template>
+</ion-modal>

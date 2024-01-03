@@ -13,6 +13,8 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { TruncateWordPipe } from './pipes/TruncateWord.pipe';
 import { CustomFilterPipe } from './pipes/CustomFilter.pipe';
+import { SelectDateComponent } from './components/select-date/select-date.component';
+import { CustomDatePipe } from './pipes/CustomDate.pipe';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { CustomFilterPipe } from './pipes/CustomFilter.pipe';
     TruncateWordPipe,
     QRCodeModule,
     AvatarComponent,
-    CustomFilterPipe
+    CustomFilterPipe,
+    SelectDateComponent,
+    CustomDatePipe
   ],
   declarations: [
     OtpComponent,
@@ -47,7 +51,9 @@ import { CustomFilterPipe } from './pipes/CustomFilter.pipe';
     CamelCasePipe,
     TruncateWordPipe,
     AvatarComponent,
-    CustomFilterPipe
+    CustomFilterPipe,
+    SelectDateComponent,
+    CustomDatePipe
   ]
 })
 export class SharedModule { }

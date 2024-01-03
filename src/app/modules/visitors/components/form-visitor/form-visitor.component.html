@@ -40,4 +40,16 @@
     [placeholder]="'Cédula'"
     (controlValueChange)="controlValueChangeDocnumber($event)"
   ></shared-input>
+
+  <div class="label">Celular</div>
+  <!-- INPUT PHONE -->
+  <shared-input
+    [startIcon]="'call-outline'"
+    [type]="'text'"
+    [pattern]="'^[0-9]*$'"
+    [maxlength]="10"
+    [minlength]="10"
+    [placeholder]="'Celular'"
+    (controlValueChange)="controlValueChangePhone($event)"
+  ></shared-input>
 </form>

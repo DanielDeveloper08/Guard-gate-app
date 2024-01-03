@@ -1,20 +1,22 @@
 <ion-modal #modal [isOpen]="true">
   <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Registrar visitante</ion-title>
-        <ion-buttons slot="start" (click)="closeModalVisitors()">
-          <ion-icon name="chevron-back-outline"></ion-icon>
-          <ion-button class="button-back">Regresar</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+    <shared-header
+      [cancelButton]="true"
+      [urlBack]="'/guard-gate/visitors'"
+      (backClick)="closeModalVisitors()"
+      [title]="'Nuevo visitante'"
+    ></shared-header>
     <ion-content class="ion-padding">
-        <form-visitor (visitorFormEvent)="getValuesVisitor($event)"></form-visitor>
-        <shared-button 
+      <form-visitor
+        [validForm]="validVisitForm"
+        (visitorFormEvent)="visitorFormEvent($event)"
+        (validVisitFormEvent)="setValidForm($event)"
+      ></form-visitor>
+      <shared-button
         [label]="'Guardar'"
         (click)="saveVisitor()"
-        [isLoading]="isLoadingSave">
+        [isLoading]="isLoadingSave"
+      >
       </shared-button>
     </ion-content>
   </ng-template>

@@ -1,0 +1,8 @@
+<ion-modal [isOpen]="isOpen" [initialBreakpoint]="1" [breakpoints]="[0, 1]" (ionBackdropTap)="handleBackdropTap()">
+  <ng-template>
+    <div class="block ion-padding">
+      <ion-datetime presentation="date-time" [preferWheel]="true" (ionChange)="handleDateTimeChange($event)"></ion-datetime>
+      <shared-button [label]="'Confirmar'" (click)="confirm()"></shared-button>
+    </div>
+  </ng-template>
+</ion-modal>

@@ -1,17 +1,25 @@
 <ion-modal #modal [isOpen]="true">
   <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Visitantes</ion-title>
-        <ion-buttons slot="start" (click)="closeModalVisitors()">
-          <ion-icon name="chevron-back-outline"></ion-icon>
-          <ion-button class="button-back">Regresar</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+    <shared-header
+      [title]="isNewVisit ?'Añade visitantes' : 'Visitantes'"
+      (backClick)="closeModal()"
+      [urlBack]="getBackRoute()"
+      [cancelButton]="isNewVisit && true"
+      [backIcon]="!isNewVisit && true"
+      [disabledNextButton]="listVisitorsSelected.length==0"
+      [urlNext]="isNewVisit ?'/guard-gate/tabs/visit/add-visit-qr': ''"
+    ></shared-header>
     <ion-content class="ion-padding">
+      <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
       <div class="container-list-visitors">
-        <shared-button [label]="'Nuevo visitante'" id="open-modal" *ngIf="!isNewVisit" (click)="goToNewVisitor()">
+        <shared-button
+          [label]="'Nuevo visitante'"
+          id="open-modal"
+          *ngIf="!isNewVisit"
+          (click)="goToNewVisitor()"
+        >
         </shared-button>
         <shared-input
           [startIcon]="'search'"
@@ -23,15 +31,26 @@
           (controlValueChange)="controlValueChangeFilter($event)"
         ></shared-input>
 
-        <selected-visitors [listVisitor]="getSelectedVisitors()"  *ngIf="getSelectedVisitors().length > 0"></selected-visitors>
-   
+        <selected-visitors
+          [listVisitor]="listVisitorsSelected"
+          *ngIf="listVisitorsSelected.length > 0"
+          (changeVisitors)="changeVisitor()"
+        ></selected-visitors>
+
         <div class="list-visitors">
-          <item-visitor *ngFor="let visitor of listVisitors | customFilter: filterInput.value " [visitor]="visitor" [isNewVisit]="isNewVisit"></item-visitor>
+          <item-visitor
+            *ngFor="
+              let visitor of listVisitors | customFilter : filterInput.value
+            "
+            [visitor]="visitor"
+            [isNewVisit]="isNewVisit"
+            (changeVisitors)="changeVisitor()"
+          ></item-visitor>
         </div>
       </div>
+      <div></div>
     </ion-content>
   </ng-template>
 </ion-modal>
 
-<router-outlet></router-outlet>
-
+<ion-router-outlet></ion-router-outlet>

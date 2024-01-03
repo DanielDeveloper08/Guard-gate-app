@@ -1,0 +1,92 @@
+<shared-header [title]="'Visitas'"> </shared-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="container-filter-new-visit">
+    <shared-button [label]="'Nueva visita'" id="open-modal"> </shared-button>
+
+    <shared-input
+      [startIcon]="'search'"
+      [type]="'text'"
+      [pattern]="'^[a-zA-Z0-9\-_.]*'"
+      [maxlength]="14"
+      [minlength]="3"
+      [placeholder]="'Buscar visita'"
+      (controlValueChange)="controlValueChangeFilter($event)"
+    ></shared-input>
+  </div>
+
+  <div *ngFor="let visit of listVisits | customFilter : filterInput.value" class="item-visit">
+    <card-visit
+      [visit]="visit"
+      (emitOpenDetail)="openDetailVisit($event)"
+    ></card-visit>
+  </div>
+  <router-outlet></router-outlet>
+</ion-content>
+
+<ion-modal
+  trigger="open-modal"
+  [initialBreakpoint]="1"
+  [breakpoints]="[0, 1]"
+  #modalTypeVisit
+>
+  <ng-template>
+    <div class="block container-type-visit">
+      <ion-card class="item-type-visit" (click)="showVisitors('qr')">
+        <span>Visita por QR</span>
+      </ion-card>
+      <ion-card class="item-type-visit" (click)="showVisitors('preatorizada')">
+        <span>Visita preautorizada</span>
+      </ion-card>
+    </div>
+  </ng-template>
+</ion-modal>
+
+<ion-modal
+  [isOpen]="isOpenDetail"
+  [initialBreakpoint]="1"
+  [breakpoints]="[0, 1]"
+  #modalTypeVisit
+  (ionModalDidDismiss)="modalDidDismiss()"
+>
+  <ng-template>
+    <div class="container-detail-visit">
+      <div class="close-icon">
+        <ion-icon name="close-outline" (click)="closeDetail()"></ion-icon>
+      </div>
+      <div class="header-detail">
+
+        <div class="container-img">
+          <ion-icon name="people-circle-outline"></ion-icon>
+        </div>
+        <div class="reason-visit">
+          <span class="reason-title">Fiesta navideña</span>
+          <span class="date-visit">Visita creada 30/12/2023</span>
+        </div>
+      </div>
+      <div class="body-detail">
+        <div class="container-visitors">
+          <span class="visitors-title">Visitantes (2)</span>
+          <div class="list-visitors">
+
+            <div class="item-visitor" *ngFor="let visitor of selectedVisit.visitors">
+              <shared-avatar [initials]="visitor.initials"></shared-avatar>
+              <span>Daniel Asanza</span>
+            </div>
+            <div class="item-visitor">
+              <shared-avatar [initials]="'PR'"></shared-avatar>
+              <span>Paulina Rodríguez</span>
+            </div>
+          </div>
+        </div>
+        <shared-button
+          [label]="'Eliminar visita'"
+          [icon]="'trash-outline'"
+        ></shared-button>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>

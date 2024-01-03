@@ -9,8 +9,15 @@ ion-button {
     --border-radius: .7rem;
     // --background-hover: #2a3240;
     // --background-activated: #1a253a;
-
+    .label{
+      margin-left: .5rem;
+    }
     .loading-button{
       margin-left: 1rem;
     }
+  }
+
+  .outline{
+    --background: var(--silver-50);
+    color: black;
   }

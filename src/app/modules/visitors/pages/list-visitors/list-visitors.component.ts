@@ -1,12 +1,15 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router, RouterEvent } from '@angular/router';
+import {
+  Router,
+} from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { IVisitor } from '../../interfaces/visitor.interface';
 import { FormControl, Validators } from '@angular/forms';
 import { VisitorService } from '../../services/visitors.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { filter } from 'rxjs';
 import { IGeneralRequestPagination } from '../../../../shared/interfaces/general.interface';
+import { VisitService } from '../../../visit/services/visit.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-list-visitors',
@@ -16,22 +19,48 @@ import { IGeneralRequestPagination } from '../../../../shared/interfaces/general
 export class ListVisitorsComponent implements OnInit {
   @ViewChild('modal') modal!: IonModal;
   private _router = inject(Router);
-  private _activatedRoute = inject(ActivatedRoute);
+  private _visitorService = inject(VisitorService);
+  private _visitService = inject(VisitService);
+  private _modalService = inject(ModalService);
+
   filterInput: FormControl = new FormControl('', Validators.required);
   isNewVisit: boolean = false;
   isLoadingVisitors: boolean = false;
-  private _visitorService = inject(VisitorService);
   listVisitors: IVisitor[] = [];
+  listVisitorsSelected: IVisitor[] = [];
 
   ngOnInit() {
     this.getVisitors();
     this.handleRouteParams();
+
+    this._visitorService.listSelectedVisitors.subscribe( change => {
+      this.listVisitorsSelected = change;
+    })
+
+    //Se cierra modal cuando se termina el flujo de visita
+    this._modalService.closeModalEvent.subscribe(()=>{
+      this.closeModal();
+    })
+  }
+
+  ionViewWillEnter(){
+    if(!this.isNewVisit){
+      this.getVisitors();
+    }
+  }
+
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      this.getVisitors();
+      event.target.complete();
+    }, 2000);
   }
 
   private handleRouteParams() {
-    this._activatedRoute.paramMap.subscribe(
-      (params) => (this.isNewVisit = params.get('isVisit') === 'true')
-    );
+    const visitType = this._visitService.visitState.visitType;
+    if (visitType === 'qr' || visitType === 'preautorizado') {
+      this.isNewVisit = true;
+    }
   }
 
   private initializeVisitors() {
@@ -42,12 +71,16 @@ export class ListVisitorsComponent implements OnInit {
     this.modal.present();
   }
 
-  closeModalVisitors() {
+  getBackRoute() {
+    return this.isNewVisit
+      ? '/guard-gate/tabs/visit/list-visit'
+      : '/guard-gate/tabs/home';
+  }
+
+  closeModal() {
+    this._visitorService.updateListSelectedVisitors([]);
+    this._visitService.clearVisitState();
     this.modal.dismiss();
-    this.isNewVisit 
-      ? this._router.navigateByUrl('/guard-gate/tabs/visit/add-visit-qr')
-      : this._router.navigateByUrl('/guard-gate/tabs/home');
-    
   }
 
   controlValueChangeFilter(formControl: FormControl) {
@@ -63,16 +96,19 @@ export class ListVisitorsComponent implements OnInit {
     visitor.initials = letterName.concat(letterSurname);
   }
 
-  getSelectedVisitors() {
-    return this.listVisitors.filter((visitor) => visitor.isSelected);
+  changeVisitor() {
+    const filterVisitorsSelected = this.listVisitors.filter(
+      (visitor) => visitor.isSelected
+    );
+    this._visitorService.updateListSelectedVisitors(filterVisitorsSelected);
   }
 
   getVisitors() {
     this.isLoadingVisitors = true;
 
     const queryParams: IGeneralRequestPagination = {
-      limit: 1000
-    }
+      limit: 1000,
+    };
 
     this._visitorService.getVisitors(queryParams).subscribe({
       next: (res) => {
@@ -86,7 +122,8 @@ export class ListVisitorsComponent implements OnInit {
     });
   }
 
-  goToNewVisitor(){
-    this._router.navigateByUrl('/guard-gate/visitors/add-visitor')
+  goToNewVisitor() {
+    this._router.navigateByUrl('/guard-gate/visitors/add-visitor');
   }
+
 }

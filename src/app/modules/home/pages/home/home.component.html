@@ -21,9 +21,20 @@
     
     </div>
 
-    <div class="panic-button">
+    <div class="panic-button" >
       <span>Botón de pánico</span>
       <ion-icon name="megaphone-outline"></ion-icon>
     </div>
+    <div class="last-visits">
+      <span class="tittle">Visitas pendientes</span>
+      <div class="list-last-visits">
+        <div *ngFor="let visit of visitData" >
+          <last-visit [visit]="visit"></last-visit>
+        </div>
+      </div>
+    
+    </div>
   </div>
+
+
 </ion-content>
