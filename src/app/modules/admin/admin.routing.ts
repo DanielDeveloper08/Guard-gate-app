@@ -10,7 +10,7 @@ const routes: Routes = [
     component: DashboardComponent,
     children:[
       {path:'roles', component: ListRole},
-      {path:'edit-role/:role', component: EditRoleComponent},
+      {path:'edit-role', component: EditRoleComponent},
     ],
     
   },
