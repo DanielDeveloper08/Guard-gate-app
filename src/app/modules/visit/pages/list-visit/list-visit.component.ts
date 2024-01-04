@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonModal, ModalController } from '@ionic/angular';
+import { IonModal } from '@ionic/angular';
 import { VisitService } from '../../services/visit.service';
 import { IGeneralRequestPagination } from '../../../../shared/interfaces/general.interface';
 import { IVisit } from '../../interfaces/visit.interface';
@@ -27,7 +27,7 @@ export class ListVisitComponent implements OnInit {
   @ViewChild('modalTypeVisit') modalTypeVisit!: IonModal;
 
 
-  constructor(private modalController: ModalController) { }
+  constructor() { }
 
   ngOnInit() {
     this.getVisits();

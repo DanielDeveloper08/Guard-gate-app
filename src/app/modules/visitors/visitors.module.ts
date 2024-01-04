@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ItemVisitorComponent } from './components/item-visitor/item-visitor.component';
 import { SelectedVisitorsComponent } from './components/selected-visitors/selected-visitors.component';
 import { FormVisitorComponent } from './components/form-visitor/form-visitor.component';
+import { ActionsModalComponent } from './components/actions-modal/actions-modal.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { FormVisitorComponent } from './components/form-visitor/form-visitor.com
     AddVisitorComponent,
     ItemVisitorComponent,
     SelectedVisitorsComponent,
-    FormVisitorComponent
+    FormVisitorComponent,
+    ActionsModalComponent
   ],
   exports: [
     SelectedVisitorsComponent

@@ -10,6 +10,7 @@ export class ItemVisitorComponent implements OnInit {
   @Input() visitor!: IVisitor;
   @Input() isNewVisit: boolean=false;
   @Output() changeVisitors: EventEmitter<void> = new EventEmitter<void>();
+  @Output() actionsEvent: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit() {}
 
@@ -17,5 +18,9 @@ export class ItemVisitorComponent implements OnInit {
     if(!this.isNewVisit) return
     visitor.isSelected = !visitor.isSelected;
     this.changeVisitors.emit();
+  }
+
+  clickActions(){
+    this.actionsEvent.emit();
   }
 }

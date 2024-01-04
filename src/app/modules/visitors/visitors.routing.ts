@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'add-visitor',
     component: AddVisitorComponent
   },
+  {
+    path: 'edit-visitor/:idVisitor',
+    component: AddVisitorComponent
+  },
   { path: '**', redirectTo: 'list-visitors' }
 ];
 

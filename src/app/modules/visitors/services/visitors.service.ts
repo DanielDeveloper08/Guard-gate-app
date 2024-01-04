@@ -10,6 +10,7 @@ import { QueryBuilderService } from '../../../shared/services/query-builder.serv
 import {
   IAddVisitorRequest,
   IAddVisitorResponse,
+  IEditVisitorRequest,
   IVisitor,
   IVisitorResponse,
 } from '../interfaces/visitor.interface';
@@ -21,7 +22,9 @@ export class VisitorService {
   private _httpClient = inject(HttpClient);
   private urlBase: string = environment.URL_API;
   private _queryBuilderService = inject(QueryBuilderService);
-  listSelectedVisitors: BehaviorSubject<IVisitor[]> = new BehaviorSubject<IVisitor[]>([]);
+  listSelectedVisitors: BehaviorSubject<IVisitor[]> = new BehaviorSubject<
+    IVisitor[]
+  >([]);
 
   /**
    * Obtener todos los visitantes registrados
@@ -52,7 +55,46 @@ export class VisitorService {
     );
   }
 
-  updateListSelectedVisitors(listVisitor: IVisitor[]){
+  /**
+   * Editar un visitante
+   * @param params
+   * @returns
+   */
+  editVisitor(
+    params: IEditVisitorRequest,
+    idVisitor: number
+  ): Observable<IGeneralResponse<any>> {
+    return this._httpClient.put<IGeneralResponse<any>>(
+      `${this.urlBase}/visitors/${idVisitor}`,
+      params
+    );
+  }
+
+  /**
+   * Obtener visitante por id
+   * @param params
+   * @returns
+   */
+  getVisitorById(
+    params?: number
+  ): Observable<IGeneralResponse<IAddVisitorResponse>> {
+    return this._httpClient.get<IGeneralResponse<IAddVisitorResponse>>(
+      `${this.urlBase}/visitors/${params}`
+    );
+  }
+
+  /**
+   * Eliminar un visitante
+   * @param params
+   * @returns
+   */
+  deleteVisitor(idVisitor: number): Observable<IGeneralResponse<any>> {
+    return this._httpClient.delete<IGeneralResponse<any>>(
+      `${this.urlBase}/visitors/${idVisitor}`
+    );
+  }
+
+  updateListSelectedVisitors(listVisitor: IVisitor[]) {
     this.listSelectedVisitors.next(listVisitor);
   }
 }
