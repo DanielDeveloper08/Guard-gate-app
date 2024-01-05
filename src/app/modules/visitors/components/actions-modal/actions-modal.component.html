@@ -8,8 +8,8 @@
     </div>
     <div class="container-actions-visitor">
       <div class="header-actions">
-        <shared-avatar [initials]="visitor.initials"></shared-avatar>
-        <span>{{ visitor.names }} {{ visitor.surnames }}</span>
+        <shared-avatar [initials]="visitorSelected.initials"></shared-avatar>
+        <span>{{ visitorSelected.names }} {{ visitorSelected.surnames }}</span>
       </div>
       <div class="body-actions">
         <div class="item-action" (click)="goToEditVisitor()">
@@ -34,12 +34,11 @@
       [buttons]="alertButtons"
       [message]="
         '¿Estás seguro de eliminar el visitante ' +
-        visitor.names +
+        visitorSelected.names +
         ' ' +
-        visitor.surnames +
+        visitorSelected.surnames +
         '?'
       "
-      (didDismiss)="setResult($event)"
     ></ion-alert>
   </ng-template>
 </ion-modal>

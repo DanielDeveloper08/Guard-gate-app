@@ -55,8 +55,10 @@
 </ion-modal>
 
 <actions-modal-visitor
-  [visitor]="visitorAction || false"
+  [clickSame]="clickSame"
+  [visitor]="visitorAction || null"
   (deleteEvent)="deleteEvent()"
+  (reset)="resetVisitor()"
 ></actions-modal-visitor>
 
 <ion-router-outlet></ion-router-outlet>

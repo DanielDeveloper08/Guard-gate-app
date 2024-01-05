@@ -23,8 +23,13 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./actions-modal.component.scss'],
 })
 export class ActionsModalComponent implements OnInit {
-  @Input() visitor!: IVisitor;
+  @Input() visitor!: IVisitor | null;
+  @Input() clickSame!: boolean;
   @Output() deleteEvent: EventEmitter<void> = new EventEmitter<void>;
+  visitorSelected!: IVisitor;
+
+  @Output() reset: EventEmitter<void> = new EventEmitter<void>;
+
   @ViewChild('modalActions') modalActions!: IonModal;
 
   private _router = inject(Router);
@@ -38,13 +43,21 @@ export class ActionsModalComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(){
+    this.modalActions.ionModalDidDismiss.subscribe(() => {
+      this.reset.emit();
+    });
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['visitor'].currentValue) {
+    if (changes['visitor']?.currentValue != null ) {
+      this.visitorSelected = changes['visitor']?.currentValue;
       this.modalActions.present();
     }
   }
 
   closeActions() {
+    this.reset.emit();
     this.modalActions.dismiss();
   }
 
@@ -53,7 +66,6 @@ export class ActionsModalComponent implements OnInit {
       text: 'Cancelar',
       role: 'cancel',
       handler: () => {
-        // console.log('Alert canceled');
       },
     },
     {
@@ -66,23 +78,14 @@ export class ActionsModalComponent implements OnInit {
     },
   ];
 
-  setResult(ev: any) {
-    console.log(`Dismissed with role: ${ev.detail.role}`);
-  }
-
   goToEditVisitor() {
-    this._router.navigateByUrl(
-      `/guard-gate/visitors/edit-visitor/${this.visitor.id}`
-    );
+    this._router.navigateByUrl(`/guard-gate/visitors/edit-visitor/${this.visitorSelected.id}`);
   }
 
   deleteVisitor() {
-    this._visitorService.deleteVisitor(this.visitor.id).subscribe({
+    this._visitorService.deleteVisitor(this.visitorSelected.id).subscribe({
       next: (res) => {
-        this._toastService.showSuccess(
-          'Visitante eliminado con éxito',
-          Position.Top
-        );
+        this._toastService.showSuccess('Visitante eliminado con éxito', Position.Top);
         this.closeActions();
         this.deleteEvent.emit();
       },

@@ -11,7 +11,7 @@
   .information-visitor {
     display: flex;
     gap: 1rem;
-    align-items: center;    
+    align-items: center;
 
     .description-visitor {
       display: flex;
@@ -30,7 +30,7 @@
   .action-visitor {
     background-color: var(--silver-50);
     border-radius: 50%;
-    border: 0.5px solid var(--silver-200);
+    border: 0.1px solid var(--silver-100);
     padding: 0.3rem;
     display: flex;
     align-items: center;

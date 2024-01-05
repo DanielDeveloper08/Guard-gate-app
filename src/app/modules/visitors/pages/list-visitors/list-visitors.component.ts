@@ -31,7 +31,7 @@ export class ListVisitorsComponent implements OnInit {
   isLoadingVisitors: boolean = false;
   listVisitors: IVisitor[] = [];
   listVisitorsSelected: IVisitor[] = [];
-  visitorAction!: IVisitor;
+  visitorAction!: IVisitor | null;
 
   ngOnInit() {
     this.getVisitors();
@@ -133,7 +133,18 @@ export class ListVisitorsComponent implements OnInit {
     this._router.navigateByUrl('/guard-gate/visitors/add-visitor');
   }
 
+  clickSame: boolean= false;
   showActions(visitor: IVisitor) {
+
+    if(this.visitorAction && (this.visitorAction.id == visitor.id)){
+      this.clickSame = true;
+    }
+
     this.visitorAction = visitor;
+
+  }
+
+  resetVisitor(){
+    this.visitorAction = null;
   }
 }
