@@ -135,13 +135,7 @@ export class ListVisitorsComponent implements OnInit {
 
   clickSame: boolean= false;
   showActions(visitor: IVisitor) {
-
-    if(this.visitorAction && (this.visitorAction.id == visitor.id)){
-      this.clickSame = true;
-    }
-
     this.visitorAction = visitor;
-
   }
 
   resetVisitor(){

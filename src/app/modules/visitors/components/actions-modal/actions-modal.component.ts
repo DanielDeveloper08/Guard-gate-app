@@ -24,7 +24,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ActionsModalComponent implements OnInit {
   @Input() visitor!: IVisitor | null;
-  @Input() clickSame!: boolean;
   @Output() deleteEvent: EventEmitter<void> = new EventEmitter<void>;
   visitorSelected!: IVisitor;
 

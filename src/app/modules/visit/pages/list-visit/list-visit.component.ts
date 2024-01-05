@@ -21,8 +21,9 @@ export class ListVisitComponent implements OnInit {
 
   isLoadingVisit: boolean = false;
   listVisits: IVisit[]=[];
-  selectedVisit!: IVisit;
-  isOpenDetail: boolean = false;
+  selectedVisit!: IVisit | null;
+
+
 
   @ViewChild('modalTypeVisit') modalTypeVisit!: IonModal;
 
@@ -75,27 +76,11 @@ export class ListVisitComponent implements OnInit {
     });
   }
 
-
-
-
-
-
-
-
-/*******DETAIL VISIT****************/
-
   openDetailVisit(visit: IVisit){
     this.selectedVisit = visit;
-    this.isOpenDetail = true;
   }
 
-  async modalDidDismiss() {
-    this.isOpenDetail = false;
+  resetVisitSelected(){
+    this.selectedVisit = null;
   }
-
-  closeDetail(){
-    this.isOpenDetail = false;
-  }
-
-
 }
