@@ -1,0 +1,25 @@
+<ion-modal
+  [isOpen]="true"
+  [initialBreakpoint]="1"
+  [breakpoints]="[0, 1]"
+  #modalTypeVisit
+  #modalDetailVisit
+>
+  <ng-template>
+    <div class="container-detail-visit">
+      <div class="close-icon">
+        <ion-icon name="close-outline" (click)="closeDetail()"></ion-icon>
+      </div>
+      <div class="header-detail">
+
+      </div>
+      <div class="body-detail">
+
+        <shared-button
+          [label]="'Eliminar visita'"
+          [icon]="'trash-outline'"
+        ></shared-button>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
