@@ -8,6 +8,7 @@ import { Position } from '../../../../shared/interfaces/toast.interface';
 import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 import { RoleTypeEnum } from 'src/app/shared/interfaces/general.interface';
 import { Router } from '@angular/router';
+import { IResidence } from '../../interfaces/residences';
 
 @Component({
   selector: 'app-profile',
@@ -35,16 +36,17 @@ export class ProfileComponent implements OnInit {
 
     const { data, role } = await modal.onWillDismiss();
     if (role === 'confirm') {
-      this.getResidences(data);
+      this.setMainResidence(data);
     }
   }
 
-  getResidences(idResidence: number){
+  setMainResidence(resident: IResidence){
 
-    this._residenceService.setMainResidence(idResidence).subscribe({
+    this._residenceService.setMainResidence(resident.residencyId).subscribe({
       next: (res) => {
         // this._router.navigateByUrl("/home");
         this._toastService.showSuccess(res.data, Position.Top);
+        localStorage.setItem('mainResidence', JSON.stringify(resident));
       },
       error: (err:HttpErrorResponse) => {
         this._toastService.showError(err.error.message, Position.Top);

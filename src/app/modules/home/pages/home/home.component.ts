@@ -90,6 +90,7 @@ export class HomeComponent implements OnInit {
           residence: res.data.residences.find(residence => residence.isMain)! ?? null,
         }
         this.mainResidence = home;
+        localStorage.setItem('mainResidence', JSON.stringify(home.residence));
       },
       error: (err:HttpErrorResponse) => {
         // this.isLoadingResidences = false;

@@ -11,7 +11,7 @@
         <span> Visita generada exitosamente </span>
       </div>
       <span>Recuerda que los visitantes recibirán el código QR en sus conversaciones de WhatsApp.</span>
-      <div class="qrcodeImage">
+      <div class="qrcodeImage" #qrcodeImageContainer>
         <div class="logo">
           <img src="assets/logo-white.svg" alt="logo" />
         </div>
@@ -25,9 +25,9 @@
 
         <ng-template #residenceDetails>
           <div>
-            {{ mainResidence.residence.urbanization | camelCase }}
-            Mz.{{ mainResidence.residence.block }} V.{{
-              mainResidence.residence.town
+            {{ mainResidence.urbanization | camelCase }}
+            Mz.{{ mainResidence.block }} V.{{
+              mainResidence.town
             }}
           </div>
         </ng-template>
