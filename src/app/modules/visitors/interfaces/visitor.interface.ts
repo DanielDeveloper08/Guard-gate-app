@@ -18,6 +18,13 @@ export interface IAddVisitorRequest {
   names:     string;
   surnames:  string;
   docNumber: string;
+  phone:     string;
+}
+
+export interface IEditVisitorRequest {
+  names:     string;
+  surnames:  string;
+  phone:     string;
 }
 
 
@@ -25,6 +32,7 @@ export interface IAddVisitorResponse {
   names:       string;
   surnames:    string;
   docNumber:   string;
+  phone:       string;
   residencyId: number;
   updatedAt:   null;
   id:          number;

@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {
-  Router,
-} from '@angular/router';
+  Component,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { IVisitor } from '../../interfaces/visitor.interface';
 import { FormControl, Validators } from '@angular/forms';
@@ -28,32 +31,36 @@ export class ListVisitorsComponent implements OnInit {
   isLoadingVisitors: boolean = false;
   listVisitors: IVisitor[] = [];
   listVisitorsSelected: IVisitor[] = [];
+  visitorAction!: IVisitor | null;
 
   ngOnInit() {
     this.getVisitors();
     this.handleRouteParams();
 
-    this._visitorService.listSelectedVisitors.subscribe( change => {
+    this._visitorService.listSelectedVisitors.subscribe((change) => {
       this.listVisitorsSelected = change;
-    })
+    });
 
-    //Se cierra modal cuando se termina el flujo de visita
-    this._modalService.closeModalEvent.subscribe(()=>{
+    this._modalService.closeModalEvent.subscribe(() => {
       this.closeModal();
-    })
+    });
   }
 
-  ionViewWillEnter(){
-    if(!this.isNewVisit){
+  ionViewWillEnter() {
+    if (!this.isNewVisit) {
       this.getVisitors();
     }
   }
 
-  handleRefresh(event:any) {
+  handleRefresh(event: any) {
     setTimeout(() => {
       this.getVisitors();
       event.target.complete();
     }, 2000);
+  }
+
+  deleteEvent(){
+    this.getVisitors();
   }
 
   private handleRouteParams() {
@@ -126,4 +133,12 @@ export class ListVisitorsComponent implements OnInit {
     this._router.navigateByUrl('/guard-gate/visitors/add-visitor');
   }
 
+  clickSame: boolean= false;
+  showActions(visitor: IVisitor) {
+    this.visitorAction = visitor;
+  }
+
+  resetVisitor(){
+    this.visitorAction = null;
+  }
 }

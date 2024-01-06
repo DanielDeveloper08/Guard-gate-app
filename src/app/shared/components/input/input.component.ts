@@ -25,7 +25,8 @@ export class InputComponent {
   @Input() minlength: number = 0;
   @Input() setFocus: boolean = false;
   @Input() type: 'text' | 'password' = 'text';
-
+  @Input() value: string="";
+  @Input() disabled: boolean = false;
   @Output() visibilityChanged = new EventEmitter<boolean>();
   @ViewChild('inputTag', { static: false }) inputTag!: IonInput;
   @Output() controlValueChange: EventEmitter<FormControl> = new EventEmitter<FormControl>();
@@ -41,6 +42,7 @@ export class InputComponent {
     })
   }
 
+
   validatePattern(value: string){
     if(this.pattern){
       const patternRegExp = new RegExp(this.pattern);
@@ -54,6 +56,13 @@ export class InputComponent {
     if (changes['setFocus']) {
       changes['setFocus'].currentValue && this.inputTag.setFocus();
     }
+    if (changes['value']) {
+      this.value && this.formControl.setValue(this.value);
+
+      this.disabled && this.formControl.disable();
+
+    }
+
   }
 
   togglePasswordVisibility() {

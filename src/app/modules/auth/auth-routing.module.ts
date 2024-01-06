@@ -19,10 +19,10 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/splash',
+    redirectTo: '/login',
     pathMatch: 'full',
   },
-  { path: '**', redirectTo: '/splash' } 
+  { path: '**', redirectTo: '/login' }
 
 ];
 

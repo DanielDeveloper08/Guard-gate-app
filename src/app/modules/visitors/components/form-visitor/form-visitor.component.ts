@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { IAddVisitorRequest } from '../../interfaces/visitor.interface';
+import { IAddVisitorRequest, IAddVisitorResponse } from '../../interfaces/visitor.interface';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -18,6 +18,7 @@ export class FormVisitorComponent implements OnInit {
   private _formBuilder = inject(FormBuilder);
   value!: FormControl;
   @Input() validForm:boolean=false;
+  @Input() visitorInit!:  IAddVisitorResponse;
   @Output() visitorFormEvent: EventEmitter<IAddVisitorRequest> = new EventEmitter<IAddVisitorRequest>();
   @Output() validVisitFormEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   protected onDestroy = new Subject<void>();
@@ -39,6 +40,10 @@ export class FormVisitorComponent implements OnInit {
     if (changes["validForm"]?.currentValue) {
       this.validVisitForm();
     }
+
+    if(changes["visitorInit"].currentValue){
+      this.setDataForm();
+    }
   }
 
     /**
@@ -47,6 +52,13 @@ export class FormVisitorComponent implements OnInit {
     ngOnDestroy(): void {
       this.onDestroy.next();
       this.onDestroy.complete();
+    }
+
+    setDataForm(){
+      this.visitorForm.get('names')?.setValue(this.visitorInit.names);
+      this.visitorForm.get('surnames')?.setValue(this.visitorInit.surnames);
+      this.visitorForm.get('docNumber')?.setValue(this.visitorInit.docNumber);
+      this.visitorForm.get('phone')?.setValue(this.visitorInit.phone);
     }
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonModal, ModalController } from '@ionic/angular';
+import { IonModal } from '@ionic/angular';
 import { VisitService } from '../../services/visit.service';
 import { IGeneralRequestPagination } from '../../../../shared/interfaces/general.interface';
 import { IVisit } from '../../interfaces/visit.interface';
@@ -21,13 +21,14 @@ export class ListVisitComponent implements OnInit {
 
   isLoadingVisit: boolean = false;
   listVisits: IVisit[]=[];
-  selectedVisit!: IVisit;
-  isOpenDetail: boolean = false;
+  selectedVisit!: IVisit | null;
+
+
 
   @ViewChild('modalTypeVisit') modalTypeVisit!: IonModal;
 
 
-  constructor(private modalController: ModalController) { }
+  constructor() { }
 
   ngOnInit() {
     this.getVisits();
@@ -75,27 +76,11 @@ export class ListVisitComponent implements OnInit {
     });
   }
 
-
-
-
-
-
-
-
-/*******DETAIL VISIT****************/
-
   openDetailVisit(visit: IVisit){
     this.selectedVisit = visit;
-    this.isOpenDetail = true;
   }
 
-  async modalDidDismiss() {
-    this.isOpenDetail = false;
+  resetVisitSelected(){
+    this.selectedVisit = null;
   }
-
-  closeDetail(){
-    this.isOpenDetail = false;
-  }
-
-
 }

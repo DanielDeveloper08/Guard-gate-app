@@ -8,6 +8,8 @@ import { AddVisitQrComponent } from './pages/add-visit-qr/add-visit-qr.component
 import { AddVisitPreAuthorizedComponent } from './pages/add-visit-pre-authorized/add-visit-pre-authorized.component';
 import { VisitorsModule } from '../visitors/visitors.module';
 import { SuccessVisitQrComponent } from './components/success-visit-qr/success-visit-qr.component';
+import { DetailVisitComponent } from './components/detail-visit/detail-visit.component';
+import { DetailVisitByVisitorComponent } from './components/detail-visit-by-visitor/detail-visit-by-visitor.component';
 
 @NgModule({
   imports: [
@@ -21,7 +23,9 @@ import { SuccessVisitQrComponent } from './components/success-visit-qr/success-v
     CardVisitComponent,
     AddVisitQrComponent,
     AddVisitPreAuthorizedComponent,
-    SuccessVisitQrComponent
+    SuccessVisitQrComponent,
+    DetailVisitComponent,
+    DetailVisitByVisitorComponent
   ]
 })
 export class VisitModule { }

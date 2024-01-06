@@ -7,7 +7,7 @@
   </div>
   </div>
   <div class="action-visitor" [ngClass]="{'selected-visitor': visitor.isSelected && isNewVisit}">
-    <ion-icon *ngIf="!isNewVisit" name="ellipsis-vertical"></ion-icon>
+    <ion-icon *ngIf="!isNewVisit" name="ellipsis-vertical" (click)="clickActions()"></ion-icon>
     <ion-icon *ngIf="isNewVisit && visitor.isSelected" name="checkmark-done-outline" class="checkIcon"></ion-icon>
   </div>
 </div>

@@ -4,17 +4,19 @@
       [cancelButton]="true"
       [urlBack]="'/guard-gate/visitors'"
       (backClick)="closeModalVisitors()"
-      [title]="'Nuevo visitante'"
+      [title]="title"
     ></shared-header>
     <ion-content class="ion-padding">
+      <div class="loading-splash"></div>
       <form-visitor
         [validForm]="validVisitForm"
+        [visitorInit]="visitorEdit"
         (visitorFormEvent)="visitorFormEvent($event)"
         (validVisitFormEvent)="setValidForm($event)"
       ></form-visitor>
       <shared-button
         [label]="'Guardar'"
-        (click)="saveVisitor()"
+        (click)="!idVisitorEdit ? saveVisitor() : editVisitor()"
         [isLoading]="isLoadingSave"
       >
       </shared-button>

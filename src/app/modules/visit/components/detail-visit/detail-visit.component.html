@@ -1,0 +1,61 @@
+<ion-modal
+  [isOpen]="isOpenDetail"
+  [initialBreakpoint]="1"
+  [breakpoints]="[0, 1]"
+  #modalTypeVisit
+  (ionModalDidDismiss)="modalDidDismiss()"
+  #modalDetailVisit
+>
+  <ng-template>
+    <div class="container-detail-visit">
+      <div class="close-icon">
+        <ion-icon name="close-outline" (click)="closeDetail()"></ion-icon>
+      </div>
+      <div class="header-detail">
+        <div class="container-img">
+          <ion-icon name="people-circle-outline"></ion-icon>
+        </div>
+        <div class="reason-visit">
+          <span class="reason-title">{{
+            selectedVisit.reason | camelCase
+          }}</span>
+          <span class="date-visit"
+            >Visita válida desde
+            {{ selectedVisit.startDate | customDate }}</span
+          >
+        </div>
+      </div>
+      <div class="body-detail">
+        <div class="container-visitors">
+          <span class="visitors-title"
+            >Visitantes ({{ selectedVisit.visitors.length }})</span
+          >
+          <div class="list-visitors">
+            <div
+              class="item-visitor"
+              *ngFor="let visitor of selectedVisit.visitors"
+            >
+              <div class="item-left">
+                <shared-avatar
+                  [initials]="
+                    (visitor.names | initialsVisitor).concat(
+                      visitor.surnames | initialsVisitor
+                    )
+                  "
+                ></shared-avatar>
+                <span>{{ visitor.names }} {{ visitor.surnames }}</span>
+              </div>
+              <ion-icon name="caret-forward-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+        <shared-button
+          [label]="'Eliminar visita'"
+          [icon]="'trash-outline'"
+        ></shared-button>
+      </div>
+    </div>
+
+    <detail-visit-by-visitor></detail-visit-by-visitor>
+  </ng-template>
+</ion-modal>

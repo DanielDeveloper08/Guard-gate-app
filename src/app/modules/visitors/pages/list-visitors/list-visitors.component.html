@@ -45,6 +45,7 @@
             [visitor]="visitor"
             [isNewVisit]="isNewVisit"
             (changeVisitors)="changeVisitor()"
+            (actionsEvent)="showActions(visitor)"
           ></item-visitor>
         </div>
       </div>
@@ -52,5 +53,11 @@
     </ion-content>
   </ng-template>
 </ion-modal>
+
+<actions-modal-visitor
+  [visitor]="visitorAction || null"
+  (deleteEvent)="deleteEvent()"
+  (reset)="resetVisitor()"
+></actions-modal-visitor>
 
 <ion-router-outlet></ion-router-outlet>

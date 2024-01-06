@@ -1,0 +1,44 @@
+<ion-modal [initialBreakpoint]="1" [breakpoints]="[0, 1]" #modalActions>
+  <ng-template>
+    <div class="title-modal">
+      <span>Acciones</span>
+      <div class="close-icon">
+        <ion-icon name="close-outline" (click)="closeActions()"></ion-icon>
+      </div>
+    </div>
+    <div class="container-actions-visitor">
+      <div class="header-actions">
+        <shared-avatar [initials]="visitorSelected.initials"></shared-avatar>
+        <span>{{ visitorSelected.names }} {{ visitorSelected.surnames }}</span>
+      </div>
+      <div class="body-actions">
+        <div class="item-action" (click)="goToEditVisitor()">
+          <div class="item-left">
+            <ion-icon name="pencil-outline"></ion-icon>
+            <span>Editar</span>
+          </div>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+        <div class="item-action item-delete" id="present-alert">
+          <div class="item-left">
+            <ion-icon name="trash-outline"></ion-icon>
+            <span>Eliminar</span>
+          </div>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <ion-alert
+      trigger="present-alert"
+      header="Confirmar"
+      [buttons]="alertButtons"
+      [message]="
+        '¿Estás seguro de eliminar el visitante ' +
+        visitorSelected.names +
+        ' ' +
+        visitorSelected.surnames +
+        '?'
+      "
+    ></ion-alert>
+  </ng-template>
+</ion-modal>

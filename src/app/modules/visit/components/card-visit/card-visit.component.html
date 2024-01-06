@@ -9,7 +9,7 @@
       <!-- Right column - Visitor information -->
       <div class="detail-visit">
         <ion-row>
-          <ion-label class="name">{{visit.reason || "Visita general"}}</ion-label>
+          <ion-label class="name">{{visit.reason || "Visita general" | camelCase}}</ion-label>
         </ion-row>
         <ion-row>
           <ion-label class="label">Fecha Inicio:</ion-label>

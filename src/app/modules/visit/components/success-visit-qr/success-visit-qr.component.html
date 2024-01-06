@@ -11,7 +11,7 @@
         <span> Visita generada exitosamente </span>
       </div>
       <span>Recuerda que los visitantes recibirán el código QR en sus conversaciones de WhatsApp.</span>
-      <div class="qrcodeImage">
+      <div class="qrcodeImage" #qrcodeImageContainer>
         <div class="logo">
           <img src="assets/logo-white.svg" alt="logo" />
         </div>
@@ -25,30 +25,17 @@
 
         <ng-template #residenceDetails>
           <div>
-            {{ mainResidence.residence.urbanization | camelCase }}
-            Mz.{{ mainResidence.residence.block }} V.{{
-              mainResidence.residence.town
+            {{ mainResidence.urbanization | camelCase }}
+            Mz.{{ mainResidence.block }} V.{{
+              mainResidence.town
             }}
           </div>
         </ng-template>
 
-        <qrcode
-          [qrdata]="idNewVisit"
-          [allowEmptyString]="true"
-          [ariaLabel]="'QR Code image with the following content...'"
-          [cssClass]="'center'"
-          [colorDark]="'#2755e9'"
-          [colorLight]="'#ffffffff'"
-          [elementType]="'canvas'"
-          [errorCorrectionLevel]="'M'"
-          [imageSrc]="'./assets/icono-guard-gate.png'"
-          [imageHeight]="35"
-          [imageWidth]="35"
-          [margin]="0"
-          [scale]="1"
-          [title]="'A custom title attribute'"
-          [width]="210"
-        ></qrcode>
+        <shared-qr-code
+          [qrData]="idNewVisit"
+        ></shared-qr-code>
+
         <div>Autorizado por: {{ user.names }} {{ user.surnames }}</div>
         <div class="description-qr">
           Código válido para un ingreso desde {{ startDateValue }} hasta

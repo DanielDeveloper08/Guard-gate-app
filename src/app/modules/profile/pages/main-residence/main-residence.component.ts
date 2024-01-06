@@ -26,9 +26,9 @@ export class MainResidenceComponent implements OnInit {
 
   confirm() {
     const mainResidence = this.listResidences.find(residence => residence.isMain );
-    return this.modalCtrl.dismiss(mainResidence?.residencyId, 'confirm');
+    return this.modalCtrl.dismiss(mainResidence, 'confirm');
   }
-  
+
   getResidences(){
     this.isLoadingResidences = true;
     this._residenceService.getResidencesByUser().subscribe({

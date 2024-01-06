@@ -15,6 +15,8 @@ import { TruncateWordPipe } from './pipes/TruncateWord.pipe';
 import { CustomFilterPipe } from './pipes/CustomFilter.pipe';
 import { SelectDateComponent } from './components/select-date/select-date.component';
 import { CustomDatePipe } from './pipes/CustomDate.pipe';
+import { QrCodeComponent } from './components/qr-code/qr-code.component';
+import { InitialsVisitorPipe } from './pipes/InitialsVisitor.pipe';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { CustomDatePipe } from './pipes/CustomDate.pipe';
     IonicModule,
     ReactiveFormsModule,
     NgOtpInputModule,
-    HttpClientModule
+    HttpClientModule,
+    QRCodeModule
   ],
   exports:[
     IonicModule,
@@ -41,7 +44,9 @@ import { CustomDatePipe } from './pipes/CustomDate.pipe';
     AvatarComponent,
     CustomFilterPipe,
     SelectDateComponent,
-    CustomDatePipe
+    CustomDatePipe,
+    QrCodeComponent,
+    InitialsVisitorPipe
   ],
   declarations: [
     OtpComponent,
@@ -53,7 +58,9 @@ import { CustomDatePipe } from './pipes/CustomDate.pipe';
     AvatarComponent,
     CustomFilterPipe,
     SelectDateComponent,
-    CustomDatePipe
+    CustomDatePipe,
+    QrCodeComponent,
+    InitialsVisitorPipe
   ]
 })
 export class SharedModule { }
