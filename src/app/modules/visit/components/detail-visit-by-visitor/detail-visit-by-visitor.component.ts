@@ -21,6 +21,13 @@ export class DetailVisitByVisitorComponent implements OnInit {
   @ViewChild('modalDetailVisit') modalDetailVisit!: IonModal;
   @Output() reset: EventEmitter<void> = new EventEmitter<void>();
 
+
+  photos: string[]= [
+    "assets/visita.jpg",
+    "assets/visita.jpg",
+    "assets/visita.jpg"
+  ];
+
   constructor() {}
 
   ngOnInit() {}

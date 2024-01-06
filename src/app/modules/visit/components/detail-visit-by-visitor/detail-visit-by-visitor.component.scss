@@ -1,11 +1,14 @@
 ion-modal {
-  --height: auto;
+  --height: 100vh;
+  --max-height: 90vh;
 }
 .container-detail-visit {
   padding: 1.5rem;
   display: flex;
+  height: 100%;
   flex-direction: column;
   gap: 0.5rem;
+  overflow-y: auto;
 
   .close-icon {
     display: flex;
@@ -18,6 +21,34 @@ ion-modal {
   .header-detail {
     display: flex;
     gap: 1.5rem;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+    padding: .5rem 0;
+    border-radius: .5rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 8px;
+
+
+    .header-left{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header-right{
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      font-size: 1rem;
+      font-weight: 600;
+      flex-direction: column;
+      row-gap: .2rem;
+
+      .identication{
+        font-size: .9375rem;
+        font-weight: normal;
+      }
+    }
   }
 
   .body-detail {
@@ -25,5 +56,23 @@ ion-modal {
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
+
+    .photo {
+      margin: .6rem 0;
+    }
+
+    .observation{
+      padding: .5rem;
+      border-radius: .5rem;
+      border: .5px solid var(--silver-200);
+    }
+
   }
+}
+
+.title-detail{
+  display: flex;
+  gap: .5rem;
+  font-weight: 600;
+  align-items: center;
 }
