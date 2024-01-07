@@ -184,3 +184,14 @@
 .ion-color-silver-950 {
   --ion-color-base: var(--silver-950);
 }
+
+body.barcode-scanning-active {
+  visibility: hidden;
+  --background: transparent;
+  --ion-background-color: transparent;
+}
+
+.barcode-scanning-modal {
+  visibility: visible;
+}
+

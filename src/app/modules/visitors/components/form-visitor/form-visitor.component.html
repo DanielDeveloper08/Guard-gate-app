@@ -42,7 +42,7 @@
     [minlength]="10"
     [placeholder]="'Cédula'"
     [value]="visitorForm.get('docNumber')?.value"
-    [disabled]="true"
+    [disabled]="disabled"
     (controlValueChange)="controlValueChangeDocnumber($event)"
   ></shared-input>
 

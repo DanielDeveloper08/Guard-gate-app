@@ -16,6 +16,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class FormVisitorComponent implements OnInit {
   visitorForm!: FormGroup;
   private _formBuilder = inject(FormBuilder);
+  disabled: boolean=false;
   value!: FormControl;
   @Input() validForm:boolean=false;
   @Input() visitorInit!:  IAddVisitorResponse;
@@ -42,6 +43,7 @@ export class FormVisitorComponent implements OnInit {
     }
 
     if(changes["visitorInit"].currentValue){
+      this.disabled = true;
       this.setDataForm();
     }
   }

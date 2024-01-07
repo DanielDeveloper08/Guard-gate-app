@@ -89,6 +89,10 @@ export class AddVisitorComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => {
           this.isLoadingSave = false;
+          this._toastService.showError(
+            err.error.message,
+            Position.Top
+          );
         },
       });
   }

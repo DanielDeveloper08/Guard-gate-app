@@ -1,13 +1,13 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { ScannerComponent } from "./scanner.component";
+import { ScannerVisitComponent } from "./pages/scanner-visit/scanner-visit.component";
 
 const routes: Routes = [
   {
     path: 'scanner',
-    component:ScannerComponent 
+    component:ScannerVisitComponent
   },
-  { path: '**', redirectTo: 'scanner' } 
+  { path: '**', redirectTo: 'scanner' }
 
 ];
 

@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import {
   IAddVisitRequest,
   IAddVisitResponse,
+  IVisit,
   IVisitResponse,
   IVisitorState,
 } from '../interfaces/visit.interface';
@@ -61,6 +62,19 @@ export class VisitService {
 
     return this._httpClient.get<IGeneralResponse<IVisitResponse>>(
       `${this.urlBase}/visits/${queryParams}`
+    );
+  }
+
+  /**
+   * Obtener visita por id
+   * @param params
+   * @returns
+   */
+  getVisitById(
+    params?: number
+  ): Observable<IGeneralResponse<IVisit>> {
+    return this._httpClient.get<IGeneralResponse<IVisit>>(
+      `${this.urlBase}/visits/${params}`
     );
   }
 

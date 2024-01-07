@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import html2canvas from 'html2canvas';
 import { IResidence } from 'src/app/modules/profile/interfaces/residences';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'success-visit-qr-modal',
@@ -39,7 +40,7 @@ export class SuccessVisitQrComponent implements OnInit {
     this._activatedRoute.params.subscribe((params) => {
       this.startDateValue = params['startDate'];
       this.endDateValue = params['endDate'];
-      this.idNewVisit = params['idVisita'] || 'No existe visita registrada';
+      this.idNewVisit =  environment.QR_PREFIX.concat(params['idVisita']) || 'No existe visita registrada';
     });
 
     this.mainResidence = JSON.parse(localStorage.getItem('mainResidence')!);

@@ -30,7 +30,13 @@
         </provider>
     </application>
 
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- To get access to the camera. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- To get access to the flashlight. -->
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
 </manifest>

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ScannerComponent } from './scanner.component';
+import { ScannerVisitComponent } from './pages/scanner-visit/scanner-visit.component';
 import { ScannerRoutingModule } from './scanner.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UploadImagesComponent } from './components/upload-images/upload-images.component';
 
 @NgModule({
   imports: [
@@ -10,6 +11,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ScannerRoutingModule,
     SharedModule
   ],
-  declarations: [ScannerComponent]
+  declarations: [
+    ScannerVisitComponent,
+    UploadImagesComponent
+  ]
 })
 export class ScannerModule { }

@@ -17,6 +17,7 @@ import { SelectDateComponent } from './components/select-date/select-date.compon
 import { CustomDatePipe } from './pipes/CustomDate.pipe';
 import { QrCodeComponent } from './components/qr-code/qr-code.component';
 import { InitialsVisitorPipe } from './pipes/InitialsVisitor.pipe';
+import { ScannerSharedComponent } from './components/scanner/scanner.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { InitialsVisitorPipe } from './pipes/InitialsVisitor.pipe';
     SelectDateComponent,
     CustomDatePipe,
     QrCodeComponent,
-    InitialsVisitorPipe
+    InitialsVisitorPipe,
+    ScannerSharedComponent
   ],
   declarations: [
     OtpComponent,
@@ -60,7 +62,8 @@ import { InitialsVisitorPipe } from './pipes/InitialsVisitor.pipe';
     SelectDateComponent,
     CustomDatePipe,
     QrCodeComponent,
-    InitialsVisitorPipe
+    InitialsVisitorPipe,
+    ScannerSharedComponent
   ]
 })
 export class SharedModule { }
