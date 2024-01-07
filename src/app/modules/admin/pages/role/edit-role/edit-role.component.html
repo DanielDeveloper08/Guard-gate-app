@@ -1,0 +1,21 @@
+<div class=" small-form-container">
+  <ion-card >
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/admin/roles"></ion-back-button>
+        </ion-buttons>
+        <ion-title size="small">{{role.name}}</ion-title>
+        <ion-button size="small" slot="end" (click)="updateRole()">Guardar</ion-button>
+      </ion-toolbar>
+    </ion-header>
+    <ion-list>
+      <ion-item  *ngFor="let operation of operations; let i = index">
+          <ion-label>{{operation.name}}</ion-label>
+          <ion-checkbox slot="end" [checked]="operation.selected" (ionChange)="setSelected(i)"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+    
+  </ion-card>
+</div>
+
