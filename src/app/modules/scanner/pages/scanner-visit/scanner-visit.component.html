@@ -1,46 +1,54 @@
-<shared-header [title]="visitData? 'Datos de la visita' : 'Escanear QR'"></shared-header>
+<shared-header
+  [title]="visitData ? 'Datos de la visita' : 'Escanear QR'"
+></shared-header>
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="empty-scanner" *ngIf="!visitData">
     <span class="message-empty">Toque el botón para iniciar el escaneo</span>
   </div>
-  <div class="header-detail">
-
-    <div class="container-img">
-      <ion-icon name="people-circle-outline"></ion-icon>
+  <div *ngIf="visitData">
+    <div class="header-detail">
+      <div class="container-img">
+        <ion-icon name="people-circle-outline"></ion-icon>
+      </div>
+      <div class="reason-visit">
+        <span class="reason-title">{{ visitData?.reason! | camelCase }}</span>
+        <span class="date-visit"
+          >Visita válida desde {{ visitData?.startDate! | customDate }}</span
+        >
+      </div>
     </div>
-    <div class="reason-visit">
-      <span class="reason-title">{{ visitData?.reason! | camelCase }}</span>
-      <span class="date-visit"
-        >Visita válida desde {{ visitData?.startDate! | customDate }}</span
-      >
-    </div>
-  </div>
-  <div class="body-detail">
-    <div class="container-visitors">
-      <span class="visitors-title"
-        >Visitantes ({{ visitData?.visitors!.length }})</span
-      >
-      <div class="list-visitors">
-        <div class="item-visitor" *ngFor="let visitor of visitData?.visitors!">
-          <div class="item-left">
-            <shared-avatar
-              [initials]="
-                (visitor.names | initialsVisitor).concat(
-                  visitor.surnames | initialsVisitor
-                )
-              "
-            ></shared-avatar>
-            <div class="information">
-              <span>{{ visitor.names }} {{ visitor.surnames }}</span>
-            <span>CI: {{visitor.docNumber}}</span>
+    <div class="body-detail">
+      <div class="container-visitors">
+        <span class="visitors-title"
+          >Visitantes ({{ (visitData?.visitors)!.length }})</span
+        >
+        <div class="list-visitors">
+          <div
+            class="item-visitor"
+            *ngFor="let visitor of visitData?.visitors!"
+          >
+            <div class="item-left">
+              <shared-avatar
+                [initials]="
+                  (visitor.names | initialsVisitor).concat(
+                    visitor.surnames | initialsVisitor
+                  )
+                "
+              ></shared-avatar>
+              <div class="information">
+                <span>{{ visitor.names }} {{ visitor.surnames }}</span>
+                <span>CI: {{ visitor.docNumber }}</span>
+              </div>
             </div>
+            <ion-icon
+              name="add-circle-outline"
+              (click)="showFormDetail(visitor)"
+            ></ion-icon>
           </div>
-          <ion-icon name="add-circle-outline"></ion-icon>
         </div>
       </div>
     </div>
   </div>
-
   <ion-fab
     vertical="bottom"
     horizontal="end"
@@ -51,4 +59,10 @@
     <ion-icon name="scan-outline"></ion-icon>
     <ion-label>Escanear</ion-label>
   </ion-fab>
+  <form-detail-visit
+    *ngIf="visitorSelected"
+    [idVisit]="visitData?.id"
+    [visitor]="visitorSelected || null"
+    (reset)="resetVisitor()"
+  ></form-detail-visit>
 </ion-content>

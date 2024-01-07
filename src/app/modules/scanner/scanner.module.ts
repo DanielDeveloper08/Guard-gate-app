@@ -4,6 +4,7 @@ import { ScannerVisitComponent } from './pages/scanner-visit/scanner-visit.compo
 import { ScannerRoutingModule } from './scanner.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UploadImagesComponent } from './components/upload-images/upload-images.component';
+import { FormDetailVisitComponent } from './components/form-detail-visit/form-detail-visit.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { UploadImagesComponent } from './components/upload-images/upload-images.
   ],
   declarations: [
     ScannerVisitComponent,
-    UploadImagesComponent
+    UploadImagesComponent,
+    FormDetailVisitComponent
   ]
 })
 export class ScannerModule { }

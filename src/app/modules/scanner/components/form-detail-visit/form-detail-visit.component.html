@@ -1,0 +1,82 @@
+<ion-modal #modal>
+  <ng-template>
+    <shared-header
+      [cancelButton]="true"
+      [urlBack]="'/guard-gate/tabs/scanner/scanner'"
+      (backClick)="closeModalVisitors()"
+      [title]="'Detalle visita'"
+    ></shared-header>
+    <ion-content class="ion-padding">
+      <div class="title-detail">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>Visitante</span>
+      </div>
+      <div class="header-detail">
+        <div class="header-left">
+          <shared-avatar
+            [initials]="
+              (visitor?.names! | initialsVisitor).concat(
+                visitor?.surnames! | initialsVisitor
+              )
+            "
+          ></shared-avatar>
+        </div>
+        <div class="header-right">
+          <span>{{ visitor?.names }} {{ visitor?.surnames }}</span>
+          <span class="identication">CI: {{ visitor?.docNumber }}</span>
+        </div>
+      </div>
+
+      <div class="label">Observación</div>
+
+      <shared-input
+        [startIcon]="'eye-outline'"
+        [type]="'text'"
+        [pattern]="'^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$'"
+        [maxlength]="20"
+        [minlength]="3"
+        [placeholder]="'Observación'"
+        [value]="detailVisitForm.get('observation')?.value"
+        (controlValueChange)="controlValueChangeObservation($event)"
+      ></shared-input>
+
+      <div class="label">Placa vehicular</div>
+
+      <shared-input
+        [startIcon]="'car-sport-outline'"
+        [type]="'text'"
+        [pattern]="'^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$'"
+        [maxlength]="20"
+        [minlength]="3"
+        [placeholder]="'Placa vehicular'"
+        [value]="detailVisitForm.get('carPlate')?.value"
+        (controlValueChange)="controlValueChangeCarPlate($event)"
+      ></shared-input>
+
+      <div class="title-detail">
+        <ion-icon name="images-outline"></ion-icon>
+        <ion-label>Imágenes de visita</ion-label>
+      </div>
+
+      <div class="empty-photos" *ngIf="photos.length == 0">
+        <span>¡Toque "Tomar foto" para capturar imágenes!</span>
+        <img src="assets/upload-image.svg" alt="upload-image" />
+      </div>
+      <upload-images *ngIf="photos.length > 0"></upload-images>
+      <ion-fab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        class="label-scanner"
+        (click)="takePhoto()"
+      >
+        <ion-icon name="camera-outline"></ion-icon>
+        <ion-label>Tomar foto</ion-label>
+      </ion-fab>
+    </ion-content>
+    <ion-footer collapse="fade" class="footer">
+      <shared-button [label]="'Guardar'" (click)="saveDetail()">
+      </shared-button>
+    </ion-footer>
+  </ng-template>
+</ion-modal>

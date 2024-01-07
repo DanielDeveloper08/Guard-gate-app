@@ -14,6 +14,7 @@ import { Position } from 'src/app/shared/interfaces';
 import { VisitService } from '../../../visit/services/visit.service';
 import { IVisit } from '../../../visit/interfaces/visit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface';
 
 @Component({
   selector: 'app-scanner',
@@ -30,6 +31,7 @@ export class ScannerVisitComponent implements OnInit {
   public isPermissionGranted = false;
   idVisitScanner!: string;
   visitData!: IVisit;
+  visitorSelected!: IVisitor | null;
 
   public formGroup = new UntypedFormGroup({
     formats: new UntypedFormControl([]),
@@ -42,8 +44,6 @@ export class ScannerVisitComponent implements OnInit {
     BarcodeScanner.isSupported().then((result) => {
       this.isSupported = result.supported;
     });
-
-    this.getVisitorById(5);
 
     BarcodeScanner.removeAllListeners().then(() => {
       BarcodeScanner.addListener(
@@ -110,5 +110,13 @@ export class ScannerVisitComponent implements OnInit {
         // this.isLoadingVisit = false;
       },
     });
+  }
+
+  showFormDetail(visitor: IVisitor) {
+    this.visitorSelected = visitor;
+  }
+
+  resetVisitor(){
+    this.visitorSelected = null;
   }
 }
