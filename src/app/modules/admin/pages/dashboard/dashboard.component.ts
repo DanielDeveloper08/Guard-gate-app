@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IOperation } from 'src/app/shared/interfaces/role.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  operations!: IOperation[];
+
+  constructor() { 
+    this.operations = [{id:1, name:"Roles", route:"/admin/roles"}, {id:2, name:"Visitas", route:"/admin/visit-dashboard"}]
+
+  }
 
   ngOnInit() {
-    
+
   }
 
 }
