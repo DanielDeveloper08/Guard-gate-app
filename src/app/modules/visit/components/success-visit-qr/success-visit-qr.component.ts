@@ -14,6 +14,8 @@ import { IonModal } from '@ionic/angular';
 import html2canvas from 'html2canvas';
 import { IResidence } from 'src/app/modules/profile/interfaces/residences';
 import { environment } from 'src/environments/environment';
+import { VisitService } from '../../services/visit.service';
+import { ISendQRRequest } from '../../interfaces/visit.interface';
 
 @Component({
   selector: 'success-visit-qr-modal',
@@ -21,7 +23,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./success-visit-qr.component.scss'],
 })
 export class SuccessVisitQrComponent implements OnInit {
-  private _residenceService = inject(ResidenceService);
+  private _visitService = inject(VisitService);
+
   private _router = inject(Router);
 
   mainResidence!: IResidence;
@@ -43,6 +46,8 @@ export class SuccessVisitQrComponent implements OnInit {
       this.idNewVisit =  environment.QR_PREFIX.concat(params['idVisita']) || 'No existe visita registrada';
     });
 
+
+
     this.mainResidence = JSON.parse(localStorage.getItem('mainResidence')!);
   }
 
@@ -58,9 +63,23 @@ export class SuccessVisitQrComponent implements OnInit {
     if (this.qrcodeImageContainer) {
       html2canvas(this.qrcodeImageContainer.nativeElement).then((canvas) => {
         const base64Image = canvas.toDataURL();
-        console.log(base64Image);
+        this.sendQRCode(base64Image);
       });
     }
+  }
+
+  sendQRCode(base64:string){
+    const data: ISendQRRequest={
+      base64Img: base64,
+      visitId: parseInt(this.idNewVisit,10)
+    }
+
+    this._visitService.sendQRCode(data).subscribe({
+      next: (res) => {
+      },
+      error: (err: HttpErrorResponse) => {
+      },
+    });
   }
 
   goToListVisits() {

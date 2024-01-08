@@ -43,3 +43,8 @@ export interface IAddVisitResponse {
     id:            number;
     createdAt:     string;
 }
+
+export interface ISendQRRequest{
+    visitId: number;
+    base64Img: string;
+}

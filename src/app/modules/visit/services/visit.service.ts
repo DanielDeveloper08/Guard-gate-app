@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import {
   IAddVisitRequest,
   IAddVisitResponse,
+  ISendQRRequest,
   IVisit,
   IVisitResponse,
   IVisitorState,
@@ -88,6 +89,20 @@ export class VisitService {
   ): Observable<IGeneralResponse<IAddVisitResponse>> {
     return this._httpClient.post<IGeneralResponse<IAddVisitResponse>>(
       `${this.urlBase}/visits`,
+      params
+    );
+  }
+
+  /**
+   * Enviar códido QR
+   * @param params
+   * @returns
+   */
+  sendQRCode(
+    params: ISendQRRequest
+  ): Observable<IGeneralResponse<any>> {
+    return this._httpClient.post<IGeneralResponse<any>>(
+      `${this.urlBase}/visits/sendQR`,
       params
     );
   }
