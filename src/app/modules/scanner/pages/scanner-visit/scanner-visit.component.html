@@ -60,7 +60,6 @@
     <ion-label>Escanear</ion-label>
   </ion-fab>
   <form-detail-visit
-    *ngIf="visitorSelected"
     [idVisit]="visitData?.id"
     [visitor]="visitorSelected || null"
     (reset)="resetVisitor()"

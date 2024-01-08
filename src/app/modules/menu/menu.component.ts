@@ -22,12 +22,12 @@ export class MenuComponent {
       label: "Visitantes",
       route: "/guard-gate/visitors"
     },
-    {
-      iconName: "thumbs-down-outline",
-      avatarColor: "var(--royal-blue-950)",
-      label: "Lista negra",
-      route: "/guard-gate/tabs/visit/add-visit-qr/visitors"
-    },
+    // {
+    //   iconName: "thumbs-down-outline",
+    //   avatarColor: "var(--royal-blue-950)",
+    //   label: "Lista negra",
+    //   route: "/guard-gate/tabs/visit/add-visit-qr/visitors"
+    // },
   ];
 
   ngOnInit() {

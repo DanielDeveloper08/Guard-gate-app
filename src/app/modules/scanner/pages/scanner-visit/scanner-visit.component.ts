@@ -113,6 +113,7 @@ export class ScannerVisitComponent implements OnInit {
   }
 
   showFormDetail(visitor: IVisitor) {
+    console.log("visitor", visitor)
     this.visitorSelected = visitor;
   }
 

@@ -26,6 +26,8 @@ export class FormDetailVisitComponent implements OnInit {
 
   ngAfterViewInit() {
     this.modal.ionModalDidDismiss.subscribe(() => {
+      this._scannerService.photos = [];
+      this.detailVisitForm.reset();
       this.reset.emit();
     });
   }
@@ -40,7 +42,7 @@ export class FormDetailVisitComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['visitor']?.currentValue != null) {
       this.visitorSelected = changes['visitor']?.currentValue;
-      this.modal.present();
+      this.modal?.present();
     }
   }
 
@@ -66,6 +68,8 @@ export class FormDetailVisitComponent implements OnInit {
   }
 
   closeModalVisitors(){
+    this._scannerService.photos = [];
+    this.detailVisitForm.reset();
     this.modal.dismiss();
   }
 

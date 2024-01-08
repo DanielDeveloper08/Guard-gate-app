@@ -13,7 +13,7 @@
       Escanear
     </ion-tab-button>
 
-    <ion-tab-button class="label-menu-tab tab-item"> Menu </ion-tab-button>
+    <ion-tab-button class="label-menu-tab tab-item" *ngIf="userRole == 'RESIDENTE'"> Menu </ion-tab-button>
 
     <ion-tab-button tab="" class="tab-item" *ngIf="userRole == 'OPERATIVO'">
       <ion-icon name="location-outline"></ion-icon>
@@ -25,7 +25,7 @@
       Alerta
     </ion-tab-button>
 
-    <ion-tab-button tab="profile" class="tab-item">
+    <ion-tab-button tab="profile" class="tab-item" >
       <ion-icon name="person-outline"></ion-icon>
       Perfil
     </ion-tab-button>
@@ -34,7 +34,7 @@
   <app-menu></app-menu>
 </ion-tabs>
 
-<ion-fab slot="fixed" class="ion-fab-component">
+<ion-fab slot="fixed" class="ion-fab-component" *ngIf="userRole == 'RESIDENTE'">
   <ion-fab-button
     (click)="openModalMenu()"
     [style]="{ contain: 'none content' }"
