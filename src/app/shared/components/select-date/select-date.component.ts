@@ -9,11 +9,12 @@ export class SelectDateComponent implements OnInit {
   @Input() isOpen: boolean = false;
   @Output() selectedDateTime: EventEmitter<string> = new EventEmitter<string>();
   selectedValue: string = "";
-
-  constructor() { }
+  minDate!: string;
+  datesBeforeToday: string[] = [];
 
   ngOnInit() {
     const now = new Date();
+    this.minDate = now.toISOString();
     this.selectedValue = now.toISOString();
   }
 
