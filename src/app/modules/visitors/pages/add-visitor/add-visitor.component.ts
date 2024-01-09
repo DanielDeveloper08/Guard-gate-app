@@ -5,7 +5,6 @@ import {
   IAddVisitorRequest,
   IAddVisitorResponse,
   IEditVisitorRequest,
-  IVisitor,
 } from '../../interfaces/visitor.interface';
 import { VisitorService } from '../../services/visitors.service';
 import { HttpErrorResponse } from '@angular/common/http';
