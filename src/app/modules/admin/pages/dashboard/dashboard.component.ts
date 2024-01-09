@@ -11,7 +11,11 @@ export class DashboardComponent implements OnInit {
   operations!: IOperation[];
 
   constructor() { 
-    this.operations = [{id:1, name:"Roles", route:"/admin/roles"}, {id:2, name:"Visitas", route:"/admin/visit-dashboard"}]
+    this.operations = [
+      {id:1, name:"Roles", route:"/admin/roles"}, 
+      {id:2, name:"Visitas", route:"/admin/visit-dashboard"}, 
+      {id:2, name:"Residentes", route:"/admin/resident"}
+    ];
 
   }
 

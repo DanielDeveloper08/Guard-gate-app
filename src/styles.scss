@@ -35,3 +35,24 @@ $primary-color: #3880ff;
       }
   }
 }
+
+.large-form-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-card{
+      width: 95%;
+      padding: 1rem;
+      @include sm{
+        width: 95%;
+    }
+      @include md{
+          width: 75%;
+      }
+      @include xl{
+          width: 50%;
+      }
+  }
+}

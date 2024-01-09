@@ -8,6 +8,8 @@ import { ListRoleComponent } from './pages/role/list-role/list-role.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { LinearChartComponent } from './components/linear-chart/linear-chart.component';
 import { VisitDashboardComponent } from './pages/visit-dashboard/visit-dashboard.component';
+import { EditResidentComponent } from './components/resident/edit-resident/edit-resident.component';
+import { ListResidentComponent } from './components/resident/list-resident/list-resident.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,8 @@ import { VisitDashboardComponent } from './pages/visit-dashboard/visit-dashboard
     AdminRoutingModule
   ],
   declarations: [
+    ListResidentComponent,
+    EditResidentComponent,
     DashboardComponent,
     EditRoleComponent,
     ListRoleComponent,
