@@ -70,7 +70,7 @@
       <router-outlet></router-outlet>
     </ion-content>
     <ion-footer collapse="fade" class="footer">
-      <shared-button [label]="'Crear Visita'" (click)="saveVisitQR()">
+      <shared-button [label]="'Crear Visita'" (click)="saveVisitQR()" [isLoading]="isLoadingVisit">
       </shared-button>
     </ion-footer>
   </ng-template>

@@ -137,7 +137,6 @@ obtenerFechaActualEnFormato = (): string => {
     this.isLoadingVisit = true;
     this._visitService.saveVisit(visitData).subscribe({
       next: (res) => {
-        this._toastService.showSuccess("Visita registrada con éxito", Position.Top);
         this.isLoadingVisit = false;
 
         this._router.navigate(["/guard-gate/tabs/visit/success-qr", {
@@ -150,6 +149,7 @@ obtenerFechaActualEnFormato = (): string => {
       },
       error: (err: HttpErrorResponse) => {
         this.isLoadingVisit = false;
+        this._toastService.showError("Ocurrió un error al generar la visita, comunicate con el administardor", Position.Top);
       },
     });
   }
