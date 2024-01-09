@@ -14,27 +14,28 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./form-visitor.component.scss'],
 })
 export class FormVisitorComponent implements OnInit {
+
   visitorForm!: FormGroup;
   private _formBuilder = inject(FormBuilder);
-  disabled: boolean=false;
+  disabled: boolean = false;
   value!: FormControl;
-  @Input() validForm:boolean=false;
-  @Input() visitorInit!:  IAddVisitorResponse;
+  @Input() validForm: boolean = false;
+  @Input() visitorInit!: IAddVisitorResponse;
   @Output() visitorFormEvent: EventEmitter<IAddVisitorRequest> = new EventEmitter<IAddVisitorRequest>();
   @Output() validVisitFormEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   protected onDestroy = new Subject<void>();
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.createForm();
 
     this.visitorForm.valueChanges
-    .pipe(takeUntil(this.onDestroy))
-    .subscribe((change) => {
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe((change) => {
         this.validVisitFormEvent.emit(this.visitorForm.valid);
         this.visitorFormEvent.emit(change);
-    });
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -48,20 +49,20 @@ export class FormVisitorComponent implements OnInit {
     }
   }
 
-    /**
-   * OnDestroy
-   */
-    ngOnDestroy(): void {
-      this.onDestroy.next();
-      this.onDestroy.complete();
-    }
+  /**
+ * OnDestroy
+ */
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
+  }
 
-    setDataForm(){
-      this.visitorForm.get('names')?.setValue(this.visitorInit.names);
-      this.visitorForm.get('surnames')?.setValue(this.visitorInit.surnames);
-      this.visitorForm.get('docNumber')?.setValue(this.visitorInit.docNumber);
-      this.visitorForm.get('phone')?.setValue(this.visitorInit.phone);
-    }
+  setDataForm() {
+    this.visitorForm.get('names')?.setValue(this.visitorInit.names);
+    this.visitorForm.get('surnames')?.setValue(this.visitorInit.surnames);
+    this.visitorForm.get('docNumber')?.setValue(this.visitorInit.docNumber);
+    this.visitorForm.get('phone')?.setValue(this.visitorInit.phone);
+  }
 
 
   validVisitForm() {
@@ -77,9 +78,9 @@ export class FormVisitorComponent implements OnInit {
    */
   createForm() {
     this.visitorForm = this._formBuilder.group({
-      names: ["" , [Validators.required]],
-      surnames: ["" , [Validators.required]],
-      docNumber: ["" , [Validators.required]],
+      names: ["", [Validators.required]],
+      surnames: ["", [Validators.required]],
+      docNumber: ["", [Validators.required]],
       phone: ["", Validators.required]
     });
   }
@@ -99,5 +100,11 @@ export class FormVisitorComponent implements OnInit {
   controlValueChangeDocnumber(formControl: FormControl) {
     this.visitorForm.setControl('docNumber', formControl);
   }
-  
+
+  controlFocusout($event: FocusEvent, controlName: string) {
+    if ($event?.isTrusted) {
+      this.visitorForm.get(controlName)?.markAsTouched();
+    }
+  }
+
 }

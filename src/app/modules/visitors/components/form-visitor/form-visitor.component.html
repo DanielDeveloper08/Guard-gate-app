@@ -1,5 +1,4 @@
 <form *ngIf="visitorForm" [formGroup]="visitorForm">
-
   <div class="container-icon">
     <ion-icon name="people-circle-outline" class="visitor-icon"></ion-icon>
   </div>
@@ -14,9 +13,15 @@
     [placeholder]="'Nombres'"
     [value]="visitorForm.get('names')?.value"
     (controlValueChange)="controlValueChangeNames($event)"
+    (focusout)="controlFocusout($event, 'names')"
   ></shared-input>
-  <div class="error-message" *ngIf="visitorForm.get('names')?.hasError('required') && visitorForm.get('names')?.touched">
-    Campo obligatorio!
+  <div *ngIf="visitorForm.controls['names'].touched && visitorForm.controls['names'].invalid">
+    <div class="error-message" *ngIf="visitorForm.controls['names'].errors?.['required']">
+      Los nombres son requeridos!
+    </div>
+    <div class="error-message" *ngIf="visitorForm.controls['names'].errors?.['minlength']">
+      Mínimo 3 carácteres!
+    </div>
   </div>
 
   <div class="label">Apellidos</div>
@@ -30,7 +35,16 @@
     [placeholder]="'Apellidos'"
     [value]="visitorForm.get('surnames')?.value"
     (controlValueChange)="controlValueChangeSurnames($event)"
+    (focusout)="controlFocusout($event, 'surnames')"
   ></shared-input>
+  <div *ngIf="visitorForm.controls['surnames'].touched && visitorForm.controls['surnames'].invalid">
+    <div class="error-message" *ngIf="visitorForm.controls['surnames'].errors?.['required']">
+      Los apellidos son requeridos!
+    </div>
+    <div class="error-message" *ngIf="visitorForm.controls['surnames'].errors?.['minlength']">
+      Mínimo 3 carácteres!
+    </div>
+  </div>
 
   <div class="label">Cédula</div>
   <!-- INPUT DOCNUMBER -->
@@ -44,7 +58,16 @@
     [value]="visitorForm.get('docNumber')?.value"
     [disabled]="disabled"
     (controlValueChange)="controlValueChangeDocnumber($event)"
+    (focusout)="controlFocusout($event, 'docNumber')"
   ></shared-input>
+  <div *ngIf="visitorForm.controls['docNumber'].touched && visitorForm.controls['docNumber'].invalid">
+    <div class="error-message" *ngIf="visitorForm.controls['docNumber'].errors?.['required']">
+      Cédula requerida!
+    </div>
+    <div class="error-message" *ngIf="visitorForm.controls['docNumber'].errors?.['minlength']">
+      Mínimo 10 digitos!
+    </div>
+  </div>
 
   <div class="label">Celular</div>
   <!-- INPUT PHONE -->
@@ -57,5 +80,14 @@
     [placeholder]="'Celular'"
     [value]="visitorForm.get('phone')?.value"
     (controlValueChange)="controlValueChangePhone($event)"
+    (focusout)="controlFocusout($event, 'phone')"
   ></shared-input>
+  <div *ngIf="visitorForm.controls['phone'].touched && visitorForm.controls['phone'].invalid">
+    <div class="error-message" *ngIf="visitorForm.controls['phone'].errors?.['required']">
+      Celular requerido!
+    </div>
+    <div class="error-message" *ngIf="visitorForm.controls['phone'].errors?.['minlength']">
+      Mínimo 10 digitos!
+    </div>
+  </div>
 </form>
