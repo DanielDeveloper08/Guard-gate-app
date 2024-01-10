@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { VisitService } from '../../services/visit.service';
@@ -7,6 +6,7 @@ import { IGeneralRequestPagination } from '../../../../shared/interfaces/general
 import { IVisit } from '../../interfaces/visit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'list-visit',
