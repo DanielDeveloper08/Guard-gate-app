@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit, inject } from '@angular/core';
 import { CameraService } from '../../services/camera.service';
 import { ScannerSharedComponent } from 'src/app/shared/components/scanner/scanner.component';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -26,11 +26,12 @@ export class ScannerVisitComponent implements OnInit {
   private _ngZone = inject(NgZone);
   private _toast = inject(ToastService);
   private _visitService = inject(VisitService);
+  private _cdr = inject(ChangeDetectorRef);
 
   public isSupported = false;
   public isPermissionGranted = false;
   idVisitScanner!: string;
-  visitData!: IVisit;
+  visitData!: IVisit | null;
   visitorSelected!: IVisitor | null;
 
   public formGroup = new UntypedFormGroup({
@@ -62,6 +63,7 @@ export class ScannerVisitComponent implements OnInit {
     });
 
     this.checkAndRequestPermissions();
+    this.getVisitorById(43);
 
     BarcodeScanner.checkPermissions().then((result) => {
       this.isPermissionGranted = result.camera === 'granted';
@@ -113,8 +115,10 @@ export class ScannerVisitComponent implements OnInit {
   }
 
   showFormDetail(visitor: IVisitor) {
-    console.log("visitor", visitor)
     this.visitorSelected = visitor;
+    console.log(this.visitorSelected)
+    this._cdr.detectChanges();
+
   }
 
   resetVisitor(){

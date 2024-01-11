@@ -89,8 +89,9 @@ export class VisitorService {
    * @returns
    */
   deleteVisitor(idVisitor: number): Observable<IGeneralResponse<any>> {
-    return this._httpClient.delete<IGeneralResponse<any>>(
-      `${this.urlBase}/visitors/${idVisitor}`
+    return this._httpClient.patch<IGeneralResponse<any>>(
+      `${this.urlBase}/visitors/${idVisitor}`,
+      {}
     );
   }
 

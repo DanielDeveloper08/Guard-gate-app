@@ -1,4 +1,4 @@
-<ion-modal #modal>
+<ion-modal #modal [isOpen]="true">
   <ng-template>
     <shared-header
       [cancelButton]="true"
@@ -27,41 +27,43 @@
         </div>
       </div>
 
-      <div class="label">Observación</div>
+      <div class="label">Observación <span> (opcional)</span></div>
 
       <shared-input
         [startIcon]="'eye-outline'"
         [type]="'text'"
-        [pattern]="'^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$'"
-        [maxlength]="20"
-        [minlength]="3"
+        [maxlength]="100"
         [placeholder]="'Observación'"
         [value]="detailVisitForm.get('observation')?.value"
         (controlValueChange)="controlValueChangeObservation($event)"
       ></shared-input>
 
-      <div class="label">Placa vehicular</div>
+      <div class="label">Placa vehicular<span> (opcional)</span></div>
 
       <shared-input
         [startIcon]="'car-sport-outline'"
         [type]="'text'"
-        [pattern]="'^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$'"
-        [maxlength]="20"
-        [minlength]="3"
-        [placeholder]="'Placa vehicular'"
+        [pattern]="'^[a-zA-Z0-9-]*$'"
+        [maxlength]="8"
+        [placeholder]="'AAA-1234'"
         [value]="detailVisitForm.get('carPlate')?.value"
         (controlValueChange)="controlValueChangeCarPlate($event)"
       ></shared-input>
 
       <div class="title-detail">
         <ion-icon name="images-outline"></ion-icon>
-        <ion-label>Imágenes de visita</ion-label>
+        <ion-label class="label"
+          >Imágenes de visita<span> (requerido)</span></ion-label
+        >
       </div>
-
       <div class="empty-photos" *ngIf="photos.length == 0">
         <span>¡Toque "Tomar foto" para capturar imágenes!</span>
         <img src="assets/upload-image.svg" alt="upload-image" />
       </div>
+      <div class="error-message" *ngIf="showErrorImages">
+        Imágenes obligatorias..!
+      </div>
+
       <upload-images *ngIf="photos.length > 0"></upload-images>
       <ion-fab
         vertical="bottom"
@@ -75,7 +77,7 @@
       </ion-fab>
     </ion-content>
     <ion-footer collapse="fade" class="footer">
-      <shared-button [label]="'Guardar'" (click)="saveDetail()">
+      <shared-button [label]="'Guardar'" (click)="saveDetail()" [isLoading]="isLoadingSaveDetail">
       </shared-button>
     </ion-footer>
   </ng-template>

@@ -1,3 +1,16 @@
 .photo {
-    margin: .6rem 0;
+  margin: 0.6rem 0;
+  position: relative;
+
+  .icon-delete {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--mandy-500);
+    font-size: 1.5rem;
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--mandy-500);
   }
+}

@@ -8,10 +8,13 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './shared/services/interceptor';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { environment } from 'src/environments/environment';
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     AppComponent
@@ -21,7 +24,9 @@ const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
     AppRoutingModule,
     IonicModule.forRoot(),
     SharedModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideStorage(() => getStorage())
   ],
   providers: [
     {

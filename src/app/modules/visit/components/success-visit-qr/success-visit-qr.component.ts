@@ -9,13 +9,14 @@ import { IUser } from '../../../auth/interfaces/auth.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonModal, LoadingController } from '@ionic/angular';
-import html2canvas from 'html2canvas';
+import domtoimage from 'dom-to-image';
 import { IResidence } from 'src/app/modules/profile/interfaces/residences';
 import { environment } from 'src/environments/environment';
 import { VisitService } from '../../services/visit.service';
 import { ISendQRRequest } from '../../interfaces/visit.interface';
 import { ToastService } from 'src/app/shared/services';
 import { Position } from 'src/app/shared/interfaces';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'success-visit-qr-modal',
@@ -27,6 +28,7 @@ export class SuccessVisitQrComponent implements OnInit {
   private _toastService = inject(ToastService);
   private _router = inject(Router);
   private _loadingController = inject(LoadingController);
+  private _storageService = inject(StorageService);
 
   mainResidence!: IResidence;
   user: IUser = JSON.parse(localStorage.getItem('user')!);
@@ -64,17 +66,29 @@ export class SuccessVisitQrComponent implements OnInit {
     if (this.qrcodeImageContainer) {
       const loading = await this.presentLoading();
 
-      html2canvas(this.qrcodeImageContainer.nativeElement).then((canvas) => {
-        const base64Image = canvas.toDataURL();
-        this.sendQRCode(base64Image, loading);
-      });
+       domtoimage.toBlob(this.qrcodeImageContainer.nativeElement)
+        .then(async(blob) => {
+          const fileName = 'qr_code.png';
+          const lastModified = new Date().getTime();
+          const fileType = blob.type;
+
+          const file = new File([blob], fileName, { lastModified, type: fileType });
+          const URLImage = await this._storageService.uploadStorage(file,'qr-codes',`qr-${this.idNewVisit}`);
+
+          this.sendQRCodeImageFile(URLImage!,loading);
+        })
+        .catch((error) => {
+          console.error('Error al capturar la imagen:', error);
+        });
     }
   }
 
-  sendQRCode(base64: string, loading: HTMLIonLoadingElement) {
+
+  sendQRCodeImageFile(url: string, loading: HTMLIonLoadingElement) {
+
     const data: ISendQRRequest = {
-      base64Img: base64,
-      visitId: parseInt(this.idNewVisit, 10),
+      imgUrl: url,
+      visitId: Number(this.idNewVisit.split('-')[1]),
     };
 
     this._visitService.sendQRCode(data).subscribe({
