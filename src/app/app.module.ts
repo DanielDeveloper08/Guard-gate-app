@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './shared/services/interceptor';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
 
@@ -21,7 +22,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
     AppRoutingModule,
     IonicModule.forRoot(),
     SharedModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    NoopAnimationsModule
   ],
   providers: [
     {

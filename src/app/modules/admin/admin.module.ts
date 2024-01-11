@@ -10,12 +10,16 @@ import { LinearChartComponent } from './components/linear-chart/linear-chart.com
 import { VisitDashboardComponent } from './pages/visit-dashboard/visit-dashboard.component';
 import { EditResidentComponent } from './components/resident/edit-resident/edit-resident.component';
 import { ListResidentComponent } from './components/resident/list-resident/list-resident.component';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    TableModule,
+    ButtonModule,
   ],
   declarations: [
     ListResidentComponent,

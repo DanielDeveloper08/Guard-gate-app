@@ -1,3 +1,7 @@
+@import 'primeng/resources/themes/lara-light-blue/theme.css';
+@import 'primeng/resources/primeng.min.css';
+@import 'primeicons/primeicons.css';
+
 @import 'theme/mixins';
 * {
   margin: 0;
@@ -56,3 +60,14 @@ $primary-color: #3880ff;
       }
   }
 }
+.custom-table-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-filter-container{
+  width: 100%;
+  padding: 1rem;
+}
+

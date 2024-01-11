@@ -5,6 +5,7 @@ import { ListRoleComponent } from "./pages/role/list-role/list-role.component";
 import { EditRoleComponent } from "./pages/role/edit-role/edit-role.component";
 import { VisitDashboardComponent } from "./pages/visit-dashboard/visit-dashboard.component";
 import { EditResidentComponent } from "./components/resident/edit-resident/edit-resident.component";
+import { ListResidentComponent } from "./components/resident/list-resident/list-resident.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
       {path:'visit-dashboard', component: VisitDashboardComponent},
       {path:'roles', component: ListRoleComponent},
       {path:'edit-role/:name', component: EditRoleComponent},
-      {path:'resident', component: EditResidentComponent},
+      {path:'resident', component: ListResidentComponent},
+      {path:'edit-resident', component: EditResidentComponent},
     ],
     
   },
