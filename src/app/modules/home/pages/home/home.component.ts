@@ -3,6 +3,11 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ResidenceService } from 'src/app/modules/profile/services/residence.service';
 import { IMainHome } from '../../interfaces/home.interface';
 import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
+import { HomeService } from '../../services/home.service';
+import { IVisit } from 'src/app/modules/visit/interfaces/visit.interface';
+import { ToastService } from 'src/app/shared/services';
+import { Position } from 'src/app/shared/interfaces';
+import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface';
 
 @Component({
   selector: 'app-home',
@@ -12,17 +17,56 @@ import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 export class HomeComponent implements OnInit {
 
   private _residenceService = inject(ResidenceService);
+  private _homeService = inject(HomeService);
+  private _toastService = inject(ToastService);
+
+  visitors:IVisitor[]=[
+    {
+        "id": 11,
+        "names": "Daniel Steven",
+        "surnames": "Asanza Erazo",
+        "docNumber": "0943995555",
+        "idResidency": 1,
+        "initials": "DF"
+    },
+    {
+        "id": 13,
+        "names": "José",
+        "surnames": "Dominguez",
+        "docNumber": "0993837373",
+        "idResidency": 1,
+        "initials": "DF"
+    },
+    {
+        "id": 14,
+        "names": "Paulina",
+        "surnames": "Rodríguez",
+        "docNumber": "0940532492",
+        "idResidency": 1,
+        "initials": "DF"
+    },
+    {
+        "id": 15,
+        "names": "Bryan",
+        "surnames": "Martínez",
+        "docNumber": "0938374747",
+        "idResidency": 1,
+        "initials": "DF"
+    }
+]
   mainResidence!: IMainHome;
   userRole!:string;
-
+  pendingVisits: IVisit[]=[];
+  isLoadingSummary: boolean = false;
+  isLoadingResidences: boolean = false;
   ngOnInit() {
-    this.getResidences();
     const user: IUser = JSON.parse(localStorage.getItem('user')!);
     this.userRole = user.role;
   }
 
   ionViewWillEnter(){
     this.getResidences();
+    this.getSummaryData();
   }
 
   visitData:any = [
@@ -79,10 +123,10 @@ export class HomeComponent implements OnInit {
   ];
 
   getResidences(){
-    // this.isLoadingResidences = true;
+    this.isLoadingResidences = true;
     this._residenceService.getResidencesByUser().subscribe({
       next: (res) => {
-        // this.isLoadingResidences = false;
+        this.isLoadingResidences = false;
         const home: IMainHome = {
           id: res.data.id,
           names: res.data.names,
@@ -93,7 +137,22 @@ export class HomeComponent implements OnInit {
         localStorage.setItem('mainResidence', JSON.stringify(home.residence));
       },
       error: (err:HttpErrorResponse) => {
-        // this.isLoadingResidences = false;
+        this._toastService.showError("Ocurrió un error al cargar la residencia", Position.Top);
+        this.isLoadingResidences = false;
+      }
+    });
+  }
+
+  getSummaryData(){
+    this.isLoadingSummary = true;
+    this._homeService.getSummary().subscribe({
+      next: (res) => {
+        this.isLoadingSummary = false;
+        this.pendingVisits = res.data.lastVisits;
+      },
+      error: (err:HttpErrorResponse) => {
+        this.isLoadingSummary = false;
+        this._toastService.showError("Ocurrió un error al cargar el resumen", Position.Top);
       }
     });
   }

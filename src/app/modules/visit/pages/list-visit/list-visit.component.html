@@ -17,6 +17,13 @@
       (controlValueChange)="controlValueChangeFilter($event)"
     ></shared-input>
   </div>
+
+  <div  *ngIf="isLoadingVisit">
+    <div *ngFor="let _ of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" class="skeleton-item">
+      <skeleton-card-visit></skeleton-card-visit>
+    </div>
+  </div>
+
   <div
     *ngFor="let visit of listVisits | customFilter : filterInput.value"
     class="item-visit"

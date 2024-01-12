@@ -6,7 +6,7 @@
     <span>CI: {{visitor.docNumber}}</span>
   </div>
   </div>
-  <div class="action-visitor" [ngClass]="{'selected-visitor': visitor.isSelected && isNewVisit}">
+  <div class="action-visitor" [ngClass]="{'selected-visitor': visitor.isSelected && isNewVisit}" *ngIf="showActions">
     <ion-icon *ngIf="!isNewVisit" name="ellipsis-vertical" (click)="clickActions()"></ion-icon>
     <ion-icon *ngIf="isNewVisit && visitor.isSelected" name="checkmark-done-outline" class="checkIcon"></ion-icon>
   </div>

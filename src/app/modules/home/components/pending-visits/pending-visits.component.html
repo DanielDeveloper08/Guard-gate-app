@@ -1,0 +1,9 @@
+<div class="container-pending-visit">
+  <ion-icon name="time-outline"></ion-icon>
+
+  <div class="information-pending-visit">
+    <span class="reason">{{visit.reason | truncateWord:10 | camelCase }}</span>
+    <span>N. visitantes: {{visit.visitors.length}}</span>
+    <span class="date">{{visit.startDate| customDate}}</span>
+  </div>
+</div>

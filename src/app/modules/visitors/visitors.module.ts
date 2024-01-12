@@ -8,6 +8,7 @@ import { ItemVisitorComponent } from './components/item-visitor/item-visitor.com
 import { SelectedVisitorsComponent } from './components/selected-visitors/selected-visitors.component';
 import { FormVisitorComponent } from './components/form-visitor/form-visitor.component';
 import { ActionsModalComponent } from './components/actions-modal/actions-modal.component';
+import { SkeletonItemVisitorComponent } from './components/skeleton-item-visitor/skeleton-item-visitor.component';
 
 @NgModule({
   imports: [
@@ -21,10 +22,12 @@ import { ActionsModalComponent } from './components/actions-modal/actions-modal.
     ItemVisitorComponent,
     SelectedVisitorsComponent,
     FormVisitorComponent,
-    ActionsModalComponent
+    ActionsModalComponent,
+    SkeletonItemVisitorComponent
   ],
   exports: [
-    SelectedVisitorsComponent
+    SelectedVisitorsComponent,
+    ItemVisitorComponent
   ]
 })
 export class VisitorsModule { }

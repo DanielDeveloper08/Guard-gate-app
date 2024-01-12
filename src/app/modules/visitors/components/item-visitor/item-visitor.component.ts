@@ -9,6 +9,7 @@ import { IVisitor } from '../../interfaces/visitor.interface';
 export class ItemVisitorComponent implements OnInit {
   @Input() visitor!: IVisitor;
   @Input() isNewVisit: boolean=false;
+  @Input() showActions: boolean=true;
   @Output() changeVisitors: EventEmitter<void> = new EventEmitter<void>();
   @Output() actionsEvent: EventEmitter<void> = new EventEmitter<void>();
 
