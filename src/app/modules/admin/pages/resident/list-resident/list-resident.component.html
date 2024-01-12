@@ -1,0 +1,61 @@
+<div>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-card class="table-filter-container">
+                    <ion-toolbar>
+                        <ion-title>Residentes</ion-title>
+                        <ion-button slot="end">Agregar</ion-button>
+                    </ion-toolbar>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <p-table #dt
+                [value]="residents"
+                [paginator]="true"
+                [rowHover]="true"
+                [rows]="5"
+                [showCurrentPageReport]="true"
+                [scrollable]="true"
+                currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros"
+                [rowsPerPageOptions]="[5, 10, 20]"
+                [globalFilterFields]="['username','names','surnames']"
+                >
+                    <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <ion-item class="p-input-icon-left">
+                                <ion-label position="stack">Filtro:</ion-label>
+                                <ion-input type="text" placeholder="Buscar..." pInputText [(ngModel)]="filterText" (input)="dt.filterGlobal(filterText, 'contains')" />
+                            </ion-item>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:15%">Usuarios</th>
+                            <th style="width:20%">Nombres</th>
+                            <th style="width:20%">Apellidos</th>
+                            <th style="width:20%">Email</th>
+                            <th style="width:20%">Tel. Celular</th>
+                            <th style="width:5%">Editar</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr>
+                            <td>{{ customer.username }}</td>
+                            <td>{{ customer.names }}</td>
+                            <td>{{ customer.surnames }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.phone }}</td>
+                            <td style="text-align: center;">
+                                <ion-icon name="create-outline" size="large" [routerLink]="['/admin/edit-resident']"></ion-icon>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</div>
+

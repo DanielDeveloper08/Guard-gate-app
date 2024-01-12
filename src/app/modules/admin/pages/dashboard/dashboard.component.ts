@@ -14,7 +14,8 @@ export class DashboardComponent implements OnInit {
     this.operations = [
       {id:1, name:"Roles", route:"/admin/roles"}, 
       {id:2, name:"Visitas", route:"/admin/visit-dashboard"}, 
-      {id:2, name:"Residentes", route:"/admin/resident"}
+      {id:3, name:"Usuarios", route:"/admin/users"},
+      {id:4, name:"Residentes", route:"/admin/residents"}
     ];
 
   }

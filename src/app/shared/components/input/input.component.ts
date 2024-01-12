@@ -27,6 +27,8 @@ export class InputComponent {
   @Input() type: 'text' | 'password' = 'text';
   @Input() value: string="";
   @Input() disabled: boolean = false;
+  @Input() label: string = '';
+  @Input() labelPosition: string = '';
   @Output() visibilityChanged = new EventEmitter<boolean>();
   @ViewChild('inputTag', { static: false }) inputTag!: IonInput;
   @Output() controlValueChange: EventEmitter<FormControl> = new EventEmitter<FormControl>();
