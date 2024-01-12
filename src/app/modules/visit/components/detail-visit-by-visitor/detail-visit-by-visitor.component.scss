@@ -12,7 +12,7 @@ ion-modal {
 
   .close-icon {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     ion-icon {
       font-size: 1.3rem;
     }
@@ -38,7 +38,7 @@ ion-modal {
     .header-right{
       display: flex;
       justify-content: center;
-      align-items: start;
+      align-items: flex-start;
       font-size: 1rem;
       font-weight: 600;
       flex-direction: column;

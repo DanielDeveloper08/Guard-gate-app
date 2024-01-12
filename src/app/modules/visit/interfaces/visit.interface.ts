@@ -46,5 +46,13 @@ export interface IAddVisitResponse {
 
 export interface ISendQRRequest{
     visitId: number;
-    base64Img: string;
+    imgUrl: string;
+}
+
+export interface ISaveDetailVisitRequest{
+    visitId:     number;
+    visitorId:   number;
+    observation?:string;
+    carPlate?:   string;
+    photos:      string[];
 }

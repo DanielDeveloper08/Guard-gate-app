@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import {
   IAddVisitRequest,
   IAddVisitResponse,
+  ISaveDetailVisitRequest,
   ISendQRRequest,
   IVisit,
   IVisitResponse,
@@ -71,9 +72,7 @@ export class VisitService {
    * @param params
    * @returns
    */
-  getVisitById(
-    params?: number
-  ): Observable<IGeneralResponse<IVisit>> {
+  getVisitById(params?: number): Observable<IGeneralResponse<IVisit>> {
     return this._httpClient.get<IGeneralResponse<IVisit>>(
       `${this.urlBase}/visits/${params}`
     );
@@ -98,11 +97,23 @@ export class VisitService {
    * @param params
    * @returns
    */
-  sendQRCode(
-    params: ISendQRRequest
-  ): Observable<IGeneralResponse<any>> {
+  sendQRCode(params: ISendQRRequest): Observable<IGeneralResponse<any>> {
     return this._httpClient.post<IGeneralResponse<any>>(
       `${this.urlBase}/visits/sendQR`,
+      params
+    );
+  }
+
+  /**
+   * Guardar detalle de visita por parte del guardia
+   * @param params
+   * @returns
+   */
+  saveDetailVisit(
+    params: ISaveDetailVisitRequest
+  ): Observable<IGeneralResponse<any>> {
+    return this._httpClient.post<IGeneralResponse<any>>(
+      `${this.urlBase}/visits/detail`,
       params
     );
   }

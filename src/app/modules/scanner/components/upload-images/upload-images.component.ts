@@ -13,7 +13,13 @@ export class UploadImagesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.photos = this._scannerService.photos;
+    this._scannerService.photos$.subscribe( data => {
+      this.photos = data;
+    });
+  }
+
+  removePhoto(photoRemove:string){
+    this._scannerService.removePhoto(photoRemove);
   }
 
 }

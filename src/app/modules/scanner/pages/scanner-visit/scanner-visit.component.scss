@@ -20,7 +20,7 @@
   padding: .5rem 1rem;
   color: white;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   gap: .5rem;
   bottom: 1rem;
@@ -91,7 +91,7 @@
 
         ion-icon {
           color: var(--silver-700);
-          font-size: 1.5rem;
+          font-size: 1.9rem;
         }
 
         .item-left{

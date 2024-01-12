@@ -2,6 +2,10 @@
   font-weight: 600;
   margin-top: 0.8rem;
   margin-bottom: 0.5rem;
+  span{
+    font-size: .875rem;
+    color: var(--silver-500);
+  }
 }
 
 .footer {
@@ -36,7 +40,7 @@
   .header-right{
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     font-size: 1rem;
     font-weight: 600;
     flex-direction: column;
@@ -55,7 +59,7 @@
   padding: 0.5rem 1rem;
   color: white;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   gap: 0.5rem;
   bottom: 1rem;
@@ -77,4 +81,13 @@
     object-fit: cover;
     height: 100%;
   }
+}
+
+.error-message{
+  color: var( --mandy-500);
+  font-size: .9375rem;
+  text-align: start;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: .5rem;
 }

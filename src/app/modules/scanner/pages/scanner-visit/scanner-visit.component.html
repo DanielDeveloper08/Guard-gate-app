@@ -11,16 +11,16 @@
         <ion-icon name="people-circle-outline"></ion-icon>
       </div>
       <div class="reason-visit">
-        <span class="reason-title">{{ visitData?.reason! | camelCase }}</span>
+        <span class="reason-title">{{ visitData.reason! | camelCase }}</span>
         <span class="date-visit"
-          >Visita válida desde {{ visitData?.startDate! | customDate }}</span
+          >Visita válida desde {{ visitData.startDate! | customDate }}</span
         >
       </div>
     </div>
     <div class="body-detail">
       <div class="container-visitors">
         <span class="visitors-title"
-          >Visitantes ({{ (visitData?.visitors)!.length }})</span
+          >Visitantes ({{ visitData.visitors!.length }})</span
         >
         <div class="list-visitors">
           <div
@@ -60,7 +60,8 @@
     <ion-label>Escanear</ion-label>
   </ion-fab>
   <form-detail-visit
-    [idVisit]="visitData?.id"
+    *ngIf="visitorSelected?.id"
+    [idVisit]="visitData || null"
     [visitor]="visitorSelected || null"
     (reset)="resetVisitor()"
   ></form-detail-visit>
