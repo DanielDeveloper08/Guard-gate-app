@@ -8,18 +8,23 @@ import { CameraService } from '../../services/camera.service';
 })
 export class UploadImagesComponent implements OnInit {
   photos: string[]=[];
-  private _scannerService = inject(CameraService);
-
+  private _cameraService = inject(CameraService);
+  isLoadingImage: boolean = false;
   constructor() { }
 
   ngOnInit() {
-    this._scannerService.photos$.subscribe( data => {
+    this._cameraService.photos$.subscribe( data => {
       this.photos = data;
     });
+
+    this._cameraService.isLoadingImage.subscribe(value => {
+      console.log("IS LOADING", value)
+      this.isLoadingImage = value;
+    })
   }
 
   removePhoto(photoRemove:string){
-    this._scannerService.removePhoto(photoRemove);
+    this._cameraService.removePhoto(photoRemove);
   }
 
 }

@@ -56,7 +56,7 @@
           >Imágenes de visita<span> (requerido)</span></ion-label
         >
       </div>
-      <div class="empty-photos" *ngIf="photos.length == 0">
+      <div class="empty-photos" *ngIf="photos.length == 0 && !isLoadingImage">
         <span>¡Toque "Tomar foto" para capturar imágenes!</span>
         <img src="assets/upload-image.svg" alt="upload-image" />
       </div>
@@ -64,7 +64,7 @@
         Imágenes obligatorias..!
       </div>
 
-      <upload-images *ngIf="photos.length > 0"></upload-images>
+      <upload-images></upload-images>
       <ion-fab
         vertical="bottom"
         horizontal="end"

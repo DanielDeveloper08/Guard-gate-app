@@ -41,10 +41,12 @@ export class FormDetailVisitComponent implements OnInit {
   private _formBuilder = inject(FormBuilder);
   private _scannerService = inject(CameraService);
   private _toastService = inject(ToastService);
+  private _cameraService = inject(CameraService);
 
   photos: string[] = [];
   visitorSelected!: IVisitor;
   isLoadingSaveDetail: boolean = false;
+  isLoadingImage: boolean = false;
 
   @ViewChild('modal') modal!: IonModal;
   detailVisitForm!: FormGroup;
@@ -62,6 +64,10 @@ export class FormDetailVisitComponent implements OnInit {
     this._scannerService.photos$.subscribe(data=>{
       this.photos = data;
     });
+    this._cameraService.isLoadingImage.subscribe(value => {
+      console.log("IS LOADING", value)
+      this.isLoadingImage = value;
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
