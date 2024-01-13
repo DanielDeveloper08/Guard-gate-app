@@ -69,6 +69,6 @@
     *ngIf="visitorSelected?.id"
     [idVisit]="visitData || null"
     [visitor]="visitorSelected || null"
-    (reset)="resetVisitor()"
+    (reset)="resetVisitor($event)"
   ></form-detail-visit>
 </ion-content>

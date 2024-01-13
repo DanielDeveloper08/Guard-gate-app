@@ -12,9 +12,8 @@ import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { Position } from 'src/app/shared/interfaces';
 import { VisitService } from '../../../visit/services/visit.service';
-import { IVisit, IVisitDetail, IVisitorDetail } from '../../../visit/interfaces/visit.interface';
+import { IVisitDetail, IVisitorDetail } from '../../../visit/interfaces/visit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface';
 
 @Component({
   selector: 'app-scanner',
@@ -63,7 +62,6 @@ export class ScannerVisitComponent implements OnInit {
     });
 
     this.checkAndRequestPermissions();
-    this.getVisitorById(60);
 
     BarcodeScanner.checkPermissions().then((result) => {
       this.isPermissionGranted = result.camera === 'granted';
@@ -97,12 +95,12 @@ export class ScannerVisitComponent implements OnInit {
         }
 
         this.idVisitScanner = barcode.displayValue.split('-')[1];
-        this.getVisitorById(parseInt(this.idVisitScanner, 10));
+        this.getVisitById(parseInt(this.idVisitScanner, 10));
       }
     });
   }
 
-  getVisitorById(idVisit: number) {
+  getVisitById(idVisit: number) {
     this._visitService.getVisitById(idVisit).subscribe({
       next: (res) => {
         // this.isLoadingVisit = false;
@@ -122,7 +120,8 @@ export class ScannerVisitComponent implements OnInit {
 
   }
 
-  resetVisitor(){
+  resetVisitor(saveData: boolean | void){
     this.visitorSelected = null;
+    saveData && this.getVisitById(parseInt(this.idVisitScanner, 10));
   }
 }

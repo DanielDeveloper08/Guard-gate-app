@@ -36,7 +36,7 @@ import { ToastService } from 'src/app/shared/services';
 export class FormDetailVisitComponent implements OnInit {
   @Input() idVisit!: IVisitDetail | null;
   @Input() visitor!: IVisitorDetail | null;
-  @Output() reset: EventEmitter<void> = new EventEmitter<void>();
+  @Output() reset: EventEmitter<boolean | void> = new EventEmitter<boolean | void>();
 
   private _visitService = inject(VisitService);
   private _formBuilder = inject(FormBuilder);
@@ -111,10 +111,10 @@ export class FormDetailVisitComponent implements OnInit {
     this.detailVisitForm.setControl('carPlate', formControl);
   }
 
-  closeModalVisitors() {
+  closeModalVisitors(saveData?:boolean) {
     this._scannerService.resetPhotos();
     this.modal.dismiss();
-    this.reset.emit();
+    this.reset.emit(saveData);
   }
 
   async takePhoto() {
@@ -171,7 +171,7 @@ export class FormDetailVisitComponent implements OnInit {
 
   private handleSaveSuccess(): void {
     this.isLoadingSaveDetail = false;
-    this.closeModalVisitors();
+    this.closeModalVisitors(true);
   }
 
   private handleSaveError(): void {
