@@ -43,7 +43,7 @@ export class FormVisitorComponent implements OnInit {
       this.validVisitForm();
     }
 
-    if(changes["visitorInit"].currentValue){
+    if(changes["visitorInit"]?.currentValue){
       this.disabled = true;
       this.setDataForm();
     }
