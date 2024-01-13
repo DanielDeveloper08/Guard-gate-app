@@ -75,9 +75,20 @@
         <ion-icon name="camera-outline"></ion-icon>
         <ion-label>Tomar foto</ion-label>
       </ion-fab>
+      <approval-reject-modal
+        [isOpenModal]="isOpenModal"
+        [visitor]="visitor || null"
+        (hasEnteredEvent)="saveDetail($event)"
+        (reset)="resetOpenModal()"
+      ></approval-reject-modal>
     </ion-content>
     <ion-footer collapse="fade" class="footer">
-      <shared-button [label]="'Guardar'" (click)="saveDetail()" [isLoading]="isLoadingSaveDetail">
+      <shared-button
+        [label]="'Guardar'"
+        (click)="openQuestionModal()"
+        [isLoading]="isLoadingSaveDetail"
+        [disabled]="!photos.length"
+      >
       </shared-button>
     </ion-footer>
   </ng-template>

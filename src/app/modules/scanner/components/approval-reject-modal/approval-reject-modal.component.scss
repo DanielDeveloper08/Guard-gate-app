@@ -1,0 +1,43 @@
+ion-modal {
+    --height: auto;
+    --border-radius: 1.5rem 1.5rem 0 0;
+  }
+
+  .title-modal {
+
+    display: flex;
+    padding: 0.9rem;
+    justify-content: space-between;
+    border-bottom: 0.5px solid var(--silver-200);
+    font-size: 1.1rem;
+    font-weight: 600;
+    .close-icon {
+      display: flex;
+      justify-content: end;
+      ion-icon {
+        font-size: 1.4rem;
+      }
+    }
+  }
+
+  .container-actions-visitor {
+    padding: 1.3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.6rem;
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-weight: 600;
+      flex-direction: column;
+    }
+
+    .body-actions {
+      display: flex;
+      flex-direction: column;
+      row-gap: 1.2rem;
+
+    }
+  }

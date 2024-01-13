@@ -52,6 +52,7 @@ export interface ISendQRRequest{
 export interface ISaveDetailVisitRequest{
     visitId:     number;
     visitorId:   number;
+    hasEntered:  boolean;
     observation?:string;
     carPlate?:   string;
     photos:      string[];

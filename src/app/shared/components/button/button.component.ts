@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ButtonStyle } from '../../interfaces/general.interface';
 
 @Component({
   selector: 'shared-button',
@@ -10,11 +11,14 @@ export class ButtonComponent implements OnInit {
   @Input() isLoading: boolean = false;
   @Input() disabled: boolean = false;
   @Input() icon!: string;
-  @Input() isOutline: boolean = false;
+  @Input() style: ButtonStyle = ButtonStyle.Primary;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  getButtonStyleClass(): string {
+    return `${this.style}`;
+  }
 }

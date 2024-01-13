@@ -47,6 +47,7 @@ export class FormDetailVisitComponent implements OnInit {
   visitorSelected!: IVisitor;
   isLoadingSaveDetail: boolean = false;
   isLoadingImage: boolean = false;
+  isOpenModal: boolean = false;
 
   @ViewChild('modal') modal!: IonModal;
   detailVisitForm!: FormGroup;
@@ -61,13 +62,12 @@ export class FormDetailVisitComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this._scannerService.photos$.subscribe(data=>{
+    this._scannerService.photos$.subscribe((data) => {
       this.photos = data;
     });
-    this._cameraService.isLoadingImage.subscribe(value => {
-      console.log("IS LOADING", value)
+    this._cameraService.isLoadingImage.subscribe((value) => {
       this.isLoadingImage = value;
-    })
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -108,7 +108,12 @@ export class FormDetailVisitComponent implements OnInit {
 
   showErrorImages: boolean = false;
 
-  saveDetail() {
+  openQuestionModal() {
+    if (!this.photos.length) return;
+    this.isOpenModal = true;
+  }
+
+  saveDetail(isEnteredValue: boolean) {
     this.isLoadingSaveDetail = true;
 
     if (this.photos.length === 0) {
@@ -120,6 +125,7 @@ export class FormDetailVisitComponent implements OnInit {
       visitId: this.idVisit?.id!,
       visitorId: this.visitor?.id!,
       photos: this.photos,
+      hasEntered: isEnteredValue,
     };
 
     this.addCarPlateAndObservation(dataSave);
@@ -128,6 +134,10 @@ export class FormDetailVisitComponent implements OnInit {
       next: (res) => this.handleSaveSuccess(),
       error: (err: HttpErrorResponse) => this.handleSaveError(),
     });
+  }
+
+  resetOpenModal() {
+    this.isOpenModal = false;
   }
 
   private addCarPlateAndObservation(dataSave: ISaveDetailVisitRequest): void {

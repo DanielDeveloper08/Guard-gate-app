@@ -1,23 +1,39 @@
 ion-button {
-    text-transform: none;
-    font-weight: 700;
-    letter-spacing: 0;
-    font-size: 1rem;
-    --padding-top:1rem;
-    --padding-bottom:1rem;
-    // --background: #2a3240;
-    --border-radius: .7rem;
-    // --background-hover: #2a3240;
-    // --background-activated: #1a253a;
-    .label{
-      margin-left: .5rem;
-    }
-    .loading-button{
-      margin-left: 1rem;
-    }
-  }
+  text-transform: none;
+  font-weight: 700;
+  letter-spacing: 0;
+  font-size: 1rem;
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
+  // --background: #2a3240;
+  --border-radius: 0.7rem;
+  // --background-hover: #2a3240;
+  // --background-activated: #1a253a;
 
-  .outline{
-    --background: var(--silver-50);
-    color: black;
+  .label {
+    margin-left: 0.5rem;
   }
+  .loading-button {
+    margin-left: 1rem;
+  }
+}
+
+.outline {
+  --background: var(--silver-50);
+  color: black;
+}
+
+.danger {
+  --background: var(--mandy-500);
+}
+
+.outline-danger {
+  color: var(--mandy-500);
+  border: 1px solid var(--mandy-500);
+  border-radius: 0.7rem;
+
+  --border-radius: 0.7rem;
+  --background: transparent;
+  --box-shadow: 0 3px 1px -2px var(--mandy-500), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}

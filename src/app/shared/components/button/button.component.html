@@ -1,5 +1,5 @@
-<ion-button expand="block" [disabled]="disabled" [ngClass]="{'outline': isOutline}">
-    <ion-icon [name]="icon" *ngIf="icon"></ion-icon>
+<ion-button expand="block" [disabled]="disabled" [class]="getButtonStyleClass()">
+  <ion-icon [name]="icon" *ngIf="icon"></ion-icon>
   <span class="label">{{label}}</span>
   <ion-spinner class="loading-button" *ngIf="isLoading" name="bubbles"></ion-spinner>
 </ion-button>
