@@ -7,9 +7,25 @@
       [title]="'Detalle visita'"
     ></shared-header>
     <ion-content class="ion-padding">
-      <div class="title-detail">
-        <ion-icon name="person-outline"></ion-icon>
-        <span>Visitante</span>
+      <div class="title-general">
+        <div class="title">
+          <ion-icon name="person-outline"></ion-icon>
+          <span>Visitante</span>
+        </div>
+
+        <div
+          class="entered"
+          [ngClass]="{
+            approval: visitor?.hasEntered,
+            reject: !visitor?.hasEntered
+          }"
+
+          *ngIf="visitor?.hasEntered != null"
+        >
+          <span>{{
+            visitor?.hasEntered == false ? "Rechazado" : "Permitido"
+          }}</span>
+        </div>
       </div>
       <div class="header-detail">
         <div class="header-left">

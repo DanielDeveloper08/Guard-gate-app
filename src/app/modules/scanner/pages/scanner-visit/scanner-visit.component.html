@@ -41,12 +41,12 @@
               </div>
             </div>
             <ion-icon
-              *ngIf="!visitor.hasEntered"
+              *ngIf="visitor.hasEntered == null"
               name="add-circle-outline"
               (click)="showFormDetail(visitor)"
             ></ion-icon>
             <ion-icon
-            *ngIf="visitor.hasEntered"
+            *ngIf="visitor.hasEntered != null"
             name="eye-outline"
             (click)="showFormDetail(visitor,true)"
           ></ion-icon>

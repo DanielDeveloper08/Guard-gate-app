@@ -13,11 +13,41 @@
   padding: 1rem 1rem 1.2rem 1rem;
 }
 
-.title-detail {
+.title-detail{
   display: flex;
   gap: 0.5rem;
   font-weight: 600;
   align-items: center;
+}
+.title-general {
+  display: flex;
+  justify-content: space-between;
+
+  .title{
+    display: flex;
+    gap: 0.5rem;
+    font-weight: 600;
+    align-items: center;
+  }
+
+  .entered{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .3rem;
+    border-radius: 1rem;
+    padding: .2rem 1rem;
+    font-weight: 600;
+    color:white;
+  }
+
+  .approval{
+    background-color: var(--color-green-400);
+  }
+
+  .reject{
+    background-color: var(--mandy-600);
+  }
 }
 
 .header-detail {
