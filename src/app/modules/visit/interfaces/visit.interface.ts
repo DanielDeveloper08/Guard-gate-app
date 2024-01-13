@@ -22,6 +22,37 @@ export interface IVisit {
     visitors:      IVisitor[];
 }
 
+export interface IVisitDetail{
+    id:            number;
+    startDate:     string;
+    endDate:       string;
+    validityHours: number;
+    reason:        string;
+    generatedBy:   string;
+    status:        string;
+    idResidency:   number;
+    type:          string;
+    visitors:      IVisitorDetail[];
+    message:       string;
+}
+
+export interface IVisitorDetail{
+    id:          number;
+    names:       string;
+    surnames:    string;
+    docNumber:   string;
+    phone:       string;
+    status:      boolean;
+    idResidency: number;
+    hasEntered:  boolean;
+    entryDate:   Date | null;
+    carPlate:    null | string;
+    observation: null | string;
+    photos:      string;
+
+    readOnly:    boolean;
+}
+
 export interface IAddVisitRequest{
     startDate:     string;
     validityHours: number;

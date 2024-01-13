@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { IonModal, AlertController } from '@ionic/angular';
+import { IVisitorDetail } from 'src/app/modules/visit/interfaces/visit.interface';
 import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface';
 import { ButtonStyle } from 'src/app/shared/interfaces/general.interface';
 
@@ -10,7 +11,7 @@ import { ButtonStyle } from 'src/app/shared/interfaces/general.interface';
 })
 export class ApprovalRejectModalComponent implements OnInit {
   @Input() isOpenModal: boolean = false;
-  @Input() visitor!: IVisitor | null;
+  @Input() visitor!: IVisitorDetail | null;
   buttonStyleEnum = ButtonStyle;
   @Output() reset: EventEmitter<void> = new EventEmitter<void>;
   @Output() hasEnteredEvent: EventEmitter<boolean> = new EventEmitter<boolean>;

@@ -20,8 +20,9 @@ import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface'
 import {
   ISaveDetailVisitRequest,
   IVisit,
+  IVisitDetail,
+  IVisitorDetail,
 } from 'src/app/modules/visit/interfaces/visit.interface';
-import { io } from 'socket.io-client';
 import { VisitService } from 'src/app/modules/visit/services/visit.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Position } from 'src/app/shared/interfaces';
@@ -33,8 +34,8 @@ import { ToastService } from 'src/app/shared/services';
   styleUrls: ['./form-detail-visit.component.scss'],
 })
 export class FormDetailVisitComponent implements OnInit {
-  @Input() idVisit!: IVisit | null;
-  @Input() visitor!: IVisitor | null;
+  @Input() idVisit!: IVisitDetail | null;
+  @Input() visitor!: IVisitorDetail | null;
   @Output() reset: EventEmitter<void> = new EventEmitter<void>();
 
   private _visitService = inject(VisitService);
@@ -44,7 +45,7 @@ export class FormDetailVisitComponent implements OnInit {
   private _cameraService = inject(CameraService);
 
   photos: string[] = [];
-  visitorSelected!: IVisitor;
+  visitorSelected!: IVisitorDetail;
   isLoadingSaveDetail: boolean = false;
   isLoadingImage: boolean = false;
   isOpenModal: boolean = false;
@@ -68,12 +69,27 @@ export class FormDetailVisitComponent implements OnInit {
     this._cameraService.isLoadingImage.subscribe((value) => {
       this.isLoadingImage = value;
     });
+
+    if(this.visitorSelected.readOnly){
+      this.setDataForm();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes);
     if (changes['visitor']?.currentValue != null) {
       this.visitorSelected = changes['visitor']?.currentValue;
+    }
+  }
+
+  setDataForm(){
+    if (this.detailVisitForm) { // Verifica si el formulario está definido
+      this.detailVisitForm.get('observation')?.setValue(this.visitorSelected?.observation);
+      this.detailVisitForm.get('carPlate')?.setValue(this.visitorSelected?.carPlate);
+
+      if (this.visitorSelected?.photos) {
+        const urlArray = JSON.parse(this.visitorSelected.photos);
+        this._cameraService.setPhotos(urlArray);
+      }
     }
   }
 

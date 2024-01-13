@@ -12,7 +12,7 @@ import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { Position } from 'src/app/shared/interfaces';
 import { VisitService } from '../../../visit/services/visit.service';
-import { IVisit } from '../../../visit/interfaces/visit.interface';
+import { IVisit, IVisitDetail, IVisitorDetail } from '../../../visit/interfaces/visit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface';
 
@@ -31,8 +31,8 @@ export class ScannerVisitComponent implements OnInit {
   public isSupported = false;
   public isPermissionGranted = false;
   idVisitScanner!: string;
-  visitData!: IVisit | null;
-  visitorSelected!: IVisitor | null;
+  visitData!: IVisitDetail | null;
+  visitorSelected!: IVisitorDetail | null;
 
   public formGroup = new UntypedFormGroup({
     formats: new UntypedFormControl([]),
@@ -114,7 +114,8 @@ export class ScannerVisitComponent implements OnInit {
     });
   }
 
-  showFormDetail(visitor: IVisitor) {
+  showFormDetail(visitor: IVisitorDetail , readOnly?:boolean) {
+    if(readOnly) visitor.readOnly = true;
     this.visitorSelected = visitor;
     console.log(this.visitorSelected)
     this._cdr.detectChanges();

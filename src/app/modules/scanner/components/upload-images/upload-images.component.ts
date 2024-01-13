@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CameraService } from '../../services/camera.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { CameraService } from '../../services/camera.service';
   styleUrls: ['./upload-images.component.scss']
 })
 export class UploadImagesComponent implements OnInit {
+  @Input() readOnly: boolean = false;
   photos: string[]=[];
   private _cameraService = inject(CameraService);
   isLoadingImage: boolean = false;
@@ -18,7 +19,6 @@ export class UploadImagesComponent implements OnInit {
     });
 
     this._cameraService.isLoadingImage.subscribe(value => {
-      console.log("IS LOADING", value)
       this.isLoadingImage = value;
     })
   }

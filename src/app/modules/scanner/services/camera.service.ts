@@ -75,4 +75,8 @@ export class CameraService {
   setIsLoadingImage(loading: boolean){
     this.isLoadingImage.next(loading);
   }
+
+  setPhotos(photos: string[]){
+    this._photos.next(photos);
+  }
 }

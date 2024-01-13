@@ -34,6 +34,7 @@
         [type]="'text'"
         [maxlength]="100"
         [placeholder]="'Observación'"
+        [disabled]="visitor?.readOnly ?? false"
         [value]="detailVisitForm.get('observation')?.value"
         (controlValueChange)="controlValueChangeObservation($event)"
       ></shared-input>
@@ -45,6 +46,7 @@
         [type]="'text'"
         [pattern]="'^[a-zA-Z0-9-]*$'"
         [maxlength]="8"
+        [disabled]="visitor?.readOnly ?? false"
         [placeholder]="'AAA-1234'"
         [value]="detailVisitForm.get('carPlate')?.value"
         (controlValueChange)="controlValueChangeCarPlate($event)"
@@ -64,11 +66,12 @@
         Imágenes obligatorias..!
       </div>
 
-      <upload-images></upload-images>
+      <upload-images [readOnly]="visitor?.readOnly ?? false"></upload-images>
       <ion-fab
         vertical="bottom"
         horizontal="end"
         slot="fixed"
+        *ngIf="!visitor?.readOnly"
         class="label-scanner"
         (click)="takePhoto()"
       >
@@ -82,7 +85,7 @@
         (reset)="resetOpenModal()"
       ></approval-reject-modal>
     </ion-content>
-    <ion-footer collapse="fade" class="footer">
+    <ion-footer collapse="fade" class="footer" *ngIf="!visitor?.readOnly">
       <shared-button
         [label]="'Guardar'"
         (click)="openQuestionModal()"
