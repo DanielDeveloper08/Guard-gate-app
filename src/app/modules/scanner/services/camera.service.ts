@@ -3,12 +3,15 @@ import { BehaviorSubject } from 'rxjs';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { IUser } from '../../auth/interfaces/auth.interface';
+import { ToastService } from 'src/app/shared/services';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CameraService {
   private _storageService = inject(StorageService);
+  private _toastService = inject(ToastService);
+
   private _photos: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(
     []
   );
@@ -40,10 +43,12 @@ export class CameraService {
           type: fileType,
         });
         const user: IUser = JSON.parse(localStorage.getItem('user')!);
+        const lastSlashIndex = photo.webPath.lastIndexOf('/');
+
         const downloadURL = await this._storageService.uploadStorage(
           file,
           'photos',
-          `${user.phone}/${photo.webPath.split('/')[3]}`
+          `${user.phone}/${photo.webPath.substring(lastSlashIndex+1)}`
         );
 
         if (downloadURL) {
