@@ -13,6 +13,7 @@ import { IAddVisitRequest } from '../../interfaces/visit.interface';
 import { ToastService } from 'src/app/shared/services';
 import { Position } from '../../../../shared/interfaces/toast.interface';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { EncryptorService } from 'src/app/shared/services/encryptor.service';
 
 @Component({
   selector: 'app-add-visit-qr',
@@ -26,6 +27,7 @@ export class AddVisitQrComponent implements OnInit {
   private _router = inject(Router);
   private _toastService = inject(ToastService);
   private _modalService = inject(ModalService);
+
 
   @ViewChild('modal') modal!: IonModal;
   user: IUser = JSON.parse(localStorage.getItem('user')!);

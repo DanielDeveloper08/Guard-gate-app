@@ -14,6 +14,7 @@ import { Position } from 'src/app/shared/interfaces';
 import { VisitService } from '../../../visit/services/visit.service';
 import { IVisitDetail, IVisitorDetail } from '../../../visit/interfaces/visit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { EncryptorService } from 'src/app/shared/services/encryptor.service';
 
 @Component({
   selector: 'app-scanner',
@@ -26,6 +27,7 @@ export class ScannerVisitComponent implements OnInit {
   private _toast = inject(ToastService);
   private _visitService = inject(VisitService);
   private _cdr = inject(ChangeDetectorRef);
+  private _encryptorService = inject(EncryptorService);
 
   public isSupported = false;
   public isPermissionGranted = false;
@@ -91,12 +93,13 @@ export class ScannerVisitComponent implements OnInit {
     element.onDidDismiss().then((result) => {
       const barcode: Barcode | undefined = result.data?.barcode;
       if (barcode) {
-        if (!barcode.displayValue.includes(environment.QR_PREFIX)) {
+        const dataDecrypt = this._encryptorService.decrypt(barcode.displayValue);
+        if (!dataDecrypt.includes(environment.QR_PREFIX)) {
           this._toast.showError('Código QR no válido', Position.Top);
           return;
         }
 
-        this.idVisitScanner = barcode.displayValue.split('-')[1];
+        this.idVisitScanner = dataDecrypt.split('-')[1];
         this.getVisitById(parseInt(this.idVisitScanner, 10));
       }
     });

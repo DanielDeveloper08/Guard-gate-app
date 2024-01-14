@@ -17,6 +17,7 @@ import { ISendQRRequest } from '../../interfaces/visit.interface';
 import { ToastService } from 'src/app/shared/services';
 import { Position } from 'src/app/shared/interfaces';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { EncryptorService } from 'src/app/shared/services/encryptor.service';
 
 @Component({
   selector: 'success-visit-qr-modal',
@@ -29,6 +30,7 @@ export class SuccessVisitQrComponent implements OnInit {
   private _router = inject(Router);
   private _loadingController = inject(LoadingController);
   private _storageService = inject(StorageService);
+  private _encryptorService = inject(EncryptorService);
 
   mainResidence!: IResidence;
   user: IUser = JSON.parse(localStorage.getItem('user')!);
@@ -36,6 +38,7 @@ export class SuccessVisitQrComponent implements OnInit {
   startDateValue!: string;
   endDateValue!: string;
   idNewVisit!: string;
+  idEncryptNewVisit!: string;
   @ViewChild('visitSuccess') modal!: IonModal;
   @ViewChild('qrcodeImageContainer', { static: false })
   qrcodeImageContainer!: ElementRef<any>;
@@ -46,9 +49,9 @@ export class SuccessVisitQrComponent implements OnInit {
     this._activatedRoute.params.subscribe((params) => {
       this.startDateValue = params['startDate'];
       this.endDateValue = params['endDate'];
-      this.idNewVisit =
-        environment.QR_PREFIX.concat(params['idVisita']) ||
-        'No existe visita registrada';
+      const idVisitNewVIsit = environment.QR_PREFIX.concat(params['idVisita']);
+      this.idEncryptNewVisit = this._encryptorService.encrypt(idVisitNewVIsit);
+      this.idNewVisit = idVisitNewVIsit || 'No existe visita registrada';
     });
 
     this.mainResidence = JSON.parse(localStorage.getItem('mainResidence')!);
@@ -66,16 +69,24 @@ export class SuccessVisitQrComponent implements OnInit {
     if (this.qrcodeImageContainer) {
       const loading = await this.presentLoading();
 
-       domtoimage.toBlob(this.qrcodeImageContainer.nativeElement)
-        .then(async(blob) => {
+      domtoimage
+        .toBlob(this.qrcodeImageContainer.nativeElement)
+        .then(async (blob) => {
           const fileName = 'qr_code.png';
           const lastModified = new Date().getTime();
           const fileType = blob.type;
 
-          const file = new File([blob], fileName, { lastModified, type: fileType });
-          const URLImage = await this._storageService.uploadStorage(file,'qr-codes',`qr-${this.idNewVisit}`);
+          const file = new File([blob], fileName, {
+            lastModified,
+            type: fileType,
+          });
+          const URLImage = await this._storageService.uploadStorage(
+            file,
+            'qr-codes',
+            `qr-${this.idNewVisit}`
+          );
 
-          this.sendQRCodeImageFile(URLImage!,loading);
+          this.sendQRCodeImageFile(URLImage!, loading);
         })
         .catch((error) => {
           console.error('Error al capturar la imagen:', error);
@@ -83,9 +94,7 @@ export class SuccessVisitQrComponent implements OnInit {
     }
   }
 
-
   sendQRCodeImageFile(url: string, loading: HTMLIonLoadingElement) {
-
     const data: ISendQRRequest = {
       imgUrl: url,
       visitId: Number(this.idNewVisit.split('-')[1]),
