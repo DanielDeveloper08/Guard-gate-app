@@ -4,8 +4,7 @@
             <ion-col>
                 <ion-card class="table-filter-container">
                     <ion-toolbar>
-                        <ion-title>Residentes</ion-title>
-                        <ion-button slot="end">Agregar</ion-button>
+                        <ion-title>Residentes - Residencias</ion-title>
                     </ion-toolbar>
                 </ion-card>
             </ion-col>
@@ -41,15 +40,15 @@
                             <th style="width:5%">Editar</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template pTemplate="body" let-resident>
                         <tr>
-                            <td>{{ customer.username }}</td>
-                            <td>{{ customer.names }}</td>
-                            <td>{{ customer.surnames }}</td>
-                            <td>{{ customer.email }}</td>
-                            <td>{{ customer.phone }}</td>
-                            <td style="text-align: center;">
-                                <ion-icon name="create-outline" size="large" [routerLink]="['/admin/edit-resident']"></ion-icon>
+                            <td>{{ resident.username }}</td>
+                            <td>{{ resident.names }}</td>
+                            <td>{{ resident.surnames }}</td>
+                            <td>{{ resident.email }}</td>
+                            <td>{{ resident.phone }}</td>
+                            <td style="text-align: center;cursor: pointer;">
+                                <ion-icon name="create-outline" size="large" [routerLink]="['/admin/edit-resident', resident.id]"></ion-icon>
                             </td>
                         </tr>
                     </ng-template>

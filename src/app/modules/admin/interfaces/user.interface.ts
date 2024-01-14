@@ -6,7 +6,16 @@ export interface IUser{
     surnames: string,
     email: string,
     phone: string,
-    role:string
+    role:string;
+    residences: IResidenceByUser[];
+}
+
+export interface IResidenceByUser{
+    id:           number;
+    block:        string;
+    town:         string;
+    urbanization: string;
+    isMain:       boolean;
 }
 
 export interface IRegisterUserRequest extends Omit<IUser,'role'>{

@@ -4,7 +4,6 @@ import { IOperation, IRole } from '../../../interfaces/role.interface';
 import { RoleService } from '../../../services/role.service';
 import { ToastService } from 'src/app/shared/services';
 import { Position } from 'src/app/shared/interfaces';
-import { IResident } from '../../../interfaces/resident.interface';
 import { FormControl } from '@angular/forms';
 import { IUser } from '../../../interfaces/user.interface';
 import { UserService } from '../../../services/user.service';

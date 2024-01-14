@@ -1,4 +1,4 @@
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { NgModule } from "@angular/core";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { ListRoleComponent } from "./pages/role/list-role/list-role.component";
@@ -21,11 +21,11 @@ const routes: Routes = [
       {path:'users', component: ListUserComponent},
       {path:'user/:id', component: UserFormComponent},
       {path:'residents', component: ListResidentComponent},
-      {path:'edit-resident', component: EditResidentComponent},
+      {path:'edit-resident/:id', component: EditResidentComponent},
     ],
-    
+
   },
-  { path: '**', redirectTo: '' } 
+  { path: '**', redirectTo: '' }
 
 ];
 
