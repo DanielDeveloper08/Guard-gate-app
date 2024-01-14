@@ -1,8 +1,6 @@
 <ion-modal
-  [isOpen]="true"
   [initialBreakpoint]="1"
   [breakpoints]="[0, 1]"
-  #modalTypeVisit
   #modalDetailVisit
 >
   <ng-template>
@@ -10,17 +8,20 @@
       <div class="close-icon">
         <ion-icon name="close-outline" (click)="closeDetail()"></ion-icon>
       </div>
-      <div class="title-detail">
-        <ion-icon name="person-outline"></ion-icon>
-        <span>Visitante</span>
+      <div class="title-general">
+        <div class="title">
+          <ion-icon name="person-outline"></ion-icon>
+          <span>Visitante</span>
+        </div>
+        <access-tag [hasEntered]="visitor?.hasEntered!"  *ngIf="visitor?.hasEntered != null"></access-tag>
       </div>
       <div class="header-detail">
         <div class="header-left">
           <shared-avatar [initials]="'DA'"></shared-avatar>
         </div>
         <div class="header-right">
-          <span>Daniel Asanza Erazo</span>
-          <span class="identication">CI: 0943995555</span>
+          <span>{{visitor?.names}} {{visitor?.surnames}}</span>
+          <span class="identication">CI: {{visitor?.docNumber}}</span>
         </div>
       </div>
       <div class="body-detail">
@@ -40,7 +41,14 @@
           <span>Obsersavión</span>
         </div>
         <div class="observation">
-          <span>Durante la revisión de la visita, se notó que el visitante portaba un paquete grande. Se procedió a realizar una inspección adicional y se verificó que el contenido correspondía a artículos permitidos.</span>
+          <span>{{visitor?.observation ?? 'Sin observación'}}</span>
+        </div>
+        <div class="title-detail">
+          <ion-icon name="car-sport-outline"></ion-icon>
+          <span>Placa</span>
+        </div>
+        <div class="observation">
+          <span>{{visitor?.carPlate ?? 'Sin vehículo registrado'}}</span>
         </div>
       </div>
     </div>

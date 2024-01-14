@@ -6,7 +6,8 @@
   </div>
   <div class="container-dashboard" *ngIf="userRole == 'RESIDENTE'">
     <div class="container-home-information">
-      <home-information [home]="mainResidence"></home-information>
+      <home-information [home]="mainResidence" *ngIf="!isLoadingResidences"></home-information>
+      <skeleton-home-information *ngIf="isLoadingResidences"></skeleton-home-information>
     </div>
     <div class="last-visits">
       <span class="tittle">Últimas visitas</span>
@@ -24,12 +25,32 @@
     </div>
     <div class="last-visits">
       <span class="tittle">Visitas pendientes</span>
-      <div class="list-last-visits">
-        <div *ngFor="let visit of visitData" >
-          <last-visit [visit]="visit"></last-visit>
+
+      <div class="list-last-visits" *ngIf="!isLoadingSummary">
+        <div *ngFor="let visit of pendingVisits">
+          <pending-visits [visit]="visit"></pending-visits>
         </div>
       </div>
 
+      <div class="skeleton-pending" *ngIf="isLoadingSummary">
+        <!-- Repite el skeleton-pending-visits cinco veces -->
+        <ng-container *ngFor="let _ of [1, 2, 3, 4, 5]">
+          <skeleton-pending-visits></skeleton-pending-visits>
+        </ng-container>
+      </div>
+    </div>
+    <div class="frequent-visitors">
+      <span class="tittle">Visitantes frecuentes</span>
+      <div class="list-frequent-visitors">
+        <div *ngFor="let visitor of visitors">
+          <item-visitor [visitor]="visitor" [showActions]="false"></item-visitor>
+        </div>
+      </div>
+      <div  *ngIf="isLoadingSummary">
+        <div *ngFor="let _ of [1, 2, 3, 4]" class="skeleton-item">
+          <skeleton-item-visitor></skeleton-item-visitor>
+        </div>
+      </div>
     </div>
   </div>
 

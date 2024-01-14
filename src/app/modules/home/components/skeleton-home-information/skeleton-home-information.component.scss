@@ -1,0 +1,31 @@
+.container-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.container-icon-home {
+  width: 30%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+
+  .skeleton-photo {
+    width: 6.75rem;
+    height: 5rem;
+    --border-radius: 0.625rem;
+  }
+}
+
+.skeleton-home-data {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.7rem;
+
+  ion-skeleton-text {
+    width: 80%;
+  }
+}

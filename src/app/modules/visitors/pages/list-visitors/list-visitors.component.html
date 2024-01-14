@@ -36,6 +36,11 @@
           *ngIf="listVisitorsSelected.length > 0"
           (changeVisitors)="changeVisitor()"
         ></selected-visitors>
+        <div  *ngIf="isLoadingVisitors">
+          <div *ngFor="let _ of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" class="skeleton-item">
+            <skeleton-item-visitor></skeleton-item-visitor>
+          </div>
+        </div>
 
         <div class="list-visitors">
           <item-visitor

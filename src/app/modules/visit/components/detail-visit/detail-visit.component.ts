@@ -7,8 +7,9 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { IVisit } from '../../interfaces/visit.interface';
+import { IVisit, IVisitDetail, IVisitorDetail } from '../../interfaces/visit.interface';
 import { IonModal } from '@ionic/angular';
+import { VisitStatusEnum } from 'src/app/shared/interfaces/general.interface';
 
 @Component({
   selector: 'detail-visit-modal',
@@ -17,11 +18,12 @@ import { IonModal } from '@ionic/angular';
 })
 export class DetailVisitComponent implements OnInit {
   isOpenDetail: boolean = false;
-  @Input() visit!: IVisit | null;
-  selectedVisit!: IVisit;
+  @Input() visit!: IVisit | IVisitDetail | null;
+  selectedVisit!: IVisitDetail;
+  selectedVisitor!: IVisitorDetail | null;
   @ViewChild('modalDetailVisit') modalDetailVisit!: IonModal;
   @Output() reset: EventEmitter<void> = new EventEmitter<void>();
-
+  pendingState: VisitStatusEnum = VisitStatusEnum.PENDING;
   constructor() {}
 
   ngOnInit() {}
@@ -47,4 +49,14 @@ export class DetailVisitComponent implements OnInit {
     this.reset.emit();
     this.modalDetailVisit.dismiss();
   }
+
+  openDetailVisitor(visitor: IVisitorDetail){
+    this.selectedVisitor = visitor;
+  }
+
+  resetVisitorSelected(){
+    this.selectedVisitor = null;
+  }
+
+
 }

@@ -5,6 +5,7 @@ import {
   ISaveDetailVisitRequest,
   ISendQRRequest,
   IVisit,
+  IVisitDetail,
   IVisitResponse,
   IVisitorState,
 } from '../interfaces/visit.interface';
@@ -72,8 +73,8 @@ export class VisitService {
    * @param params
    * @returns
    */
-  getVisitById(params?: number): Observable<IGeneralResponse<IVisit>> {
-    return this._httpClient.get<IGeneralResponse<IVisit>>(
+  getVisitById(params?: number): Observable<IGeneralResponse<IVisitDetail>> {
+    return this._httpClient.get<IGeneralResponse<IVisitDetail>>(
       `${this.urlBase}/visits/${params}`
     );
   }

@@ -21,10 +21,11 @@ import { ActionsModalComponent } from './components/actions-modal/actions-modal.
     ItemVisitorComponent,
     SelectedVisitorsComponent,
     FormVisitorComponent,
-    ActionsModalComponent
+    ActionsModalComponent,
   ],
   exports: [
-    SelectedVisitorsComponent
+    SelectedVisitorsComponent,
+    ItemVisitorComponent
   ]
 })
 export class VisitorsModule { }

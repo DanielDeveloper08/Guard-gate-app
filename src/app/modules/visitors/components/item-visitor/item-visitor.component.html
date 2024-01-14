@@ -1,12 +1,14 @@
 <div class="container-item-visitor" *ngIf="visitor" (click)="selectVisitor(visitor)">
   <div class="information-visitor">
-    <shared-avatar [initials]="visitor.initials"></shared-avatar>
+    <shared-avatar [initials]="(visitor.names! | initialsVisitor).concat(
+      visitor.surnames! | initialsVisitor
+    )"></shared-avatar>
   <div class="description-visitor">
     <span class="names-visitor">{{visitor.names}} {{visitor.surnames}}</span>
     <span>CI: {{visitor.docNumber}}</span>
   </div>
   </div>
-  <div class="action-visitor" [ngClass]="{'selected-visitor': visitor.isSelected && isNewVisit}">
+  <div class="action-visitor" [ngClass]="{'selected-visitor': visitor.isSelected && isNewVisit}" *ngIf="showActions">
     <ion-icon *ngIf="!isNewVisit" name="ellipsis-vertical" (click)="clickActions()"></ion-icon>
     <ion-icon *ngIf="isNewVisit && visitor.isSelected" name="checkmark-done-outline" class="checkIcon"></ion-icon>
   </div>

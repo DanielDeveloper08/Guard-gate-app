@@ -13,11 +13,22 @@
   padding: 1rem 1rem 1.2rem 1rem;
 }
 
-.title-detail {
+.title-detail{
   display: flex;
   gap: 0.5rem;
   font-weight: 600;
   align-items: center;
+}
+.title-general {
+  display: flex;
+  justify-content: space-between;
+
+  .title{
+    display: flex;
+    gap: 0.5rem;
+    font-weight: 600;
+    align-items: center;
+  }
 }
 
 .header-detail {

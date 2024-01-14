@@ -10,6 +10,19 @@ ion-modal {
   gap: 0.5rem;
   overflow-y: auto;
 
+  .title-general {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+
+    .title{
+      display: flex;
+      gap: 0.5rem;
+      font-weight: 600;
+      align-items: center;
+    }
+  }
+
   .close-icon {
     display: flex;
     justify-content: flex-end;

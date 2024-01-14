@@ -10,6 +10,7 @@ import { VisitorsModule } from '../visitors/visitors.module';
 import { SuccessVisitQrComponent } from './components/success-visit-qr/success-visit-qr.component';
 import { DetailVisitComponent } from './components/detail-visit/detail-visit.component';
 import { DetailVisitByVisitorComponent } from './components/detail-visit-by-visitor/detail-visit-by-visitor.component';
+import { SkeletonCardVisitComponent } from './components/skeleton-card-visit/skeleton-card-visit.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { DetailVisitByVisitorComponent } from './components/detail-visit-by-visi
     AddVisitPreAuthorizedComponent,
     SuccessVisitQrComponent,
     DetailVisitComponent,
-    DetailVisitByVisitorComponent
+    DetailVisitByVisitorComponent,
+    SkeletonCardVisitComponent
   ]
 })
 export class VisitModule { }

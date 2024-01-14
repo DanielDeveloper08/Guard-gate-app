@@ -1,3 +1,4 @@
+
 .photo {
   margin: 0.6rem 0;
   position: relative;
@@ -13,4 +14,12 @@
     border-radius: 50%;
     border: 1px solid var(--mandy-500);
   }
+}
+
+.spinner{
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

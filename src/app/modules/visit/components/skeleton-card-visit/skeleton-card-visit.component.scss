@@ -1,0 +1,41 @@
+.container-detail-visit {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.container-img {
+  width: 25%;
+
+  .circular-image {
+    --border-radius: 60%;
+    object-fit: cover;
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.detail-visit {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+  row-gap: .5rem;
+
+  .skeleton{
+    margin-top: .2rem;
+    width: 80%;
+  }
+}
+
+.action-visit {
+  width: 20%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  .circular-action {
+    --border-radius: 60%;
+    object-fit: cover;
+    width: 2rem;
+    height: 2rem;
+  }
+}

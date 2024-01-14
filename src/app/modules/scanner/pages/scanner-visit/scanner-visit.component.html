@@ -41,9 +41,15 @@
               </div>
             </div>
             <ion-icon
+              *ngIf="visitor.hasEntered == null"
               name="add-circle-outline"
               (click)="showFormDetail(visitor)"
             ></ion-icon>
+            <ion-icon
+            *ngIf="visitor.hasEntered != null"
+            name="eye-outline"
+            (click)="showFormDetail(visitor,true)"
+          ></ion-icon>
           </div>
         </div>
       </div>
@@ -63,6 +69,6 @@
     *ngIf="visitorSelected?.id"
     [idVisit]="visitData || null"
     [visitor]="visitorSelected || null"
-    (reset)="resetVisitor()"
+    (reset)="resetVisitor($event)"
   ></form-detail-visit>
 </ion-content>

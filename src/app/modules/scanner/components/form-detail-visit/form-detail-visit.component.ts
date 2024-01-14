@@ -20,8 +20,9 @@ import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface'
 import {
   ISaveDetailVisitRequest,
   IVisit,
+  IVisitDetail,
+  IVisitorDetail,
 } from 'src/app/modules/visit/interfaces/visit.interface';
-import { io } from 'socket.io-client';
 import { VisitService } from 'src/app/modules/visit/services/visit.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Position } from 'src/app/shared/interfaces';
@@ -33,18 +34,21 @@ import { ToastService } from 'src/app/shared/services';
   styleUrls: ['./form-detail-visit.component.scss'],
 })
 export class FormDetailVisitComponent implements OnInit {
-  @Input() idVisit!: IVisit | null;
-  @Input() visitor!: IVisitor | null;
-  @Output() reset: EventEmitter<void> = new EventEmitter<void>();
+  @Input() idVisit!: IVisitDetail | null;
+  @Input() visitor!: IVisitorDetail | null;
+  @Output() reset: EventEmitter<boolean | void> = new EventEmitter<boolean | void>();
 
   private _visitService = inject(VisitService);
   private _formBuilder = inject(FormBuilder);
   private _scannerService = inject(CameraService);
   private _toastService = inject(ToastService);
+  private _cameraService = inject(CameraService);
 
   photos: string[] = [];
-  visitorSelected!: IVisitor;
+  visitorSelected!: IVisitorDetail;
   isLoadingSaveDetail: boolean = false;
+  isLoadingImage: boolean = false;
+  isOpenModal: boolean = false;
 
   @ViewChild('modal') modal!: IonModal;
   detailVisitForm!: FormGroup;
@@ -59,15 +63,33 @@ export class FormDetailVisitComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this._scannerService.photos$.subscribe(data=>{
+    this._scannerService.photos$.subscribe((data) => {
       this.photos = data;
     });
+    this._cameraService.isLoadingImage.subscribe((value) => {
+      this.isLoadingImage = value;
+    });
+
+    if(this.visitorSelected.readOnly){
+      this.setDataForm();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes);
     if (changes['visitor']?.currentValue != null) {
       this.visitorSelected = changes['visitor']?.currentValue;
+    }
+  }
+
+  setDataForm(){
+    if (this.detailVisitForm) { // Verifica si el formulario está definido
+      this.detailVisitForm.get('observation')?.setValue(this.visitorSelected?.observation);
+      this.detailVisitForm.get('carPlate')?.setValue(this.visitorSelected?.carPlate);
+
+      if (this.visitorSelected?.photos) {
+        const urlArray = JSON.parse(this.visitorSelected.photos);
+        this._cameraService.setPhotos(urlArray);
+      }
     }
   }
 
@@ -89,10 +111,10 @@ export class FormDetailVisitComponent implements OnInit {
     this.detailVisitForm.setControl('carPlate', formControl);
   }
 
-  closeModalVisitors() {
+  closeModalVisitors(saveData?:boolean) {
     this._scannerService.resetPhotos();
     this.modal.dismiss();
-    this.reset.emit();
+    this.reset.emit(saveData);
   }
 
   async takePhoto() {
@@ -102,7 +124,12 @@ export class FormDetailVisitComponent implements OnInit {
 
   showErrorImages: boolean = false;
 
-  saveDetail() {
+  openQuestionModal() {
+    if (!this.photos.length) return;
+    this.isOpenModal = true;
+  }
+
+  saveDetail(isEnteredValue: boolean) {
     this.isLoadingSaveDetail = true;
 
     if (this.photos.length === 0) {
@@ -114,6 +141,7 @@ export class FormDetailVisitComponent implements OnInit {
       visitId: this.idVisit?.id!,
       visitorId: this.visitor?.id!,
       photos: this.photos,
+      hasEntered: isEnteredValue,
     };
 
     this.addCarPlateAndObservation(dataSave);
@@ -122,6 +150,10 @@ export class FormDetailVisitComponent implements OnInit {
       next: (res) => this.handleSaveSuccess(),
       error: (err: HttpErrorResponse) => this.handleSaveError(),
     });
+  }
+
+  resetOpenModal() {
+    this.isOpenModal = false;
   }
 
   private addCarPlateAndObservation(dataSave: ISaveDetailVisitRequest): void {
@@ -139,7 +171,7 @@ export class FormDetailVisitComponent implements OnInit {
 
   private handleSaveSuccess(): void {
     this.isLoadingSaveDetail = false;
-    this.closeModalVisitors();
+    this.closeModalVisitors(true);
   }
 
   private handleSaveError(): void {

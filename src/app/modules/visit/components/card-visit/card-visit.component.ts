@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IVisit } from '../../interfaces/visit.interface';
+import { IVisit, IVisitDetail, IVisitorDetail } from '../../interfaces/visit.interface';
 import { IVisitor } from '../../../visitors/interfaces/visitor.interface';
 
 @Component({
@@ -8,9 +8,9 @@ import { IVisitor } from '../../../visitors/interfaces/visitor.interface';
   styleUrls: ['./card-visit.component.scss']
 })
 export class CardVisitComponent implements OnInit {
-  @Input() visit!: IVisit;
+  @Input() visit!: IVisitDetail;
   visitors: string = "";
-  @Output() emitOpenDetail: EventEmitter<IVisit> = new EventEmitter<IVisit>();
+  @Output() emitOpenDetail: EventEmitter<IVisitDetail> = new EventEmitter<IVisitDetail>();
   constructor() { }
 
   ngOnInit() {
@@ -19,7 +19,7 @@ export class CardVisitComponent implements OnInit {
 
   getNamesOfVisitors() {
     if (this.visit && this.visit.visitors && this.visit.visitors.length > 0) {
-      const namesArray: string[] = this.visit.visitors.map((visitor: IVisitor) => {
+      const namesArray: string[] = this.visit.visitors.map((visitor: IVisitorDetail) => {
         const firstName = visitor.names.split(' ')[0];
         const lastName = visitor.surnames.split(' ')[0];
         return `${firstName} ${lastName}`;
@@ -29,7 +29,7 @@ export class CardVisitComponent implements OnInit {
     }
   }
 
-  openModal(visit: IVisit){
+  openModal(visit: IVisitDetail){
     this.emitOpenDetail.emit(visit);
   }
 

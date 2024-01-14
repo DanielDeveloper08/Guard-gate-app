@@ -7,9 +7,12 @@
       [title]="'Detalle visita'"
     ></shared-header>
     <ion-content class="ion-padding">
-      <div class="title-detail">
-        <ion-icon name="person-outline"></ion-icon>
-        <span>Visitante</span>
+      <div class="title-general">
+        <div class="title">
+          <ion-icon name="person-outline"></ion-icon>
+          <span>Visitante</span>
+        </div>
+        <access-tag [hasEntered]="visitor?.hasEntered!"  *ngIf="visitor?.hasEntered != null"></access-tag>
       </div>
       <div class="header-detail">
         <div class="header-left">
@@ -34,6 +37,7 @@
         [type]="'text'"
         [maxlength]="100"
         [placeholder]="'Observación'"
+        [disabled]="visitor?.readOnly ?? false"
         [value]="detailVisitForm.get('observation')?.value"
         (controlValueChange)="controlValueChangeObservation($event)"
       ></shared-input>
@@ -45,6 +49,7 @@
         [type]="'text'"
         [pattern]="'^[a-zA-Z0-9-]*$'"
         [maxlength]="8"
+        [disabled]="visitor?.readOnly ?? false"
         [placeholder]="'AAA-1234'"
         [value]="detailVisitForm.get('carPlate')?.value"
         (controlValueChange)="controlValueChangeCarPlate($event)"
@@ -56,7 +61,7 @@
           >Imágenes de visita<span> (requerido)</span></ion-label
         >
       </div>
-      <div class="empty-photos" *ngIf="photos.length == 0">
+      <div class="empty-photos" *ngIf="photos.length == 0 && !isLoadingImage">
         <span>¡Toque "Tomar foto" para capturar imágenes!</span>
         <img src="assets/upload-image.svg" alt="upload-image" />
       </div>
@@ -64,20 +69,32 @@
         Imágenes obligatorias..!
       </div>
 
-      <upload-images *ngIf="photos.length > 0"></upload-images>
+      <upload-images [readOnly]="visitor?.readOnly ?? false"></upload-images>
       <ion-fab
         vertical="bottom"
         horizontal="end"
         slot="fixed"
+        *ngIf="!visitor?.readOnly"
         class="label-scanner"
         (click)="takePhoto()"
       >
         <ion-icon name="camera-outline"></ion-icon>
         <ion-label>Tomar foto</ion-label>
       </ion-fab>
+      <approval-reject-modal
+        [isOpenModal]="isOpenModal"
+        [visitor]="visitor || null"
+        (hasEnteredEvent)="saveDetail($event)"
+        (reset)="resetOpenModal()"
+      ></approval-reject-modal>
     </ion-content>
-    <ion-footer collapse="fade" class="footer">
-      <shared-button [label]="'Guardar'" (click)="saveDetail()" [isLoading]="isLoadingSaveDetail">
+    <ion-footer collapse="fade" class="footer" *ngIf="!visitor?.readOnly">
+      <shared-button
+        [label]="'Guardar'"
+        (click)="openQuestionModal()"
+        [isLoading]="isLoadingSaveDetail"
+        [disabled]="!photos.length"
+      >
       </shared-button>
     </ion-footer>
   </ng-template>

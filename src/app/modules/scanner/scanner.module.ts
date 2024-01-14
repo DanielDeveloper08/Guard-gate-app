@@ -5,6 +5,7 @@ import { ScannerRoutingModule } from './scanner.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UploadImagesComponent } from './components/upload-images/upload-images.component';
 import { FormDetailVisitComponent } from './components/form-detail-visit/form-detail-visit.component';
+import { ApprovalRejectModalComponent } from './components/approval-reject-modal/approval-reject-modal.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { FormDetailVisitComponent } from './components/form-detail-visit/form-de
   declarations: [
     ScannerVisitComponent,
     UploadImagesComponent,
-    FormDetailVisitComponent
+    FormDetailVisitComponent,
+    ApprovalRejectModalComponent
   ]
 })
 export class ScannerModule { }

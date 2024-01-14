@@ -53,10 +53,26 @@ ion-modal {
         flex-direction: column;
         row-gap: .8rem;
 
-        .visitors-title{
-          font-size: 1rem;
-          font-weight: 600;
+        .group-title-status{
+          display: flex;
+          justify-content: space-between;
+          .visitors-title{
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+          }
+
+          .status-visit{
+            background-color: var(--color-green-500);
+            color:white;
+            padding: .2rem .6rem;
+            border-radius: .5rem;
+          }
+
+
         }
+
         .list-visitors {
           .item-visitor {
             display: flex;
