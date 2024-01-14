@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { IonInput } from '@ionic/angular';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'shared-input',
@@ -29,6 +29,7 @@ export class InputComponent {
   @Input() disabled: boolean = false;
   @Input() label: string = '';
   @Input() labelPosition: string = '';
+  @Input() validators: ValidatorFn[] = [];
   @Output() visibilityChanged = new EventEmitter<boolean>();
   @ViewChild('inputTag', { static: false }) inputTag!: IonInput;
   @Output() controlValueChange: EventEmitter<FormControl> = new EventEmitter<FormControl>();
@@ -38,6 +39,7 @@ export class InputComponent {
   formControl: FormControl = new FormControl('');
 
   ngOnInit(){
+    this.formControl.setValidators(this.validators);
     this.formControl.valueChanges.subscribe( change => {
       this.controlValueChange.emit(this.formControl);
       this.validatePattern(change);

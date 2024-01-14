@@ -9,6 +9,7 @@ import { UserService } from '../../../services/user.service';
 import { Position } from 'src/app/shared/interfaces';
 import { IRegisterUserRequest, IUpdateUserRequest, IUser } from '../../../interfaces/user.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { materialize } from 'rxjs';
 
 @Component({
   selector: 'app-user-form',
@@ -26,14 +27,18 @@ export class UserFormComponent implements OnInit {
   id: string;
   editing: boolean;
   loading:boolean;
+  
   private sub: any;
-  roles:IRole[];
+  roleOptions:{optionValue:string , optionName:string}[];
+  nameRegex:string='^[a-zA-Z]+(?:\\s[a-zA-Z]+)*\\s?$';
+  fullEmailRegex:string='^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
+  passwordRegex:string='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
 
   constructor(private route: ActivatedRoute, private router:Router) {
     this.id='';
     this.editing=false;
     this.loading=true;
-    this.roles=[];
+    this.roleOptions=[];
   }
 
   ngOnInit() {
@@ -41,7 +46,7 @@ export class UserFormComponent implements OnInit {
     this.getRoles();
     this.sub = this.route.params.subscribe(params => {
        this.id = params['id'];
-       if(Number(this.id)>0){
+       if(this.id){
           this.editing=true;
           this.getUser();
        }else{
@@ -56,7 +61,9 @@ export class UserFormComponent implements OnInit {
 
     this._roleService.getRoles(queryParams).subscribe({
       next: (res) => {
-        this.roles = res.data.records;
+        this.roleOptions = res.data.records.map((role) => (
+          {optionValue:role.id.toString(), optionName:role.name}
+        ));
       }
     });
   }
@@ -67,12 +74,12 @@ export class UserFormComponent implements OnInit {
         this.loading=false;
         this.userForm.patchValue(res.data);
         this.userForm.get('password')?.disable();
+        this.userForm.get('passwordConfirm')?.disable();
+      },
+      error:(err)=>{
+        this.router.navigate(['/admin/users'])
       }
     });
-  }
-
-  roleSelectAdapter(role: IRole): {optionValue:string, optionName:string} {
-    return {optionValue:role.id.toString(), optionName:role.name};
   }
 
   public registerUser() {
@@ -83,6 +90,7 @@ export class UserFormComponent implements OnInit {
         this.userForm.patchValue(res.data);
         this.editing=true;
         this.userForm.get('password')?.disable();
+        this.userForm.get('passwordConfirm')?.disable();
         this._toastService.showSuccess(res.message, Position.Top);
       },
       error:(err)=>{
@@ -109,11 +117,13 @@ export class UserFormComponent implements OnInit {
   }
 
   saveChanges(){
-    if(!this.userForm.valid){
+    if(!this.validateForm()){
       return;
     }
 
-    if(Number(this.id)>0){
+    this.userForm.get('passwordConfirm')?.disable();
+
+    if(this.editing){
       this.updateUser();
     }
     else{
@@ -121,10 +131,37 @@ export class UserFormComponent implements OnInit {
     }
   }
 
+  validateForm():boolean{
+    const passwordRegExp = new RegExp(this.passwordRegex);
+    if (!passwordRegExp.test(this.userForm.get('password')?.value) && !this.editing) {
+      this._toastService.showError('La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un caracter especial.', Position.Top);
+      return false;
+    }
+
+    if(this.userForm.get('passwordConfirm')?.value!=this.userForm.get('password')?.value && !this.editing){
+      this._toastService.showError('Las contraseñas no coinciden.', Position.Top);
+      return false;
+    }
+
+    if(!this.userForm.valid){
+      this._toastService.showError('Debe llenar todos los campos correctamente.', Position.Top);
+      return false;
+    }
+
+    const emailRegExp = new RegExp(this.fullEmailRegex);
+    if (!emailRegExp.test(this.userForm.get('email')?.value)) {
+      this._toastService.showError('Debe ingresar un email válido.', Position.Top);
+      return false;
+    }
+
+    return true;
+  }
+
   createForm() {
     this.userForm = this._formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      passwordConfirm: ['', Validators.required],
       roleId: [environment.appConfig.defaultRoleId, Validators.required],
       names: ['', Validators.required],
       surnames: ['', Validators.required],
