@@ -21,7 +21,7 @@ import { ButtonModule } from 'primeng/button';
     SharedModule,
     AdminRoutingModule,
     TableModule,
-    ButtonModule,
+    ButtonModule
   ],
   declarations: [
     ListUserComponent,

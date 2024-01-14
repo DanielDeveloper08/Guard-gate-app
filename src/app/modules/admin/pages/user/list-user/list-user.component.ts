@@ -37,7 +37,7 @@ export class ListUserComponent implements OnInit {
   }
 
   gotoAddUser(){
-    this.router.navigate(['admin/user/0']);
+    this.router.navigate(['admin/user']);
   }
 
   getUsers() {

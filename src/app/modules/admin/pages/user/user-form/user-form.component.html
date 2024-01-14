@@ -15,12 +15,11 @@
           </ion-row>
           <ion-row>
             <ion-col size="12" size-md="6">
-              <!-- Content for second column -->
               <div class="column-content">
                 <div class="column-content">
                   <shared-input
                   [type]="'text'"
-                  [pattern]="'^[a-zA-Z0-9\-_.]*'"
+                  [pattern]="nameRegex"
                   [maxlength]="50"
                   [minlength]="3"
                   label="Nombres:"
@@ -32,7 +31,7 @@
                 <div class="column-content">
                   <shared-input
                     [type]="'text'"
-                    [pattern]="'^[a-zA-Z0-9\-_.]*'"
+                    [pattern]="nameRegex"
                     [maxlength]="50"
                     [minlength]="3"
                     label="Apellidos:"
@@ -44,7 +43,6 @@
                 <div class="column-content">
                   <shared-input
                     [type]="'text'"
-                    [pattern]="'^[a-zA-Z0-9\-_.]*'"
                     [maxlength]="50"
                     [minlength]="3"
                     label="Email:"
@@ -56,9 +54,9 @@
                 <div class="column-content">
                   <shared-input
                     [type]="'text'"
-                    [pattern]="'^[a-zA-Z0-9\-_.]*'"
+                    [pattern]="'^[0-9]*$'"
                     [maxlength]="10"
-                    [minlength]="3"
+                    [minlength]="10"
                     label="Telf. Celular:"
                     labelPosition="floating"
                     [value]="userForm.get('phone')?.value"
@@ -68,7 +66,7 @@
                 <div class="column-content">
                   <shared-select label="Seleccione un rol"
                     labelPosition="floating"
-                    [options]="roles.map(roleSelectAdapter)"
+                    [options]="roleOptions"
                     [value]="this.userForm.get('roleId')?.value.toString()"
                     (controlValueChange)="controlValueChange($event,'roleId')"
                   ></shared-select>
@@ -79,7 +77,7 @@
               <div class="column-content">
                 <shared-input
                   [type]="'text'"
-                  [pattern]="'^[a-zA-Z0-9\-_.]*'"
+                  [pattern]="'^[a-zA-Z0-9_-]*$'"
                   [maxlength]="14"
                   [minlength]="3"
                   label="Usuario:"
@@ -94,7 +92,7 @@
                 [type]="'password'"
                 [maxlength]="14"
                 [isPassword]="true"
-                [minlength]="3"
+                [minlength]="8"
                 [placeholder]="'Contraseña'"
                 label="Contraseña:"
                 labelPosition="floating"
@@ -107,10 +105,11 @@
                 [type]="'password'"
                 [maxlength]="14"
                 [isPassword]="true"
-                [minlength]="3"
+                [minlength]="8"
                 [placeholder]="'Repetir Contraseña'"
                 label="Repetir Contraseña:"
                 labelPosition="floating"
+                (controlValueChange)="controlValueChange($event,'passwordConfirm')"
                 ></shared-input>
               </div>
             </ion-col>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 
 @Component({
@@ -6,15 +6,15 @@ import { Chart } from 'chart.js/auto';
   templateUrl: './doughnut-chart.component.html',
   styleUrls: ['./doughnut-chart.component.scss']
 })
-export class DoughnutChartComponent implements OnInit {
-  @ViewChild('doughnutChartContainer') doughnutCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('doughnutChart') chartContainer!: ElementRef<HTMLCanvasElement>;
+export class DoughnutChartComponent implements AfterViewInit {
+  @ViewChild('doughnutChart') doughnutCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('doughnutChartContainer') chartContainer!: ElementRef<HTMLCanvasElement>;
   public doughnutChart: any;
 
-  constructor() {
+  constructor(private renderer: Renderer2) {
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.createDoughnutChart();
     this.resizeDoughnutChartChange();
   }
@@ -57,17 +57,19 @@ export class DoughnutChartComponent implements OnInit {
     const canvas = this.doughnutCanvas.nativeElement;
     const container = this.chartContainer.nativeElement;
     
-    canvas.width = container.offsetWidth;
-    canvas.height = container.offsetHeight;
+    this.renderer.setAttribute(canvas, 'width', (container.offsetWidth).toString());
+    this.renderer.setAttribute(canvas, 'height', (container.offsetHeight).toString());
   }
+
+  resizeObserver!:ResizeObserver;
   resizeDoughnutChartChange() {
-    const resizeObserver = new ResizeObserver(() => {
+    this.resizeObserver = new ResizeObserver(() => {
       if (this.doughnutChart) {
         this.resizeChartCanvas();
         this.doughnutChart.resize();
       }
     });
 
-    resizeObserver.observe(this.doughnutCanvas.nativeElement);
+    this.resizeObserver.observe(this.chartContainer.nativeElement);
   }
 }

@@ -1,9 +1,22 @@
 <h1>Estadísticas</h1>
 <div class="statistics-container">
-  <ion-card style="width: 70%;">
-    <linear-chart></linear-chart>
-  </ion-card>
-  <ion-card style="width: 30%;">
+  <ion-header >
+    <ion-toolbar>
+      <ion-title>Filtro por fechas</ion-title>
+    </ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-header>
+  <ion-card id="doughnut-chart-card" >
     <doughnut-chart></doughnut-chart>
+  </ion-card>
+
+  <ion-card id="linear-chart-card" >
+    <linear-chart></linear-chart>
   </ion-card>
 </div>
