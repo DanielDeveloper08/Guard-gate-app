@@ -5,6 +5,7 @@ import { ResidentService } from '../../../services/resident.service';
 import { IResident } from '../../../interfaces/resident.interface';
 import { UserService } from '../../../services/user.service';
 import { IUser } from '../../../interfaces/user.interface';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-resident',
@@ -17,6 +18,7 @@ export class EditResidentComponent implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
   idResident!: number;
   userData!: IUser;
+  filterText!: string;
 
   constructor() {}
 
@@ -32,10 +34,18 @@ export class EditResidentComponent implements OnInit {
     this._userService.getUser(this.idResident.toString()).subscribe({
       next: (res) => {
         this.userData = res.data;
+        this.userData.residences = res.data.residences.map((residence,id) => {
+          residence.num = id+1;
+          return residence;
+        })
       },
       error: (error) => {
         console.log('error', error);
       },
     });
+  }
+
+  filterTextChange(formControl: FormControl) {
+    this.filterText=formControl.value;
   }
 }

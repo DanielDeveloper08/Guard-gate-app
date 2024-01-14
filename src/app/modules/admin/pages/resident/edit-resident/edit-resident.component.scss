@@ -1,14 +1,57 @@
-ion-col{
-    padding: 1rem;
-}
-.house-card{
-    width: 100%;
-    text-align: center;
-    border-radius: 1rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+
+
+.container-edit-resident{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 2rem;
+
+    .container-resident{
+        width: 30%;
+
+        .item-field{
+            padding-left: 1rem;
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            row-gap: .3rem;
+            .title{
+                font-size: 1rem;
+                font-weight: 600;
+            }
+            .data{
+                display: flex;
+                align-items: center;
+                gap:.5rem;
+                font-size: 1rem;
+            }
+            ion-icon{
+                font-size: 1.3rem;
+            }
+        }
+        .last-field{
+            margin-bottom: 1rem;
+        }
+
+    }
+
+    .container-homes{
+        width: 60%;
+
+        .new-residence{
+            margin-bottom: .7rem;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .general-title{
+        display: flex;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+
+    }
 }
 
-ion-card-content{
-    font-size: 1.5rem;
-}
+

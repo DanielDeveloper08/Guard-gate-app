@@ -1,56 +1,94 @@
-<div class="large-form-container">
-    <ion-card >
-      <form>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-title>Información del Residente</ion-title>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="12" size-md="6">
-              <!-- Content for second column -->
-              <div class="column-content">
-                <div class="column-content">
-                  <ion-card-content>
-                    <ion-icon name="person" size="large"></ion-icon> {{userData.names}} {{userData.surnames}}
-                  </ion-card-content>
-                </div>
-                <div class="column-content">
-                  <ion-card-content>
-                    <ion-icon name="mail" size="large"></ion-icon> {{userData.email}}
-                  </ion-card-content>
-                </div>
-                <div class="column-content">
-                  <ion-card-content>
-                    <ion-icon name="phone-portrait" size="large"></ion-icon> {{userData.phone}}
-                  </ion-card-content>
-                </div>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </form>
-    </ion-card>
-    <ion-card >
-      <form>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-card-header>
-                <ion-title><ion-icon name="home" size="large"></ion-icon>Casas</ion-title>
-              </ion-card-header>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="12" size-md="6">
-              <ion-card class="house-card" color="light">
-                <ion-icon name="add-circle" style="font-size: 10em;"></ion-icon>
-              </ion-card>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </form>
-    </ion-card>
-</div>
+<ion-buttons slot="start">
+  <ion-back-button defaultHref="/admin/residents"></ion-back-button>
+</ion-buttons>
+<div class="container-edit-resident">
 
+  <div class="container-resident general">
+
+    <div class="general-title"><span>Residente</span></div>
+    <ion-card>
+      <div class="item-field">
+        <span class="title">Nombres y Apellidos</span>
+        <div class="data">
+          <ion-icon name="person-circle"></ion-icon>
+          <span>{{ userData.names }} {{ userData.surnames }}</span>
+        </div>
+      </div>
+      <div class="item-field">
+        <span class="title">Correo</span>
+        <div class="data">
+          <ion-icon name="mail-outline"></ion-icon>
+          <span>{{ userData.email }}</span>
+        </div>
+      </div>
+      <div class="item-field last-field">
+        <span class="title">Celular</span>
+        <div class="data">
+          <ion-icon name="call"></ion-icon>
+          <span>{{ userData.phone }} </span>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+  <div class="container-homes">
+
+    <div class="new-residence">
+     <div class="general-title"><span>Residencias</span></div>
+      <ion-button slot="end">Agregar</ion-button>
+  </div>
+    <ion-card>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-md="12">
+          <p-table
+            #dt
+            [value]="userData.residences"
+            [paginator]="true"
+            [rowHover]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [scrollable]="true"
+            currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [globalFilterFields]="['block', 'town']"
+          >
+            <ng-template pTemplate="caption">
+              <div class="flex">
+                <ion-item class="p-input-icon-left">
+                  <ion-input
+                    type="text"
+                    placeholder="Buscar residencia"
+                    pInputText
+                    [(ngModel)]="filterText"
+                    (input)="dt.filterGlobal(filterText, 'contains')"
+                  />
+                </ion-item>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 15%">N.</th>
+                <th style="width: 20%">Manzana</th>
+                <th style="width: 20%">Villa</th>
+                <th style="width: 5%">Editar</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-residence>
+              <tr>
+                <td>{{ residence.num }}</td>
+                <td>{{ residence.block }}</td>
+                <td>{{ residence.town }}</td>
+                <td style="text-align: center; cursor: pointer">
+                  <ion-icon
+                    name="create-outline"
+                    size="large"
+                    [routerLink]="['/admin/edit-resident', residence.id]"
+                  ></ion-icon>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+</div>
