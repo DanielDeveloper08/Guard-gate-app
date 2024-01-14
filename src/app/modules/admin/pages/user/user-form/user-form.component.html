@@ -1,0 +1,127 @@
+<div class="large-form-container" *ngIf="!loading">
+    <ion-card>
+      <form>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-toolbar>
+                <ion-buttons slot="start">
+                  <ion-back-button defaultHref="/admin/users"></ion-back-button>
+                </ion-buttons>
+                <ion-title>{{editing?'Editar':'Ingresar'}} Usuario</ion-title>
+                <ion-button slot="end" (click)="saveChanges()" >Guardar</ion-button>
+              </ion-toolbar>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" size-md="6">
+              <!-- Content for second column -->
+              <div class="column-content">
+                <div class="column-content">
+                  <shared-input
+                  [type]="'text'"
+                  [pattern]="'^[a-zA-Z0-9\-_.]*'"
+                  [maxlength]="50"
+                  [minlength]="3"
+                  [placeholder]="'Nombres'"
+                  label="Nombres:"
+                  labelPosition="floating"
+                  [value]="userForm.get('names')?.value"
+                  (controlValueChange)="controlValueChange($event,'names')"
+                  ></shared-input>
+                </div>
+                <div class="column-content">
+                  <shared-input
+                    [type]="'text'"
+                    [pattern]="'^[a-zA-Z0-9\-_.]*'"
+                    [maxlength]="50"
+                    [minlength]="3"
+                    [placeholder]="'Apellidos'"
+                    label="Apellidos:"
+                    labelPosition="floating"
+                    [value]="userForm.get('surnames')?.value"
+                    (controlValueChange)="controlValueChange($event,'surnames')"
+                  ></shared-input>
+                </div>
+                <div class="column-content">
+                  <shared-input
+                    [type]="'text'"
+                    [pattern]="'^[a-zA-Z0-9\-_.]*'"
+                    [maxlength]="50"
+                    [minlength]="3"
+                    [placeholder]="'Email'"
+                    label="Email:"
+                    labelPosition="floating"
+                    [value]="userForm.get('email')?.value"
+                    (controlValueChange)="controlValueChange($event,'email')"
+                  ></shared-input>
+                </div>
+                <div class="column-content">
+                  <shared-input
+                    [type]="'text'"
+                    [pattern]="'^[a-zA-Z0-9\-_.]*'"
+                    [maxlength]="10"
+                    [minlength]="3"
+                    [placeholder]="'Telf. Celular'"
+                    label="Telf. Celular:"
+                    labelPosition="floating"
+                    [value]="userForm.get('phone')?.value"
+                    (controlValueChange)="controlValueChange($event,'phone')"
+                  ></shared-input>
+                </div>
+                <div class="column-content">
+                  <shared-select label="Seleccione un rol"
+                    labelPosition="floating"
+                    [options]="roles.map(roleSelectAdapter)"
+                    [value]="this.userForm.get('roleId')?.value.toString()"
+                    (controlValueChange)="controlValueChange($event,'roleId')"
+                  ></shared-select>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="12" size-md="6">
+              <div class="column-content">
+                <shared-input
+                  [type]="'text'"
+                  [pattern]="'^[a-zA-Z0-9\-_.]*'"
+                  [maxlength]="14"
+                  [minlength]="3"
+                  [placeholder]="'Usuario'"
+                  label="Usuario:"
+                  labelPosition="floating"
+                  [value]="this.userForm.get('username')?.value"
+                  (controlValueChange)="controlValueChange($event,'username')"
+                ></shared-input>
+              </div>
+              <div class="column-content" *ngIf="!editing">
+                <shared-input
+                [startIcon]="'lock-closed-outline'"
+                [type]="'password'"
+                [maxlength]="14"
+                [isPassword]="true"
+                [minlength]="3"
+                [placeholder]="'Contraseña'"
+                label="Contraseña:"
+                labelPosition="floating"
+                (controlValueChange)="controlValueChange($event,'password')"
+                ></shared-input>
+              </div>
+              <div class="column-content" *ngIf="!editing">
+                <shared-input
+                [startIcon]="'lock-closed-outline'"
+                [type]="'password'"
+                [maxlength]="14"
+                [isPassword]="true"
+                [minlength]="3"
+                [placeholder]="'Repetir Contraseña'"
+                label="Repetir Contraseña:"
+                labelPosition="floating"
+                ></shared-input>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card>
+</div>
+

@@ -1,4 +1,5 @@
 <ion-item>
+  <ion-label [position]="labelPosition" *ngIf="label!='' && !isPassword">{{label}}</ion-label>
   <ion-icon [name]="startIcon" *ngIf="startIcon"></ion-icon>
   <ion-input
     #inputTag

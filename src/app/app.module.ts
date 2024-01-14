@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './shared/services/interceptor';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
@@ -25,6 +26,7 @@ import { environment } from 'src/environments/environment';
     IonicModule.forRoot(),
     SharedModule,
     SocketIoModule.forRoot(config),
+    NoopAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideStorage(() => getStorage())
   ],
