@@ -20,6 +20,7 @@ const routes: Routes = [
       {path:'edit-role/:name', component: EditRoleComponent},
       {path:'users', component: ListUserComponent},
       {path:'user/:id', component: UserFormComponent},
+      {path:'user', component: UserFormComponent},
       {path:'residents', component: ListResidentComponent},
       {path:'edit-resident', component: EditResidentComponent},
     ],
