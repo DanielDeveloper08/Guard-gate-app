@@ -8,7 +8,7 @@ export interface IVisitorState{
 }
 
 export interface IVisitResponse {
-    records: IVisit[];
+    records: IVisitDetail[];
     meta:    IGeneralResponsePagination;
 }
 

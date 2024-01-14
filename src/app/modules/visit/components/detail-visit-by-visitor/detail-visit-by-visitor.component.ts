@@ -7,7 +7,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { IVisit } from '../../interfaces/visit.interface';
+import { IVisit, IVisitorDetail } from '../../interfaces/visit.interface';
 import { IonModal } from '@ionic/angular';
 
 @Component({
@@ -16,25 +16,26 @@ import { IonModal } from '@ionic/angular';
   styleUrls: ['./detail-visit-by-visitor.component.scss']
 })
 export class DetailVisitByVisitorComponent implements OnInit {
-  @Input() visit!: IVisit | null;
-  selectedVisit!: IVisit;
+  @Input() visitor!: IVisitorDetail | null;
+  selectedVisitor!: IVisitorDetail;
   @ViewChild('modalDetailVisit') modalDetailVisit!: IonModal;
   @Output() reset: EventEmitter<void> = new EventEmitter<void>();
 
 
-  photos: string[]= [
-    "assets/visita.jpg",
-    "assets/visita.jpg",
-    "assets/visita.jpg"
-  ];
+  photos: string[]= [];
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['visit']?.currentValue != null) {
-      this.selectedVisit = changes['visit']?.currentValue;
+    if (changes['visitor']?.currentValue != null) {
+      this.selectedVisitor = changes['visitor']?.currentValue;
+      if(this.selectedVisitor){
+        this.photos = JSON.parse(this.selectedVisitor?.photos!);
+      }
+
       this.modalDetailVisit.present();
     }
   }

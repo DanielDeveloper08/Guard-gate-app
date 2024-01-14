@@ -12,20 +12,7 @@
           <ion-icon name="person-outline"></ion-icon>
           <span>Visitante</span>
         </div>
-
-        <div
-          class="entered"
-          [ngClass]="{
-            approval: visitor?.hasEntered,
-            reject: !visitor?.hasEntered
-          }"
-
-          *ngIf="visitor?.hasEntered != null"
-        >
-          <span>{{
-            visitor?.hasEntered == false ? "Rechazado" : "Permitido"
-          }}</span>
-        </div>
+        <access-tag [hasEntered]="visitor?.hasEntered!"  *ngIf="visitor?.hasEntered != null"></access-tag>
       </div>
       <div class="header-detail">
         <div class="header-left">

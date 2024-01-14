@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { VisitService } from '../../services/visit.service';
 import { IGeneralRequestPagination } from '../../../../shared/interfaces/general.interface';
-import { IVisit } from '../../interfaces/visit.interface';
+import { IVisit, IVisitDetail } from '../../interfaces/visit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { FormControl, Validators } from '@angular/forms';
@@ -20,8 +20,8 @@ export class ListVisitComponent implements OnInit {
   private _modalService = inject(ModalService);
 
   isLoadingVisit: boolean = false;
-  listVisits: IVisit[]=[];
-  selectedVisit!: IVisit | null;
+  listVisits: IVisitDetail[]=[];
+  selectedVisit!: IVisitDetail | null;
 
 
 
@@ -68,7 +68,7 @@ export class ListVisitComponent implements OnInit {
     this._visitService.getVisits(queryParams).subscribe({
       next: (res) => {
         this.isLoadingVisit = false;
-        this.listVisits = res.data.records;
+        this.listVisits = res.data.records.reverse();
       },
       error: (err: HttpErrorResponse) => {
         this.isLoadingVisit = false;
@@ -76,7 +76,7 @@ export class ListVisitComponent implements OnInit {
     });
   }
 
-  openDetailVisit(visit: IVisit){
+  openDetailVisit(visit: IVisitDetail){
     this.selectedVisit = visit;
   }
 

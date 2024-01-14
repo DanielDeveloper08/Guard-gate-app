@@ -1,0 +1,9 @@
+<div
+  class="entered"
+  [ngClass]="{
+    approval: hasEntered,
+    reject: !hasEntered
+  }"
+>
+  <span>{{ hasEntered == false ? "Rechazado" : "Permitido" }}</span>
+</div>

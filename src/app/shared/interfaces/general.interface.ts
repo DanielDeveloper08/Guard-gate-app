@@ -10,6 +10,13 @@ export enum RoleTypeEnum {
   OPERATIONAL = 'OPERATIVO',
 }
 
+export enum VisitStatusEnum {
+  PENDING = 'PENDIENTE',      // Initial State
+  FULFILLED = 'COMPLETADA',   // Sensor
+  CANCELLED = 'CANCELADA',    // Resident
+  IN_PROGRESS = 'EN CURSO',   // Sensor
+}
+
 export interface IGeneralResponsePagination {
   page: number;
   totalPages: number;

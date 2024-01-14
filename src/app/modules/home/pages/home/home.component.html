@@ -46,7 +46,11 @@
           <item-visitor [visitor]="visitor" [showActions]="false"></item-visitor>
         </div>
       </div>
-
+      <div  *ngIf="isLoadingSummary">
+        <div *ngFor="let _ of [1, 2, 3, 4]" class="skeleton-item">
+          <skeleton-item-visitor></skeleton-item-visitor>
+        </div>
+      </div>
     </div>
   </div>
 

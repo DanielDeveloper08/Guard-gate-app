@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { ResidenceService } from 'src/app/modules/profile/services/residence.service';
-import { IMainHome } from '../../interfaces/home.interface';
+import { IFrequentVisitor, IMainHome } from '../../interfaces/home.interface';
 import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 import { HomeService } from '../../services/home.service';
 import { IVisit } from 'src/app/modules/visit/interfaces/visit.interface';
@@ -20,40 +20,7 @@ export class HomeComponent implements OnInit {
   private _homeService = inject(HomeService);
   private _toastService = inject(ToastService);
 
-  visitors:IVisitor[]=[
-    {
-        "id": 11,
-        "names": "Daniel Steven",
-        "surnames": "Asanza Erazo",
-        "docNumber": "0943995555",
-        "idResidency": 1,
-        "initials": "DF"
-    },
-    {
-        "id": 13,
-        "names": "José",
-        "surnames": "Dominguez",
-        "docNumber": "0993837373",
-        "idResidency": 1,
-        "initials": "DF"
-    },
-    {
-        "id": 14,
-        "names": "Paulina",
-        "surnames": "Rodríguez",
-        "docNumber": "0940532492",
-        "idResidency": 1,
-        "initials": "DF"
-    },
-    {
-        "id": 15,
-        "names": "Bryan",
-        "surnames": "Martínez",
-        "docNumber": "0938374747",
-        "idResidency": 1,
-        "initials": "DF"
-    }
-]
+  visitors:IFrequentVisitor[]=[];
   mainResidence!: IMainHome;
   userRole!:string;
   pendingVisits: IVisit[]=[];
@@ -148,7 +115,8 @@ export class HomeComponent implements OnInit {
     this._homeService.getSummary().subscribe({
       next: (res) => {
         this.isLoadingSummary = false;
-        this.pendingVisits = res.data.lastVisits;
+        this.pendingVisits = res.data.pendingVisits;
+        this.visitors = res.data.frequentVisitors;
       },
       error: (err:HttpErrorResponse) => {
         this.isLoadingSummary = false;

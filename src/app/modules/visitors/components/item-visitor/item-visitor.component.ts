@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IVisitor } from '../../interfaces/visitor.interface';
+import { IFrequentVisitor } from 'src/app/modules/home/interfaces/home.interface';
 
 @Component({
   selector: 'item-visitor',
@@ -7,7 +8,7 @@ import { IVisitor } from '../../interfaces/visitor.interface';
   styleUrls: ['./item-visitor.component.scss'],
 })
 export class ItemVisitorComponent implements OnInit {
-  @Input() visitor!: IVisitor;
+  @Input() visitor!: IVisitor | IFrequentVisitor;
   @Input() isNewVisit: boolean=false;
   @Input() showActions: boolean=true;
   @Output() changeVisitors: EventEmitter<void> = new EventEmitter<void>();

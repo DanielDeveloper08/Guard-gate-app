@@ -27,9 +27,12 @@
       </div>
       <div class="body-detail">
         <div class="container-visitors">
-          <span class="visitors-title"
+          <div class="group-title-status">
+            <span class="visitors-title"
             >Visitantes ({{ selectedVisit.visitors.length }})</span
           >
+          <span class="status-visit"> {{ selectedVisit.status | camelCase }}</span>
+          </div>
           <div class="list-visitors">
             <div
               class="item-visitor"
@@ -45,17 +48,26 @@
                 ></shared-avatar>
                 <span>{{ visitor.names }} {{ visitor.surnames }}</span>
               </div>
-              <ion-icon name="caret-forward-outline"></ion-icon>
+
+              <ion-icon
+                *ngIf="selectedVisit.status != pendingState && visitor.hasEntered!=null"
+                name="caret-forward-outline"
+                (click)="openDetailVisitor(visitor)"
+              ></ion-icon>
             </div>
           </div>
         </div>
         <shared-button
+          *ngIf="selectedVisit.status == pendingState"
           [label]="'Eliminar visita'"
           [icon]="'trash-outline'"
         ></shared-button>
       </div>
     </div>
 
-    <detail-visit-by-visitor></detail-visit-by-visitor>
+    <detail-visit-by-visitor
+      [visitor]="selectedVisitor"
+      (reset)="resetVisitorSelected()"
+      ></detail-visit-by-visitor>
   </ng-template>
 </ion-modal>

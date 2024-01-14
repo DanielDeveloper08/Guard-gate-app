@@ -18,6 +18,8 @@ import { CustomDatePipe } from './pipes/CustomDate.pipe';
 import { QrCodeComponent } from './components/qr-code/qr-code.component';
 import { InitialsVisitorPipe } from './pipes/InitialsVisitor.pipe';
 import { ScannerSharedComponent } from './components/scanner/scanner.component';
+import { SkeletonItemVisitorComponent } from './components/skeleton-item-visitor/skeleton-item-visitor.component';
+import { AccessTagComponent } from './components/access-tag/access-tag.component';
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { ScannerSharedComponent } from './components/scanner/scanner.component';
     CustomDatePipe,
     QrCodeComponent,
     InitialsVisitorPipe,
-    ScannerSharedComponent
+    ScannerSharedComponent,
+    SkeletonItemVisitorComponent,
+    AccessTagComponent
   ],
   declarations: [
     OtpComponent,
@@ -63,7 +67,9 @@ import { ScannerSharedComponent } from './components/scanner/scanner.component';
     CustomDatePipe,
     QrCodeComponent,
     InitialsVisitorPipe,
-    ScannerSharedComponent
+    ScannerSharedComponent,
+    SkeletonItemVisitorComponent,
+    AccessTagComponent
   ]
 })
 export class SharedModule { }
