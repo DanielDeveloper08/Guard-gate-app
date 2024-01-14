@@ -4,7 +4,7 @@ import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { ListRoleComponent } from "./pages/role/list-role/list-role.component";
 import { EditRoleComponent } from "./pages/role/edit-role/edit-role.component";
 import { VisitDashboardComponent } from "./pages/visit-dashboard/visit-dashboard.component";
-import { EditUserComponent } from "./pages/user/edit-user/edit-user.component";
+import { UserFormComponent } from "./pages/user/user-form/user-form.component";
 import { ListUserComponent } from "./pages/user/list-user/list-user.component";
 import { ListResidentComponent } from "./pages/resident/list-resident/list-resident.component";
 import { EditResidentComponent } from "./pages/resident/edit-resident/edit-resident.component";
@@ -19,7 +19,7 @@ const routes: Routes = [
       {path:'roles', component: ListRoleComponent},
       {path:'edit-role/:name', component: EditRoleComponent},
       {path:'users', component: ListUserComponent},
-      {path:'edit-user', component: EditUserComponent},
+      {path:'user/:id', component: UserFormComponent},
       {path:'residents', component: ListResidentComponent},
       {path:'edit-resident', component: EditResidentComponent},
     ],

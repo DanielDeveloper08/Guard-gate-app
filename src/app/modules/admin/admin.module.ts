@@ -8,7 +8,7 @@ import { ListRoleComponent } from './pages/role/list-role/list-role.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { LinearChartComponent } from './components/linear-chart/linear-chart.component';
 import { VisitDashboardComponent } from './pages/visit-dashboard/visit-dashboard.component';
-import { EditUserComponent } from './pages/user/edit-user/edit-user.component';
+import { UserFormComponent } from './pages/user/user-form/user-form.component';
 import { ListUserComponent } from './pages/user/list-user/list-user.component';
 import { EditResidentComponent } from './pages/resident/edit-resident/edit-resident.component';
 import { ListResidentComponent } from './pages/resident/list-resident/list-resident.component';
@@ -25,7 +25,7 @@ import { ButtonModule } from 'primeng/button';
   ],
   declarations: [
     ListUserComponent,
-    EditUserComponent,
+    UserFormComponent,
     ListResidentComponent,
     EditResidentComponent,
     DashboardComponent,

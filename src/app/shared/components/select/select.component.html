@@ -1,0 +1,12 @@
+<ion-item>
+  <ion-icon [name]="startIcon" *ngIf="startIcon"></ion-icon>
+  <ion-select 
+    [label]="label" 
+    label-placement="floating"
+    #selectTag
+    [formControl]="formControl"
+    class="input"
+  >
+    <ion-select-option *ngFor="let option of options" [value]="option.optionValue">{{option.optionName}}</ion-select-option>
+  </ion-select>
+</ion-item>

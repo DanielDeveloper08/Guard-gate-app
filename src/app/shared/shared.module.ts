@@ -18,6 +18,7 @@ import { CustomDatePipe } from './pipes/CustomDate.pipe';
 import { QrCodeComponent } from './components/qr-code/qr-code.component';
 import { InitialsVisitorPipe } from './pipes/InitialsVisitor.pipe';
 import { ScannerSharedComponent } from './components/scanner/scanner.component';
+import { SelectComponent } from './components/select/select.component';
 import { SkeletonItemVisitorComponent } from './components/skeleton-item-visitor/skeleton-item-visitor.component';
 import { AccessTagComponent } from './components/access-tag/access-tag.component';
 
@@ -37,6 +38,7 @@ import { AccessTagComponent } from './components/access-tag/access-tag.component
     CommonModule,
     OtpComponent,
     InputComponent,
+    SelectComponent,
     ButtonComponent,
     HeaderComponent,
     HttpClientModule,
@@ -57,6 +59,7 @@ import { AccessTagComponent } from './components/access-tag/access-tag.component
   declarations: [
     OtpComponent,
     InputComponent,
+    SelectComponent,
     ButtonComponent,
     HeaderComponent,
     CamelCasePipe,

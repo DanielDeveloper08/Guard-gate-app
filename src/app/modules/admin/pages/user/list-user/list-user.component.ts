@@ -6,6 +6,8 @@ import { ToastService } from 'src/app/shared/services';
 import { Position } from 'src/app/shared/interfaces';
 import { IResident } from '../../../interfaces/resident.interface';
 import { FormControl } from '@angular/forms';
+import { IUser } from '../../../interfaces/user.interface';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-list-user',
@@ -14,68 +16,36 @@ import { FormControl } from '@angular/forms';
 })
 export class ListUserComponent implements OnInit {
 
-  private _roleService = inject(RoleService);
+  private _userService = inject(UserService);
   private _toastService = inject(ToastService);
 
   filterText: string;
   private sub: any;
-  residents:IResident[];
+  users:IUser[];
 
   constructor(private route: ActivatedRoute, private router:Router) {
     this.filterText='';
-    this.residents=[{
-      username: "folea",
-      names: "Francesco",
-      surnames: "Olea Coppiano",
-      email: "francolea@gmail.com",
-      phone: "0962746126"
-  },
-  {
-    username: "folea",
-    names: "Francesco",
-    surnames: "Olea Coppiano",
-    email: "francolea@gmail.com",
-    phone: "0962746126"
-},
-{
-  username: "folea",
-  names: "Francesco",
-  surnames: "Olea Coppiano",
-  email: "francolea@gmail.com",
-  phone: "0962746126"
-},
-{
-  username: "folea",
-  names: "Francesco",
-  surnames: "Olea Coppiano",
-  email: "francolea@gmail.com",
-  phone: "0962746126"
-},
-{
-  username: "folea",
-  names: "Pedro",
-  surnames: "Olea Coppiano",
-  email: "francolea@gmail.com",
-  phone: "0962746126"
-},
-{
-  username: "user",
-  names: "Francesco",
-  surnames: "Olea Coppiano",
-  email: "francolea@gmail.com",
-  phone: "0962746126"
-}];
+    this.users=[];
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-       //this.name = params['name'];
-       //this.getRole(this.name);
-    });
+    this.getUsers();
   }
 
   filterTextChange(formControl: FormControl) {
     this.filterText=formControl.value;
+  }
+
+  gotoAddUser(){
+    this.router.navigate(['admin/user/0']);
+  }
+
+  getUsers() {
+    this._userService.getAllUsers().subscribe({
+      next: (res) => {
+        this.users = res.data;
+      }
+    });
   }
 
 }
