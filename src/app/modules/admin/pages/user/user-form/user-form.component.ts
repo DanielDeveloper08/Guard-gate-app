@@ -9,7 +9,6 @@ import { UserService } from '../../../services/user.service';
 import { Position } from 'src/app/shared/interfaces';
 import { IRegisterUserRequest, IUpdateUserRequest, IUser } from '../../../interfaces/user.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-environment
 
 @Component({
   selector: 'app-user-form',
@@ -39,6 +38,7 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.getRoles();
     this.sub = this.route.params.subscribe(params => {
        this.id = params['id'];
        if(Number(this.id)>0){
@@ -47,7 +47,6 @@ export class UserFormComponent implements OnInit {
        }else{
         this.loading=false;
        }
-       this.getRoles();
     });
   }
   getRoles() {
@@ -67,6 +66,7 @@ export class UserFormComponent implements OnInit {
       next: (res) => {
         this.loading=false;
         this.userForm.patchValue(res.data);
+        this.userForm.get('password')?.disable;
       }
     });
   }
@@ -82,6 +82,7 @@ export class UserFormComponent implements OnInit {
       next: (res) => {
         this.userForm.patchValue(res.data);
         this.editing=true;
+        this.userForm.get('password')?.disable;
         this._toastService.showSuccess(res.message, Position.Top);
       },
       error:(err)=>{
@@ -92,7 +93,6 @@ export class UserFormComponent implements OnInit {
 
   public updateUser() {
     const userFormValues=this.userForm.value;
-    delete userFormValues.password;
 
     this._userService.updateUser(
       {
