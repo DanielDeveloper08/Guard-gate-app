@@ -66,7 +66,7 @@ export class UserFormComponent implements OnInit {
       next: (res) => {
         this.loading=false;
         this.userForm.patchValue(res.data);
-        this.userForm.get('password')?.disable;
+        this.userForm.get('password')?.disable();
       }
     });
   }
@@ -82,7 +82,7 @@ export class UserFormComponent implements OnInit {
       next: (res) => {
         this.userForm.patchValue(res.data);
         this.editing=true;
-        this.userForm.get('password')?.disable;
+        this.userForm.get('password')?.disable();
         this._toastService.showSuccess(res.message, Position.Top);
       },
       error:(err)=>{
