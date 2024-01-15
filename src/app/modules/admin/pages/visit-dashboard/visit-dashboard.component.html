@@ -28,7 +28,7 @@
     <doughnut-chart  [data]="visitsSumarized"></doughnut-chart>
   </ion-card>
 
-  <ion-card id="linear-chart-card" >
-    <linear-chart></linear-chart>
+  <ion-card *ngIf="dailyVisits.length>0" id="linear-chart-card" >
+    <linear-chart [data]="dailyVisits" [fromDate]="fromDate" [toDate]="toDate"></linear-chart>
   </ion-card>
 </div>
