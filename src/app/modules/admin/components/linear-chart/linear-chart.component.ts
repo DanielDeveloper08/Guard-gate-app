@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 
 @Component({
@@ -7,10 +8,13 @@ import { Chart } from 'chart.js/auto';
   styleUrls: ['./linear-chart.component.scss']
 })
 export class LinearChartComponent implements OnInit {
+  @Input() data:{date:Date,total:number}[]=[];
+  @Input() fromDate!:Date;
+  @Input() toDate!:Date;
 
   public lineChart: any;
 
-  constructor() {
+  constructor(private datePipe: DatePipe) {
   }
 
   ngOnInit() {
@@ -18,8 +22,22 @@ export class LinearChartComponent implements OnInit {
   }
 
   createLineChart() {
-    const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'];
-    const data = [10, 20, 15, 25, 30];
+    let labels:string[] = [];
+    let data:number[] = [];
+    console.log(this.data)
+    while (this.fromDate <= this.toDate) {
+      labels.push(this.datePipe.transform(this.fromDate,'yyyy-MM-dd') || '');
+      const datum = this.data.find(datum=>this.datePipe.transform(datum.date,'yyyy-MM-dd')==this.datePipe.transform(this.fromDate,'yyyy-MM-dd'));
+      if(datum){
+        data.push(datum.total);
+      }
+      else{
+        data.push(0);
+      }
+      this.fromDate.setDate(this.fromDate.getDate() + 1);
+      
+    }
+    
 
     this.lineChart = new Chart('linearChart', {
       type: 'line',
@@ -47,7 +65,7 @@ export class LinearChartComponent implements OnInit {
           x: {
             title: {
               display: true,
-              text: 'Meses'
+              text: 'Fecha'
             }
           }
         }
