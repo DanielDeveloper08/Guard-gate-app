@@ -1,19 +1,31 @@
-<h1>Estadísticas</h1>
+<h1>Estadísticas de Visitas</h1>
 <div class="statistics-container">
   <ion-header >
-    <ion-toolbar>
-      <ion-title>Filtro por fechas</ion-title>
-    </ion-toolbar>
     <ion-grid>
       <ion-row>
-        <ion-col>
-          
+        <ion-col size="4" sizeMd="1">
+          <ion-text class="ion-text-right">Fecha Desde:</ion-text>
+        </ion-col>
+        <ion-col size="8" sizeMd="4">
+          <p-calendar  [showIcon]="true" [(ngModel)]="fromDate" dateFormat="yy-mm-dd"></p-calendar>
+        </ion-col>
+        <ion-col size="4" sizeMd="1">
+          <ion-text class="ion-text-right">Fecha Hasta:</ion-text>
+        </ion-col>
+        <ion-col size="8" sizeMd="4">
+          <p-calendar  [showIcon]="true" [(ngModel)]="toDate" dateFormat="yy-mm-dd"></p-calendar>
+        </ion-col>
+        <ion-col size="12" sizeMd="2">
+          <ion-button (click)="getVisitsSUmarized()">Filtrar</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-header>
-  <ion-card id="doughnut-chart-card" >
-    <doughnut-chart></doughnut-chart>
+  <ion-card *ngIf="visitsSumarized.length==0" id="doughnut-chart-card" >
+    <ion-title class="ion-text-center">No hay datos en las fechas seleccionadas</ion-title>
+  </ion-card>
+  <ion-card *ngIf="visitsSumarized.length>0" id="doughnut-chart-card" >
+    <doughnut-chart  [data]="visitsSumarized"></doughnut-chart>
   </ion-card>
 
   <ion-card id="linear-chart-card" >

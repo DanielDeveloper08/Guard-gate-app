@@ -1,8 +1,9 @@
 <ion-menu contentId="main-content">
   <ion-header>
     <ion-toolbar color="royal-blue-500">
-      <ion-buttons slot="start">
-      </ion-buttons>
+      <span slot="start" style="color: azure; padding-left: 1rem;">
+        {{user.names+' '+user.surnames}}
+      </span>
       <ion-button color="primary" size="small" slot="end" style="margin-right: 1rem;" (click)="logOut()"><b>Cerrar Sesión</b></ion-button>
     </ion-toolbar>
   </ion-header>
