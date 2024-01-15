@@ -14,6 +14,7 @@ export class VisitDashboardComponent implements OnInit {
   private _dashboardService = inject(DashboardService);
 
   visitsSumarized:{class:string, total:number}[]=[];
+  dailyVisits:{date:Date, total:number}[]=[];
   fromDate:Date= new Date();
   toDate:Date=new Date();
 
@@ -27,6 +28,7 @@ export class VisitDashboardComponent implements OnInit {
 
   getVisitsSUmarized(){
     this.visitsSumarized=[];
+    this.dailyVisits=[];
 
     const queryParams: IGeneralRequestDateFilter = {
       fromDate: this.datePipe.transform(this.fromDate,'yyyy-MM-dd') || '',
@@ -37,6 +39,14 @@ export class VisitDashboardComponent implements OnInit {
       next: (res) => {
         this.visitsSumarized = res.data.map((visitSumarized) => (
           {class:visitSumarized.status, total:Number(visitSumarized.count)}
+        ));
+      }
+    });
+
+    this._dashboardService.getDailyVisits(queryParams).subscribe({
+      next: (res) => {
+        this.dailyVisits = res.data.map((visitSumarized) => (
+          {date:new Date(visitSumarized.date), total:Number(visitSumarized.count)}
         ));
       }
     });
