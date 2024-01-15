@@ -33,3 +33,10 @@ h1{
 ion-header{
     padding: 1rem;
 }
+
+ion-col{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
