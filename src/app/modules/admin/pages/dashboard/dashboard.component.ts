@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 import { IOperation } from 'src/app/shared/interfaces/role.interface';
 
 @Component({
@@ -10,6 +11,8 @@ import { IOperation } from 'src/app/shared/interfaces/role.interface';
 export class DashboardComponent implements OnInit {
 
   operations!: IOperation[];
+
+  user!:IUser;
 
   constructor(private _router:Router) { 
     this.operations = [
@@ -27,7 +30,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.user = JSON.parse(localStorage.getItem("user")!);
   }
 
 }

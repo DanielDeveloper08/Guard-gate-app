@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AdminRoutingModule } from './admin.routing';
@@ -14,14 +14,17 @@ import { EditResidentComponent } from './pages/resident/edit-resident/edit-resid
 import { ListResidentComponent } from './pages/resident/list-resident/list-resident.component';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
+  providers: [DatePipe],
   imports: [
     CommonModule,
     SharedModule,
     AdminRoutingModule,
     TableModule,
-    ButtonModule
+    ButtonModule,
+    CalendarModule
   ],
   declarations: [
     ListUserComponent,

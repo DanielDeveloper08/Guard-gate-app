@@ -29,6 +29,11 @@ export interface IGeneralRequestPagination {
   search?: string;
 }
 
+export interface IGeneralRequestDateFilter {
+  fromDate?: string;
+  toDate?: string;
+}
+
 export enum ButtonStyle {
   Primary = 'primary',
   Secondary = 'secondary',

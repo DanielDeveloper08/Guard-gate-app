@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IGeneralRequestPagination } from '../interfaces/general.interface';
+import { IGeneralRequestDateFilter, IGeneralRequestPagination } from '../interfaces/general.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,19 @@ public buildQueryParams(params?: IGeneralRequestPagination): string {
   }
   if (params?.page) {
     queryParts.push(`page=${params.page}`);
+  }
+
+  return queryParts.length > 0 ? '?' + queryParts.join('&') : '';
+}
+
+public buildDateFilterQueryParams(params?: IGeneralRequestDateFilter): string {
+  const queryParts: string[] = [];
+
+  if (params?.fromDate) {
+    queryParts.push(`fromDate=${params.fromDate}`);
+  }
+  if (params?.toDate) {
+    queryParts.push(`toDate=${params.toDate}`);
   }
 
   return queryParts.length > 0 ? '?' + queryParts.join('&') : '';
