@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IVisitDetail } from 'src/app/modules/visit/interfaces/visit.interface';
+import { ILastVisitsTransformed } from '../../interfaces/home.interface';
 
 @Component({
   selector: 'last-visit',
@@ -6,10 +8,12 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./last-visit.component.scss']
 })
 export class LastVisitComponent implements OnInit {
-  @Input() visit!:any;
+  @Input() visit!:ILastVisitsTransformed;
+
   constructor() { }
 
   ngOnInit() {
   }
+
 
 }

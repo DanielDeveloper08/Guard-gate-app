@@ -45,7 +45,7 @@ export interface IVisitorDetail{
     status:      boolean;
     idResidency: number;
     hasEntered:  boolean;
-    entryDate:   Date | null;
+    entryDate:   null | string;
     carPlate:    null | string;
     observation: null | string;
     photos:      string;
