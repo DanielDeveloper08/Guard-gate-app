@@ -64,10 +64,26 @@ ion-modal {
           }
 
           .status-visit{
-            background-color: var(--color-green-500);
+
             color:white;
             padding: .2rem .6rem;
             border-radius: .5rem;
+          }
+
+          .cancel{
+            background-color: var(--mandy-500);
+          }
+
+          .pending{
+            background-color: var(--silver-500);
+          }
+
+          .progress{
+            background-color: var(--color-green-500);
+          }
+
+          .complete{
+            background-color: var(--royal-blue-500);
           }
 
 

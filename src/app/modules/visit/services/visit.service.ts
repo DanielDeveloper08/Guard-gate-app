@@ -118,4 +118,16 @@ export class VisitService {
       params
     );
   }
+
+  /**
+   * Cancelar visita por ID
+   * @param params
+   * @returns
+   */
+  cancelVisit(params?: number): Observable<IGeneralResponse<any>> {
+    return this._httpClient.patch<IGeneralResponse<any>>(
+      `${this.urlBase}/visits/${params}`,
+      {}
+    );
+  }
 }

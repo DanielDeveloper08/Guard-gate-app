@@ -80,7 +80,8 @@ export class ListVisitComponent implements OnInit {
     this.selectedVisit = visit;
   }
 
-  resetVisitSelected(){
+  resetVisitSelected(reload: boolean){
     this.selectedVisit = null;
+    if(reload) this.getVisits();
   }
 }
