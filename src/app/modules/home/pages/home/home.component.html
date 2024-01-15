@@ -4,13 +4,17 @@
       <img src="assets/logo-white.svg" alt="logo" />
     </div>
   </div>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="container-dashboard" *ngIf="userRole == 'RESIDENTE'">
+
     <div class="container-home-information">
       <home-information [home]="mainResidence" *ngIf="!isLoadingResidences"></home-information>
       <skeleton-home-information *ngIf="isLoadingResidences"></skeleton-home-information>
     </div>
-    <div class="last-visits">
-      <span class="tittle">Últimas visitas</span>
+    <div class="last-visits" >
+      <span class="tittle" *ngIf="!!lastVisits.length">Últimas visitas</span>
       <div class="list-last-visits">
         <div *ngFor="let visit of lastVisits" >
           <last-visit [visit]="visit"></last-visit>
@@ -19,12 +23,17 @@
 
     </div>
 
-    <div class="panic-button" >
+    <div class="empty-state" *ngIf="!isLoadingSummary && !lastVisits.length">
+      <img src="/assets/emptyState.svg" alt="empty">
+      <div>Aún no hay últimas visitas!</div>
+    </div>
+
+    <div class="panic-button" [routerLink]="['/guard-gate/tabs/panic-alert']">
       <span>Botón de pánico</span>
       <ion-icon name="megaphone-outline"></ion-icon>
     </div>
-    <div class="last-visits">
-      <span class="tittle">Visitas pendientes</span>
+    <div class="last-visits" >
+      <span class="tittle" *ngIf="!!pendingVisits.length">Visitas pendientes</span>
 
       <div class="list-last-visits" *ngIf="!isLoadingSummary">
         <div *ngFor="let visit of pendingVisits">
@@ -39,8 +48,12 @@
         </ng-container>
       </div>
     </div>
-    <div class="frequent-visitors">
-      <span class="tittle">Visitantes frecuentes</span>
+    <div class="empty-state" *ngIf="!isLoadingSummary && !pendingVisits.length">
+      <img src="/assets/emptyState.svg" alt="empty">
+      <div>Aún no hay visitas pendientes!</div>
+    </div>
+    <div class="frequent-visitors" >
+      <span class="tittle" *ngIf="!!visitors.length">Visitantes frecuentes</span>
       <div class="list-frequent-visitors">
         <div *ngFor="let visitor of visitors">
           <item-visitor [visitor]="visitor" [showActions]="false"></item-visitor>
@@ -51,6 +64,10 @@
           <skeleton-item-visitor></skeleton-item-visitor>
         </div>
       </div>
+    </div>
+    <div class="empty-state" *ngIf="!isLoadingSummary && !visitors.length">
+      <img src="/assets/emptyState.svg" alt="empty">
+      <div>Aún no hay visitantes frecuentes!</div>
     </div>
   </div>
 

@@ -44,6 +44,14 @@ export class HomeComponent implements OnInit {
     this.getSummaryData();
   }
 
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      this.getResidences();
+      this.getSummaryData();
+      event.target.complete();
+    }, 2000);
+  }
+
   getResidences() {
     this.isLoadingResidences = true;
     this._residenceService.getResidencesByUser().subscribe({
@@ -69,6 +77,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  ionViewWillLeave(){
+    this.lastVisits= [];
+  }
+
   getSummaryData() {
     this.isLoadingSummary = true;
     this._homeService.getSummary().subscribe({
@@ -88,7 +100,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+
+
   transformLastVisit(dataVisist: IVisitDetail[]) {
+
     const lastVisitsData: ILastVisitsTransformed[] = [];
     dataVisist.map((visit) => {
       visit.visitors.map((visitor) => {

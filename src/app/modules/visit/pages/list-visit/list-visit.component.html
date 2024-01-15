@@ -5,9 +5,10 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="container-filter-new-visit">
-    <shared-button [label]="'Nueva visita'" id="open-modal"> </shared-button>
+    <shared-button [label]="'Nueva visita'" (click)="showVisitors('qr')"> </shared-button>
 
     <shared-input
+    *ngIf="!!listVisits.length"
       [startIcon]="'search'"
       [type]="'text'"
       [pattern]="'^[a-zA-Z0-9\-_.]*'"
@@ -32,6 +33,11 @@
       [visit]="visit"
       (emitOpenDetail)="openDetailVisit($event)"
     ></card-visit>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoadingVisit && !listVisits.length">
+    <img src="/assets/emptyState.svg" alt="empty">
+    <div>Aún no hay visitas!</div>
   </div>
   <router-outlet></router-outlet>
 </ion-content>

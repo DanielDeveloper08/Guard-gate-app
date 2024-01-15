@@ -18,7 +18,7 @@ export class MenuComponent {
   optionsMenu: IOptionMenu[]= [
     {
       iconName: "people-outline",
-      avatarColor: "var(--mandy-900)",
+      avatarColor: "var(--royal-blue-500)",
       label: "Visitantes",
       route: "/guard-gate/visitors"
     },

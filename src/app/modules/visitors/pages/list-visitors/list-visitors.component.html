@@ -22,6 +22,7 @@
         >
         </shared-button>
         <shared-input
+         *ngIf="!!listVisitors.length"
           [startIcon]="'search'"
           [type]="'text'"
           [pattern]="'^[a-zA-Z0-9\-_.]*'"
@@ -52,6 +53,11 @@
             (changeVisitors)="changeVisitor()"
             (actionsEvent)="showActions(visitor)"
           ></item-visitor>
+        </div>
+
+        <div class="empty-state" *ngIf="!isLoadingVisitors && !listVisitors.length">
+          <img src="/assets/emptyState.svg" alt="empty">
+          <div>Aún no hay visitantes!</div>
         </div>
       </div>
       <div></div>
