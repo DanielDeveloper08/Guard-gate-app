@@ -69,7 +69,7 @@
                 <th style="width: 15%">N.</th>
                 <th style="width: 20%">Manzana</th>
                 <th style="width: 20%">Villa</th>
-                <th style="width: 5%">Editar</th>
+                <th style="width: 5%">Acciones</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-residence>
@@ -77,11 +77,15 @@
                 <td>{{ residence.num }}</td>
                 <td>{{ residence.block }}</td>
                 <td>{{ residence.town }}</td>
-                <td style="text-align: center; cursor: pointer">
+                <td style="text-align: center; cursor: pointer;">
                   <ion-icon
                     name="create-outline"
                     size="large"
                     [routerLink]="['/admin/edit-resident', residence.id]"
+                  ></ion-icon>
+                  <ion-icon
+                    name="trash-outline"
+                    size="large"
                   ></ion-icon>
                 </td>
               </tr>

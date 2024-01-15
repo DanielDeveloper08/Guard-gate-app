@@ -1,29 +1,60 @@
 <ion-menu contentId="main-content">
   <ion-header>
     <ion-toolbar color="royal-blue-500">
-      <span slot="start" style="color: azure; padding-left: 1rem;">
-        {{user.names+' '+user.surnames}}
-      </span>
-      <ion-button color="primary" size="small" slot="end" style="margin-right: 1rem;" (click)="logOut()"><b>Cerrar Sesión</b></ion-button>
+      <ion-button
+        color="primary"
+        size="small"
+        slot="end"
+        style="margin-right: 1rem"
+        (click)="logOut()"
+        ><ion-icon name="log-out-outline" class="out-icon"></ion-icon
+        ><b> Cerrar Sesión</b></ion-button
+      >
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-item *ngFor="let operation of operations" [routerLink]="[operation.route]">
+
+      <div class="name-user-small">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <span>{{ user.names + " " + user.surnames }}</span>
+      </div>
+
+    <ion-item
+      *ngFor="let operation of operations"
+      [routerLink]="[operation.route]"
+    >
       <ion-label>
-        {{operation.name}}
+        {{ operation.name }}
       </ion-label>
     </ion-item>
   </ion-content>
 </ion-menu>
 <div class="ion-page" id="main-content">
   <ion-header>
-    <ion-toolbar  color="royal-blue-500">
+    <ion-toolbar color="royal-blue-500">
       <ion-buttons slot="start">
         <ion-menu-button color="silver-50"></ion-menu-button>
       </ion-buttons>
       <div class="logo">
         <img src="assets/logo-white.svg" alt="logo" />
       </div>
+      <span
+        slot="end"
+        style="
+          color: azure;
+          padding-left: 1rem;
+          display: flex;
+          align-items: center;
+          margin-right: 0.5rem;
+        "
+        class="name-user"
+      >
+        <ion-icon
+          name="person-circle-outline"
+          style="font-size: 1.5rem; margin-right: 0.5rem"
+        ></ion-icon>
+        <span>{{ user.names + " " + user.surnames }}</span>
+      </span>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">

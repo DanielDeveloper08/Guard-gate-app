@@ -54,4 +54,18 @@
     }
 }
 
+@media (max-width: 48rem) {
+    .container-edit-resident{
+        flex-direction: column;
+
+        .container-resident{
+            width: 100%;
+        }
+
+        .container-homes{
+            width: 100%;
+        }
+    }
+}
+
 

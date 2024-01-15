@@ -22,7 +22,7 @@ const routes: Routes = [
       {path:'user/:id', component: UserFormComponent},
       {path:'user', component: UserFormComponent},
       {path:'residents', component: ListResidentComponent},
-      {path:'edit-resident/:id', component: EditResidentComponent},
+      {path:'edit-resident/:id', component: EditResidentComponent}
     ],
 
   },

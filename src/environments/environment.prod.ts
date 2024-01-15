@@ -17,6 +17,7 @@ export const environment = {
   QR_PREFIX: 'guardgate-',
 
   appConfig:{
-    defaultRole:'RESIDENTE'
+    defaultRole:'RESIDENTE',
+    defaultRoleId:'1'
   }
 };

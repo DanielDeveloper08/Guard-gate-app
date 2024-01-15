@@ -14,12 +14,12 @@ export class DashboardComponent implements OnInit {
 
   user!:IUser;
 
-  constructor(private _router:Router) { 
+  constructor(private _router:Router) {
     this.operations = [
-      {id:1, name:"Roles", route:"/admin/roles"}, 
-      {id:2, name:"Dashboard Visitas", route:"/admin/visit-dashboard"}, 
+      {id:2, name:"Dashboard Visitas", route:"/admin/visit-dashboard"},
       {id:3, name:"Usuarios", route:"/admin/users"},
-      {id:4, name:"Residentes", route:"/admin/residents"}
+      {id:4, name:"Residentes", route:"/admin/residents"},
+      {id:1, name:"Roles", route:"/admin/roles"},
     ];
 
   }

@@ -15,6 +15,7 @@ import { ListResidentComponent } from './pages/resident/list-resident/list-resid
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { EditResidenceComponent } from './pages/resident/edit-residence/edit-residence.component';
 
 @NgModule({
   providers: [DatePipe],
@@ -36,7 +37,8 @@ import { CalendarModule } from 'primeng/calendar';
     ListRoleComponent,
     DoughnutChartComponent,
     LinearChartComponent,
-    VisitDashboardComponent
+    VisitDashboardComponent,
+    EditResidenceComponent
   ],
 })
 export class AdminModule { }
