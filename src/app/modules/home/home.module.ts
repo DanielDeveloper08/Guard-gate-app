@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
 import { HomeRoutingModule } from './home.routing';
-import { HomeInformationComponent } from './components/home-information/home-information.component';
 import { LastVisitComponent } from './components/last-visit/last-visit.component';
 import { PendingVisitsComponent } from './components/pending-visits/pending-visits.component';
 import { SkeletonPendingVisitsComponent } from './components/skeleton-pending-visits/skeleton-pending-visits.component';
@@ -19,7 +18,6 @@ import { VisitorsModule } from '../visitors/visitors.module';
   ],
   declarations: [
     HomeComponent,
-    HomeInformationComponent,
     LastVisitComponent,
     PendingVisitsComponent,
     SkeletonPendingVisitsComponent,

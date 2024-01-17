@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IMainHome } from '../../interfaces/home.interface';
+import { IMainHome } from '../../../modules/home/interfaces/home.interface';
 
 @Component({
   selector: 'home-information',

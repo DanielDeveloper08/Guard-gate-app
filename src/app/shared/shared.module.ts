@@ -21,6 +21,7 @@ import { ScannerSharedComponent } from './components/scanner/scanner.component';
 import { SelectComponent } from './components/select/select.component';
 import { SkeletonItemVisitorComponent } from './components/skeleton-item-visitor/skeleton-item-visitor.component';
 import { AccessTagComponent } from './components/access-tag/access-tag.component';
+import { HomeInformationComponent } from './components/home-information/home-information.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AccessTagComponent } from './components/access-tag/access-tag.component
     InitialsVisitorPipe,
     ScannerSharedComponent,
     SkeletonItemVisitorComponent,
-    AccessTagComponent
+    AccessTagComponent,
+    HomeInformationComponent
   ],
   declarations: [
     OtpComponent,
@@ -72,7 +74,8 @@ import { AccessTagComponent } from './components/access-tag/access-tag.component
     InitialsVisitorPipe,
     ScannerSharedComponent,
     SkeletonItemVisitorComponent,
-    AccessTagComponent
+    AccessTagComponent,
+    HomeInformationComponent
   ]
 })
 export class SharedModule { }

@@ -1,6 +1,6 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom" class="container-tabs">
-    <ion-tab-button tab="home" class="tab-item">
+    <ion-tab-button tab="home" class="tab-item" *ngIf="userRole == 'RESIDENTE'">
       <ion-icon name="home-outline"></ion-icon>
       Inicio
     </ion-tab-button>
@@ -15,10 +15,10 @@
 
     <ion-tab-button class="label-menu-tab tab-item" *ngIf="userRole == 'RESIDENTE'"> Menu </ion-tab-button>
 
-    <ion-tab-button tab="" class="tab-item" *ngIf="userRole == 'OPERATIVO'">
+    <!-- <ion-tab-button tab="" class="tab-item" *ngIf="userRole == 'OPERATIVO'">
       <ion-icon name="location-outline"></ion-icon>
       Visitas
-    </ion-tab-button>
+    </ion-tab-button> -->
 
     <ion-tab-button tab="panic-alert" class="tab-item" *ngIf="userRole == 'RESIDENTE'">
       <ion-icon name="notifications-outline"></ion-icon>

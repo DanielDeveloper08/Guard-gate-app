@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,16 +6,14 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { Keyboard } from '@capacitor/keyboard';
 import { NavController } from '@ionic/angular';
 import { LoginService } from '../../services/login.service';
 import { ToastService } from 'src/app/shared/services';
 import { Position } from 'src/app/shared/interfaces';
-import { Router } from '@angular/router';
 import { NavigationOptions } from '@ionic/angular/common/providers/nav-controller';
 import { ILoginRequest } from '../../interfaces/auth.interface';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
+import { RoleTypeEnum } from 'src/app/shared/interfaces/general.interface';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +24,6 @@ export class LoginComponent implements OnInit {
   private _loginService = inject(LoginService);
   private _toastService = inject(ToastService);
   private _formBuilder = inject(FormBuilder);
-  private _router = inject(Router);
   private _navCtrl = inject(NavController);
 
   signInForm!: FormGroup;
@@ -72,21 +69,33 @@ export class LoginComponent implements OnInit {
 
     if (credentials.username === '') {
       this.setFocusUsername = true;
-      // await Keyboard.show();
     } else if (credentials.password === '') {
       this.setFocusPassword = true;
-      // await Keyboard.show();
     } else {
       this._loginService.signIn(credentials).subscribe({
         next: (res) => {
           if (res.data.user) {
-            localStorage.setItem("token",res.data.token);
-            localStorage.setItem("user", JSON.stringify(res.data.user));
-            if(res.data.user.role=='ADMINISTRADOR'){
-              this._router.navigateByUrl('/admin');
-            }else{
-              this._router.navigateByUrl('/guard-gate');
+            const { token, user } = res.data;
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
+
+            let navigatePath: string;
+
+            switch (user.role) {
+              case RoleTypeEnum.ADMIN:
+                navigatePath = '/admin';
+                break;
+
+              case RoleTypeEnum.OPERATIONAL:
+                navigatePath = '/guard-gate/tabs/scanner';
+                break;
+
+              default:
+                navigatePath = '/guard-gate';
             }
+
+            this._navCtrl.navigateRoot(navigatePath);
             this.isLoading = false;
           }
         },

@@ -6,6 +6,17 @@
     <span class="message-empty">Toque el botón para iniciar el escaneo</span>
   </div>
   <div *ngIf="visitData">
+    <div class="alert-message" *ngIf="visitData.message">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <span>{{
+        visitData.status == statusVisit.FULFILLED
+          ? "Visita caducada"
+          : visitData.message
+      }}</span>
+    </div>
+
+    <home-information [home]="residence"></home-information>
+
     <div class="header-detail">
       <div class="container-img">
         <ion-icon name="people-circle-outline"></ion-icon>
@@ -41,15 +52,18 @@
               </div>
             </div>
             <ion-icon
-              *ngIf="visitor.hasEntered == null"
+              *ngIf="
+                visitor.hasEntered == null &&
+                visitData.status == statusVisit.IN_PROGRESS
+              "
               name="add-circle-outline"
               (click)="showFormDetail(visitor)"
             ></ion-icon>
             <ion-icon
-            *ngIf="visitor.hasEntered != null"
-            name="eye-outline"
-            (click)="showFormDetail(visitor,true)"
-          ></ion-icon>
+              *ngIf="visitor.hasEntered != null"
+              name="eye-outline"
+              (click)="showFormDetail(visitor, true)"
+            ></ion-icon>
           </div>
         </div>
       </div>

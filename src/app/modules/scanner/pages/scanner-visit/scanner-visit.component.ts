@@ -15,6 +15,8 @@ import { VisitService } from '../../../visit/services/visit.service';
 import { IVisitDetail, IVisitorDetail } from '../../../visit/interfaces/visit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EncryptorService } from 'src/app/shared/services/encryptor.service';
+import { VisitStatusEnum } from 'src/app/shared/interfaces/general.interface';
+import { IMainHome } from 'src/app/modules/home/interfaces/home.interface';
 
 @Component({
   selector: 'app-scanner',
@@ -34,6 +36,8 @@ export class ScannerVisitComponent implements OnInit {
   idVisitScanner!: string;
   visitData!: IVisitDetail | null;
   visitorSelected!: IVisitorDetail | null;
+  statusVisit = VisitStatusEnum;
+  residence!: IMainHome;
 
   public formGroup = new UntypedFormGroup({
     formats: new UntypedFormControl([]),
@@ -108,11 +112,22 @@ export class ScannerVisitComponent implements OnInit {
   getVisitById(idVisit: number) {
     this._visitService.getVisitById(idVisit).subscribe({
       next: (res) => {
-        // this.isLoadingVisit = false;
         this.visitData = res.data;
+        this.residence = {
+          id: 0,
+          names: res.data.generatedBy,
+          residence: {
+            block: "10",
+            isMain: false,
+            personId: 2,
+            residencyId: 2,
+            town: "34",
+            urbanization: "Villas del Rey"
+          },
+          surnames: ""
+        }
       },
       error: (err: HttpErrorResponse) => {
-        // this.isLoadingVisit = false;
       },
     });
   }

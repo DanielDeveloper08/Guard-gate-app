@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { MainResidenceComponent } from '../main-residence/main-residence.component';
 import { ResidenceService } from '../../services/residence.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   private modalCtrl = inject(ModalController);
   private _residenceService = inject(ResidenceService);
   private _toastService = inject(ToastService);
-  private _router = inject(Router);
+  private _navCtrl = inject(NavController);
 
   namesUser!: string;
 
@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
 
   logOut(){
     localStorage.clear();
-    this._router.navigateByUrl('/login');
+    this._navCtrl.navigateRoot('/login', { animated: true, animationDirection: 'back' });
   }
 
   isResident(){

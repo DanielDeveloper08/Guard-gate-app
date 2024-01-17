@@ -15,7 +15,7 @@
     </div>
     <div class="last-visits" >
       <span class="tittle" *ngIf="!!lastVisits.length">Últimas visitas</span>
-      <div class="list-last-visits">
+      <div class="list-last-visits" *ngIf="!!lastVisits.length">
         <div *ngFor="let visit of lastVisits" >
           <last-visit [visit]="visit"></last-visit>
         </div>
@@ -35,7 +35,7 @@
     <div class="last-visits" >
       <span class="tittle" *ngIf="!!pendingVisits.length">Visitas pendientes</span>
 
-      <div class="list-last-visits" *ngIf="!isLoadingSummary">
+      <div class="list-last-visits" *ngIf="!isLoadingSummary && !!pendingVisits.length">
         <div *ngFor="let visit of pendingVisits">
           <pending-visits [visit]="visit"></pending-visits>
         </div>
@@ -54,7 +54,7 @@
     </div>
     <div class="frequent-visitors" >
       <span class="tittle" *ngIf="!!visitors.length">Visitantes frecuentes</span>
-      <div class="list-frequent-visitors">
+      <div class="list-frequent-visitors" *ngIf="!!visitors.length">
         <div *ngFor="let visitor of visitors">
           <item-visitor [visitor]="visitor" [showActions]="false"></item-visitor>
         </div>

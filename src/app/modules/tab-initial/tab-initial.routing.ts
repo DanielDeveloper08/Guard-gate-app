@@ -19,10 +19,6 @@ const routes: Routes = [
         path: 'visit',
         loadChildren: () => import('../visit/visit.module').then(m => m.VisitModule)
       },
-      // {
-      //   path: 'menu',
-      //   loadChildren: () => import('../menu/menu.module').then(m => m.MenuModule)
-      // },
       {
         path: 'panic-alert',
         loadChildren: () => import('../panic-alert/panic-alert.module').then(m => m.PanicAlertModule)
@@ -33,7 +29,7 @@ const routes: Routes = [
       },
       {
         path: 'scanner',
-        loadChildren: () => import('../scanner/scanner.module').then(m => m.ScannerModule) 
+        loadChildren: () => import('../scanner/scanner.module').then(m => m.ScannerModule)
       }
     ]
   },
@@ -48,7 +44,7 @@ const routes: Routes = [
   },
   {
     path:"**",
-    redirectTo:'tabs/home' 
+    redirectTo:'tabs/home'
   }
 ];
 
