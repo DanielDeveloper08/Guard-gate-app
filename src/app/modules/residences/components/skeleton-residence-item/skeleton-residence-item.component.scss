@@ -1,0 +1,36 @@
+.container-item-residence {
+    display: flex;
+    gap: .7rem;
+    height: 5.25rem;
+    padding: 1rem;
+    background-color: var(--silver-50);
+    align-items: flex-start;
+    border-radius: 0.7rem;
+
+    .circular-thumbnail {
+        margin-top: .2rem;
+        width: 23px;
+        height: 20px;
+        --border-radius: 50%;
+    }
+      .description-residence {
+        margin-top: .5rem;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: .7rem;
+
+        .names-visitor {
+          width: 80%;
+        }
+
+        .home{
+            width: 50%;
+            margin-top: .5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+    }
+  }

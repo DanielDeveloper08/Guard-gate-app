@@ -1,0 +1,27 @@
+<shared-header [title]="'Residencias'"> </shared-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="container-filter-new-visit">
+    <shared-input
+      [startIcon]="'search'"
+      [type]="'text'"
+      [maxlength]="14"
+      [minlength]="3"
+      [placeholder]="'Buscar residencia o residente'"
+      (controlValueChange)="controlValueChangeFilter($event)"
+    ></shared-input>
+  </div>
+  <div class="list-residences">
+    <div class="item" *ngFor="let person of residencesPerson | customFilter : filterInput.value">
+      <residence-item [residence]="person"></residence-item>
+    </div>
+    <div class="skeleton-list-residences" *ngFor="let _ of [1, 2, 3, 4, 5]">
+      <skeleton-residence-item *ngIf="loadingPerson"></skeleton-residence-item>
+    </div>
+  </div>
+
+  <!-- <router-outlet></router-outlet> -->
+</ion-content>

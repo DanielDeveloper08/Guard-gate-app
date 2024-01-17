@@ -1,11 +1,11 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { ProfileComponent } from "./pages/profile/profile.component";
+import { ListResidencesComponent } from "./pages/list-residences/list-residences.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: ProfileComponent
+    component: ListResidencesComponent
   },
   { path: '**', redirectTo: '' }
 
@@ -15,5 +15,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ProfileRoutingModule {}
+export class ResidenceRoutingModule {}
 

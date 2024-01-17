@@ -20,6 +20,9 @@ public buildQueryParams(params?: IGeneralRequestPagination): string {
   if (params?.page) {
     queryParts.push(`page=${params.page}`);
   }
+  if (params?.residencyId) {
+    queryParts.push(`residencyId=${params.residencyId}`);
+  }
 
   return queryParts.length > 0 ? '?' + queryParts.join('&') : '';
 }

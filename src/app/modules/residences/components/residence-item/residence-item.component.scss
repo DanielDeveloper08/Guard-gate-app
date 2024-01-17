@@ -1,0 +1,26 @@
+.container-item-residence {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--silver-50);
+    align-items: flex-start;
+    border-radius: 0.7rem;
+
+
+      .description-residence {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .names-visitor {
+          font-weight: 600;
+        }
+
+        .home{
+            margin-top: .5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+    }
+  }

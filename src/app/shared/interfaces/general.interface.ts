@@ -27,6 +27,7 @@ export interface IGeneralRequestPagination {
   limit?: number;
   page?: number;
   search?: string;
+  residencyId?: number;
 }
 
 export interface IGeneralRequestDateFilter {

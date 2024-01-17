@@ -15,13 +15,12 @@
     </div>
     <div class="last-visits" >
       <span class="tittle" *ngIf="!!lastVisits.length">Últimas visitas</span>
-      <div class="list-last-visits" *ngIf="!!lastVisits.length">
+      <div class="list-last-visits" *ngIf="!!lastVisits.length && !isLoadingSummary">
         <div *ngFor="let visit of lastVisits" >
           <last-visit [visit]="visit"></last-visit>
         </div>
       </div>
       <div class="skeleton-pending" *ngIf="isLoadingSummary">
-        <!-- Repite el skeleton-pending-visits cinco veces -->
         <ng-container *ngFor="let _ of [1, 2, 3, 4, 5]">
           <skeleton-last-visit></skeleton-last-visit>
         </ng-container>

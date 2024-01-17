@@ -28,6 +28,10 @@ import { SkeletonCardVisitComponent } from './components/skeleton-card-visit/ske
     DetailVisitComponent,
     DetailVisitByVisitorComponent,
     SkeletonCardVisitComponent
+  ],
+  exports:[
+    CardVisitComponent,
+    SkeletonCardVisitComponent
   ]
 })
 export class VisitModule { }

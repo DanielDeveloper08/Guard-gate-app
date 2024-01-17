@@ -30,6 +30,10 @@ const routes: Routes = [
       {
         path: 'scanner',
         loadChildren: () => import('../scanner/scanner.module').then(m => m.ScannerModule)
+      },
+      {
+        path: 'residence',
+        loadChildren: ()=> import('../residences/residences.module').then(m => m.ResidencesModule)
       }
     ]
   },

@@ -3,6 +3,7 @@
 ></shared-header>
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="empty-scanner" *ngIf="!visitData">
+    <img src="assets/emptyStateScan.svg" alt="scan-empty-state" />
     <span class="message-empty">Toque el botón para iniciar el escaneo</span>
   </div>
   <div *ngIf="visitData">
