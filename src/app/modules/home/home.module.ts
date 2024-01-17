@@ -8,6 +8,7 @@ import { PendingVisitsComponent } from './components/pending-visits/pending-visi
 import { SkeletonPendingVisitsComponent } from './components/skeleton-pending-visits/skeleton-pending-visits.component';
 import { SkeletonHomeInformationComponent } from './components/skeleton-home-information/skeleton-home-information.component';
 import { VisitorsModule } from '../visitors/visitors.module';
+import { SkeletonLastVisitComponent } from './components/skeleton-last-visit/skeleton-last-visit.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { VisitorsModule } from '../visitors/visitors.module';
     LastVisitComponent,
     PendingVisitsComponent,
     SkeletonPendingVisitsComponent,
-    SkeletonHomeInformationComponent
+    SkeletonHomeInformationComponent,
+    SkeletonLastVisitComponent
   ],
 })
 export class HomeModule { }

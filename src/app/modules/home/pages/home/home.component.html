@@ -20,7 +20,12 @@
           <last-visit [visit]="visit"></last-visit>
         </div>
       </div>
-
+      <div class="skeleton-pending" *ngIf="isLoadingSummary">
+        <!-- Repite el skeleton-pending-visits cinco veces -->
+        <ng-container *ngFor="let _ of [1, 2, 3, 4, 5]">
+          <skeleton-last-visit></skeleton-last-visit>
+        </ng-container>
+      </div>
     </div>
 
     <div class="empty-state" *ngIf="!isLoadingSummary && !lastVisits.length">
@@ -54,7 +59,7 @@
     </div>
     <div class="frequent-visitors" >
       <span class="tittle" *ngIf="!!visitors.length">Visitantes frecuentes</span>
-      <div class="list-frequent-visitors" *ngIf="!!visitors.length">
+      <div class="list-frequent-visitors" *ngIf="!!visitors.length && !isLoadingSummary">
         <div *ngFor="let visitor of visitors">
           <item-visitor [visitor]="visitor" [showActions]="false"></item-visitor>
         </div>
