@@ -8,10 +8,10 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { IVisit, IVisitDetail, IVisitorDetail } from '../../interfaces/visit.interface';
+import { IVisit, IVisitDetail, IVisitorDetail } from '../../../../modules/visit/interfaces/visit.interface';
 import { AlertController, IonModal } from '@ionic/angular';
 import { ButtonStyle, VisitStatusEnum } from 'src/app/shared/interfaces/general.interface';
-import { VisitService } from '../../services/visit.service';
+import { VisitService } from '../../../../modules/visit/services/visit.service';
 import { ToastService } from 'src/app/shared/services';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Position } from 'src/app/shared/interfaces';

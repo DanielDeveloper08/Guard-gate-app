@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from 'src/app/shared/services';
 import { Position } from 'src/app/shared/interfaces';
 import { FormControl } from '@angular/forms';
+import { NgPlural } from '@angular/common';
 
 @Component({
   selector: 'app-residences',
@@ -15,8 +16,9 @@ export class ListResidencesComponent implements OnInit {
   private _residencePersonaService = inject(ResidencePersonaService);
   private _toastService = inject(ToastService);
   filterInput: FormControl = new FormControl('');
-  residencesPerson: IResidenceItem[]=[];
+  residencesPerson: IResidenceItem[] = [];
   loadingPerson: boolean = false;
+  selectedResidencyId!: number | null;
   constructor() {
     this.getAllResidences();
   }
@@ -43,7 +45,6 @@ export class ListResidencesComponent implements OnInit {
         this._toastService.showError(err.error.message, Position.Top);
       },
     });
-
   }
 
   controlValueChangeFilter(formControl: FormControl) {
@@ -53,11 +54,21 @@ export class ListResidencesComponent implements OnInit {
   flattenResidences(data: IPerson[]): IResidenceItem[] {
     return data.flatMap((person) =>
       person.residences.map((residence) => ({
+        idResidency: residence.id,
         names: person.names,
         surnames: person.surnames,
         block: residence.block,
         town: residence.town,
+        residence,
       }))
     );
+  }
+
+  openVisits(residency: IResidenceItem) {
+    this.selectedResidencyId = residency.idResidency;
+  }
+
+  resetResidency() {
+    this.selectedResidencyId = null;
   }
 }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IVisit, IVisitDetail, IVisitorDetail } from '../../interfaces/visit.interface';
-import { IVisitor } from '../../../visitors/interfaces/visitor.interface';
+import { IVisit, IVisitDetail, IVisitorDetail } from '../../../../modules/visit/interfaces/visit.interface';
+import { IVisitor } from '../../../../modules/visitors/interfaces/visitor.interface';
 
 @Component({
   selector: 'card-visit',

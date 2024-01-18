@@ -15,13 +15,19 @@
     ></shared-input>
   </div>
   <div class="list-residences">
-    <div class="item" *ngFor="let person of residencesPerson | customFilter : filterInput.value">
-      <residence-item [residence]="person"></residence-item>
+    <div class="item" *ngFor="let person of residencesPerson | customFilter : filterInput.value" >
+      <residence-item [residence]="person" (click)="openVisits(person)"></residence-item>
     </div>
     <div class="skeleton-list-residences" *ngFor="let _ of [1, 2, 3, 4, 5]">
       <skeleton-residence-item *ngIf="loadingPerson"></skeleton-residence-item>
     </div>
   </div>
 
-  <!-- <router-outlet></router-outlet> -->
 </ion-content>
+
+<visits
+  [idResidency]="selectedResidencyId"
+  (reset)="resetResidency()"
+  >
+
+</visits>

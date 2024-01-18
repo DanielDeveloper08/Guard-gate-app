@@ -22,6 +22,10 @@ import { SelectComponent } from './components/select/select.component';
 import { SkeletonItemVisitorComponent } from './components/skeleton-item-visitor/skeleton-item-visitor.component';
 import { AccessTagComponent } from './components/access-tag/access-tag.component';
 import { HomeInformationComponent } from './components/home-information/home-information.component';
+import { CardVisitComponent } from './components/visit/card-visit/card-visit.component';
+import { SkeletonCardVisitComponent } from './components/visit/skeleton-card-visit/skeleton-card-visit.component';
+import { DetailVisitComponent } from './components/visit/detail-visit/detail-visit.component';
+import { DetailVisitByVisitorComponent } from './components/visit/detail-visit-by-visitor/detail-visit-by-visitor.component';
 
 
 @NgModule({
@@ -56,7 +60,11 @@ import { HomeInformationComponent } from './components/home-information/home-inf
     ScannerSharedComponent,
     SkeletonItemVisitorComponent,
     AccessTagComponent,
-    HomeInformationComponent
+    HomeInformationComponent,
+    CardVisitComponent,
+    SkeletonCardVisitComponent,
+    DetailVisitComponent,
+    DetailVisitByVisitorComponent
   ],
   declarations: [
     OtpComponent,
@@ -75,7 +83,11 @@ import { HomeInformationComponent } from './components/home-information/home-inf
     ScannerSharedComponent,
     SkeletonItemVisitorComponent,
     AccessTagComponent,
-    HomeInformationComponent
+    HomeInformationComponent,
+    CardVisitComponent,
+    SkeletonCardVisitComponent,
+    DetailVisitComponent,
+    DetailVisitByVisitorComponent
   ]
 })
 export class SharedModule { }

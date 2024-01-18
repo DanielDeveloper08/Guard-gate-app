@@ -7,7 +7,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { IVisit, IVisitorDetail } from '../../interfaces/visit.interface';
+import { IVisit, IVisitorDetail } from '../../../../modules/visit/interfaces/visit.interface';
 import { IonModal } from '@ionic/angular';
 
 @Component({

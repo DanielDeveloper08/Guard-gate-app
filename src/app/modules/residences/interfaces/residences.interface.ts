@@ -22,6 +22,7 @@ export interface IResidencyByPerson {
 }
 
 export interface IResidenceItem {
+  idResidency: number;
   names: string;
   surnames: string;
   block: string;
