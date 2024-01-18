@@ -1,7 +1,7 @@
 <ion-buttons slot="start">
   <ion-back-button defaultHref="/admin/residents"></ion-back-button>
 </ion-buttons>
-<div class="container-edit-resident">
+<div class="container-edit-resident" *ngIf="userData!=null">
 
   <div class="container-resident general">
 
@@ -34,65 +34,106 @@
 
     <div class="new-residence">
      <div class="general-title"><span>Residencias</span></div>
-      <ion-button slot="end">Agregar</ion-button>
+      <ion-button slot="end" (click)="addResidence()">Agregar</ion-button>
   </div>
     <ion-card>
       <ion-row class="ion-justify-content-center">
         <ion-col size="12" size-md="12">
-          <p-table
-            #dt
-            [value]="userData.residences"
-            [paginator]="true"
-            [rowHover]="true"
-            [rows]="5"
-            [showCurrentPageReport]="true"
-            [scrollable]="true"
-            currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros"
-            [rowsPerPageOptions]="[5, 10, 20]"
-            [globalFilterFields]="['block', 'town']"
-          >
-            <ng-template pTemplate="caption">
-              <div class="flex">
-                <ion-item class="p-input-icon-left">
-                  <ion-input
-                    type="text"
-                    placeholder="Buscar residencia"
-                    pInputText
-                    [(ngModel)]="filterText"
-                    (input)="dt.filterGlobal(filterText, 'contains')"
-                  />
-                </ion-item>
-              </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-              <tr>
-                <th style="width: 15%">N.</th>
-                <th style="width: 20%">Manzana</th>
-                <th style="width: 20%">Villa</th>
-                <th style="width: 5%">Acciones</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-residence>
-              <tr>
-                <td>{{ residence.num }}</td>
-                <td>{{ residence.block }}</td>
-                <td>{{ residence.town }}</td>
-                <td style="text-align: center; cursor: pointer;">
-                  <ion-icon
-                    name="create-outline"
-                    size="large"
-                    [routerLink]="['/admin/edit-resident', residence.id]"
-                  ></ion-icon>
-                  <ion-icon
-                    name="trash-outline"
-                    size="large"
-                  ></ion-icon>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-md="6" *ngFor="let residence of userData.residences">
+                <ion-card class="house-card">
+                  <div class="item-field">
+                    <span class="title"><b>N°: </b></span><span>{{residence.num}}</span>
+                  </div>
+                  <div class="item-field">
+                    <span class="title"><b>Manzana: </b></span><span>{{ residence.block }}</span>
+                  </div>
+                  <div class="item-field">
+                    <span class="title"><b>Villa: </b></span><span>{{ residence.town }}</span>
+                  </div>
+                  <div class="actions-container">
+                    <ion-button>
+                      <ion-icon
+                        name="create-outline"
+                        size="medium"
+                        [routerLink]="['/admin/edit-resident']"
+                      />
+                    </ion-button>
+                    <ion-button color="light">
+                      <ion-icon
+                        name="trash-outline"
+                        size="medium"
+                        [routerLink]="['/admin/edit-resident']"
+                      />
+                    </ion-button>
+                  </div>
+                </ion-card>
+              </ion-col>
+              <!-- <ion-col size="12" size-md="6">
+                <ion-button class="house-card add-house">
+                  <ion-icon name="add-circle-outline"></ion-icon>
+                  <span><b>Agregar Residencia</b></span>
+                </ion-button>
+              </ion-col> -->
+            </ion-row>
+          </ion-grid>
         </ion-col>
       </ion-row>
     </ion-card>
   </div>
+  <ion-modal #modal>
+    <ng-template >
+      <div id="residence-modal" class="container-modal ion-padding">
+        <ion-buttons slot="start">
+          <ion-back-button (click)="closeModal()" [defaultHref]="'/admin/edit-resident/'+idResident"></ion-back-button>
+          <ion-title>Agregar residencia</ion-title>
+        </ion-buttons>
+        <div class="column-content">
+          <div class="column-content">
+            <shared-input
+            [type]="'text'"
+            [maxlength]="50"
+            [minlength]="3"
+            label="Número:"
+            labelPosition="floating"
+            ></shared-input>
+          </div>
+          <div class="column-content">
+            <shared-input
+              [type]="'text'"
+              [maxlength]="50"
+              [minlength]="3"
+              label="Manzana:"
+              labelPosition="floating"
+            ></shared-input>
+          </div>
+          <div class="column-content">
+            <shared-input
+              [type]="'text'"
+              [maxlength]="50"
+              [minlength]="3"
+              label="Villa:"
+              labelPosition="floating"
+            ></shared-input>
+          </div>
+          <div class="column-content">
+            <shared-input
+              [type]="'text'"
+              [pattern]="'^[0-9]*$'"
+              [maxlength]="10"
+              [minlength]="10"
+              label="Urbanización:"
+              labelPosition="floating"
+            ></shared-input>
+          </div>
+          <div class="new-residence">
+            <ion-toolbar>
+              <ion-button slot="end">Agregar</ion-button>
+            </ion-toolbar>
+         </div>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
 </div>
