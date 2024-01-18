@@ -92,18 +92,11 @@
         <div class="column-content">
           <div class="column-content">
             <shared-input
-            [type]="'text'"
-            [maxlength]="50"
-            [minlength]="3"
-            label="Número:"
-            labelPosition="floating"
-            ></shared-input>
-          </div>
-          <div class="column-content">
-            <shared-input
               [type]="'text'"
               [maxlength]="50"
               [minlength]="3"
+              [value]="residentForm.get('block')?.value"
+              (controlValueChange)="controlValueChange($event,'block')"
               label="Manzana:"
               labelPosition="floating"
             ></shared-input>
@@ -113,6 +106,8 @@
               [type]="'text'"
               [maxlength]="50"
               [minlength]="3"
+              [value]="residentForm.get('town')?.value"
+              (controlValueChange)="controlValueChange($event,'town')"
               label="Villa:"
               labelPosition="floating"
             ></shared-input>
@@ -123,13 +118,15 @@
               [pattern]="'^[0-9]*$'"
               [maxlength]="10"
               [minlength]="10"
+              [value]="residentForm.get('urbanization')?.value"
+              (controlValueChange)="controlValueChange($event,'urbanization')"
               label="Urbanización:"
               labelPosition="floating"
             ></shared-input>
           </div>
           <div class="new-residence">
             <ion-toolbar>
-              <ion-button slot="end">Agregar</ion-button>
+              <ion-button slot="end">Guardar</ion-button>
             </ion-toolbar>
          </div>
         </div>

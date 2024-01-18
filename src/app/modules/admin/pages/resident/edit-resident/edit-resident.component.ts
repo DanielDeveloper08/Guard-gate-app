@@ -5,7 +5,7 @@ import { ResidentService } from '../../../services/resident.service';
 import { IResident } from '../../../interfaces/resident.interface';
 import { UserService } from '../../../services/user.service';
 import { IUser } from '../../../interfaces/user.interface';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonModal } from '@ionic/angular';
 
 @Component({
@@ -17,15 +17,21 @@ export class EditResidentComponent implements OnInit {
   private _userService = inject(UserService);
   private _toastService = inject(ToastService);
   private _activatedRoute = inject(ActivatedRoute);
+  private _formBuilder = inject(FormBuilder);
+
   idResident!: number;
   userData!: IUser;
   filterText!: string;
+
+  residentForm!: FormGroup;
 
   @ViewChild('modal') modal!: IonModal;
 
   constructor() {}
 
   ngOnInit() {
+    this.createForm();
+
     this._activatedRoute.params.subscribe((params) => {
       this.idResident = params['id'];
     });
@@ -58,5 +64,19 @@ export class EditResidentComponent implements OnInit {
 
   closeModal(){
     this.modal.dismiss();
+  }
+
+  createForm() {
+    this.residentForm = this._formBuilder.group({
+      block: ['', Validators.required],
+      town: ['', Validators.required],
+      urbanization: ['', Validators.required]
+    });
+  }
+
+  controlValueChange(formControl: FormControl, controlName:string) {
+    if (this.residentForm.get(controlName) !== formControl) {
+      this.residentForm.setControl(controlName, formControl);
+    }
   }
 }
