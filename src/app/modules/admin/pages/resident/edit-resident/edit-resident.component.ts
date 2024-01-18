@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from 'src/app/shared/services';
 import { ResidentService } from '../../../services/resident.service';
@@ -6,6 +6,7 @@ import { IResident } from '../../../interfaces/resident.interface';
 import { UserService } from '../../../services/user.service';
 import { IUser } from '../../../interfaces/user.interface';
 import { FormControl } from '@angular/forms';
+import { IonModal } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-resident',
@@ -19,6 +20,8 @@ export class EditResidentComponent implements OnInit {
   idResident!: number;
   userData!: IUser;
   filterText!: string;
+
+  @ViewChild('modal') modal!: IonModal;
 
   constructor() {}
 
@@ -47,5 +50,13 @@ export class EditResidentComponent implements OnInit {
 
   filterTextChange(formControl: FormControl) {
     this.filterText=formControl.value;
+  }
+
+  addResidence(){
+    this.modal.present();
+  }
+
+  closeModal(){
+    this.modal.dismiss();
   }
 }
