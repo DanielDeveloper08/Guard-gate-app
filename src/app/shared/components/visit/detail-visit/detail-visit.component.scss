@@ -15,9 +15,14 @@ ion-modal {
       }
     }
 
+
     .header-detail {
       display: flex;
-      gap: 1.5rem;
+      gap: 1rem;
+      justify-content: flex-start;
+      align-items: center;
+
+
 
       .container-img {
         display: flex;
@@ -36,10 +41,27 @@ ion-modal {
           font-weight: 600;
         }
 
-        .date-visit {
-          display: block;
-          font-size: 0.9375rem;
-        }
+
+      }
+
+    }
+
+    .range-date{
+      margin-top: .5rem;
+      display: flex;
+      flex-direction: column;
+      row-gap: .8rem;
+      justify-content: center;
+
+      .date-visit {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+        line-height: 1.5rem;
+        font-size:.9375rem;
+        border: 1px solid var(--silver-200);
+        border-radius: .625rem;
+        padding: .5rem .5rem;
       }
     }
 

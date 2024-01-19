@@ -16,13 +16,17 @@
           <ion-icon name="people-circle-outline"></ion-icon>
         </div>
         <div class="reason-visit">
-          <span class="reason-title">{{
-            selectedVisit.reason | camelCase
-          }}</span>
-          <span class="date-visit"
-            >Visita válida desde
-            {{ selectedVisit.startDate | customDate }}</span
-          >
+          <span class="reason-title">{{ selectedVisit.reason! | camelCase }}</span>
+        </div>
+      </div>
+      <div class="range-date">
+        <div class="date-visit">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span>Fecha inicio: {{ selectedVisit.startDate! | customDate }}</span>
+        </div>
+        <div class="date-visit">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span>Fecha fin: {{ selectedVisit.endDate! | customDate }}</span>
         </div>
       </div>
       <div class="body-detail">

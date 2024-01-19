@@ -66,6 +66,7 @@ export class ScannerVisitComponent implements OnInit {
         }
       );
     });
+    this.getVisitById(98)
     this.checkAndRequestPermissions();
     BarcodeScanner.checkPermissions().then((result) => {
       this.isPermissionGranted = result.camera === 'granted';
