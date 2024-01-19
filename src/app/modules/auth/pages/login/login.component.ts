@@ -83,10 +83,6 @@ export class LoginComponent implements OnInit {
             let navigatePath: string;
 
             switch (user.role) {
-              case RoleTypeEnum.ADMIN:
-                navigatePath = '/admin';
-                break;
-
               case RoleTypeEnum.OPERATIONAL:
                 navigatePath = '/guard-gate/tabs/scanner';
                 break;
