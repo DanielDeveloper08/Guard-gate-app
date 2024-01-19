@@ -66,7 +66,6 @@ export class ScannerVisitComponent implements OnInit {
         }
       );
     });
-
     this.checkAndRequestPermissions();
     BarcodeScanner.checkPermissions().then((result) => {
       this.isPermissionGranted = result.camera === 'granted';
@@ -79,6 +78,18 @@ export class ScannerVisitComponent implements OnInit {
     if (result.camera !== 'granted') {
       await this.requestPermissions();
     }
+  }
+
+  finish(){
+    this.visitData = null;
+    this.idVisitScanner = '';
+  }
+
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      this.getVisitById(parseInt(this.idVisitScanner, 10));
+      event.target.complete();
+    }, 2000);
   }
 
   public async requestPermissions(): Promise<void> {
@@ -114,12 +125,12 @@ export class ScannerVisitComponent implements OnInit {
           id: 0,
           names: res.data.generatedBy,
           residence: {
-            block: "10",
+            block: res.data.block,
             isMain: false,
-            personId: 2,
-            residencyId: 2,
-            town: "34",
-            urbanization: "Villas del Rey"
+            personId: 0,
+            residencyId: res.data.idResidency,
+            town: res.data.town,
+            urbanization: res.data.urbanization
           },
           surnames: ""
         }

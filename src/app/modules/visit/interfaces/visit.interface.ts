@@ -34,6 +34,9 @@ export interface IVisitDetail{
     type:          string;
     visitors:      IVisitorDetail[];
     message:       string;
+    town:  string;
+    block: string;
+    urbanization: string;
 }
 
 export interface IVisitorDetail{

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">GuardGate</string>
-    <string name="title_activity_main">guard-gate-app</string>
+    <string name="app_name">Guard Gate</string>
+    <string name="title_activity_main">Guard Gate</string>
     <string name="package_name">com.guardgate.app</string>
     <string name="custom_url_scheme">com.guardgate.app</string>
 </resources>

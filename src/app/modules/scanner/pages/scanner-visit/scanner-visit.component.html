@@ -1,13 +1,16 @@
 <shared-header
   [title]="visitData ? 'Datos de la visita' : 'Escanear QR'"
 ></shared-header>
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding" >
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)" *ngIf="visitData">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="empty-scanner" *ngIf="!visitData">
     <img src="assets/emptyStateScan.svg" alt="scan-empty-state" />
     <span class="message-empty">Toque el botón para iniciar el escaneo</span>
   </div>
   <div *ngIf="visitData">
-    <div class="alert-message" *ngIf="visitData.message">
+    <div class="alert-message" *ngIf="visitData.status != statusVisit.IN_PROGRESS">
       <ion-icon name="alert-circle-outline"></ion-icon>
       <span>{{
         visitData.status == statusVisit.FULFILLED
@@ -24,9 +27,16 @@
       </div>
       <div class="reason-visit">
         <span class="reason-title">{{ visitData.reason! | camelCase }}</span>
-        <span class="date-visit"
-          >Visita válida desde {{ visitData.startDate! | customDate }}</span
-        >
+      </div>
+    </div>
+    <div class="range-date">
+      <div class="date-visit">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span>Fecha inicio: {{ visitData.startDate! | customDate }}</span>
+      </div>
+      <div class="date-visit">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span>Fecha fin: {{ visitData.endDate! | customDate }}</span>
       </div>
     </div>
     <div class="body-detail">
@@ -68,8 +78,14 @@
           </div>
         </div>
       </div>
+      <shared-button
+      [label]="'Finalizar'"
+      (click)="finish()"
+      ></shared-button>
     </div>
+
   </div>
+
   <ion-fab
     vertical="bottom"
     horizontal="end"
