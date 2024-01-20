@@ -15,6 +15,9 @@ const config: CapacitorConfig = {
       resizeOnFullScreen: true,
     },
   },
+  android: {
+    backgroundColor: '#ffffff'
+  }
 };
 
 export default config;
