@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
-import { ResidenceService } from '../../../profile/services/residence.service';
-import { IMainHome } from 'src/app/modules/home/interfaces/home.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { VisitorService } from 'src/app/modules/visitors/services/visitors.service';
@@ -13,7 +11,6 @@ import { IAddVisitRequest } from '../../interfaces/visit.interface';
 import { ToastService } from 'src/app/shared/services';
 import { Position } from '../../../../shared/interfaces/toast.interface';
 import { ModalService } from 'src/app/shared/services/modal.service';
-import { EncryptorService } from 'src/app/shared/services/encryptor.service';
 
 @Component({
   selector: 'app-add-visit-qr',
@@ -28,7 +25,6 @@ export class AddVisitQrComponent implements OnInit {
   private _toastService = inject(ToastService);
   private _modalService = inject(ModalService);
 
-
   @ViewChild('modal') modal!: IonModal;
   user: IUser = JSON.parse(localStorage.getItem('user')!);
   visitForm!: FormGroup;
@@ -38,9 +34,11 @@ export class AddVisitQrComponent implements OnInit {
   startDateSameFormat!: string;
   endDateValue!: string;
   isLoadingVisit: boolean = false;
+  initialDate!: string;
   idNewVisit: string = "No existe visita registrada";
 
   ngOnInit() {
+    this.obtenerFechaActualEnFormato();
     this.createForm();
     this.visitForm.valueChanges.subscribe((change) => {
       this.endDateValue = this.calcularFechaFin();
@@ -50,7 +48,7 @@ export class AddVisitQrComponent implements OnInit {
       this.selectedVisitors = visitors;
     });
 
-    this.startDateValue = this.visitForm.get('startDate')?.value;
+    this.startDateValue = this.formatDate(this.visitForm.get('startDate')?.value);
     this.endDateValue = this.calcularFechaFin();
   }
 
@@ -63,7 +61,7 @@ export class AddVisitQrComponent implements OnInit {
 
   createForm() {
     this.visitForm = this._formBuilder.group({
-      startDate: [ this.obtenerFechaActualEnFormato(), [Validators.required]],
+      startDate: [ this.initialDate, [Validators.required]],
       validityHours: ['0', [Validators.required]],
       listVisitors: [[], [Validators.required]],
       reason: [""]
@@ -93,24 +91,19 @@ export class AddVisitQrComponent implements OnInit {
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+    hour12: true
   };
-  return fecha.toLocaleDateString('es-ES', options);
+  return fecha.toLocaleDateString('es-EC', options);
 }
 
 obtenerFechaActualEnFormato = (): string => {
-  const fechaActual = new Date();
-
-  const formato = new Intl.DateTimeFormat('es-ES', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    timeZone: 'UTC'
-  });
-  return formato.format(fechaActual);
+  const nowInEcuador = new Date();
+    nowInEcuador.setUTCHours(nowInEcuador.getUTCHours());
+    this.initialDate = nowInEcuador.toISOString();
+    return nowInEcuador.toISOString();
 }
+
+
 
 
   closeModal() {
@@ -125,11 +118,18 @@ obtenerFechaActualEnFormato = (): string => {
   }
 
   saveVisitQR(){
-    const visitData : IAddVisitRequest= {
+    const currentDate = new Date();
+
+    const visitData: IAddVisitRequest = {
       type: "QR",
-      startDate:  this.visitForm.get('startDate')?.value,
+      startDate: this.visitForm.get('startDate')?.value,
       validityHours: this.visitForm.get('validityHours')?.value,
-      listVisitors: this.selectedVisitors.map( visitors => visitors.id),
+      listVisitors: this.selectedVisitors.map(visitors => visitors.id),
+    };
+
+    if (visitData.validityHours == 0) {
+      this._toastService.showInfo("Por favor seleccione horas de validez", Position.Top);
+      return;
     }
 
     if(this.visitForm.get('reason')?.value !== ""){

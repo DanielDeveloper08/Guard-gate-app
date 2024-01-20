@@ -15,6 +15,7 @@
         [minlength]="3"
         [placeholder]="'Usuario'"
         [setFocus]="setFocusUsername"
+        (resetFocus)="resetAllFocus()"
         (controlValueChange)="controlValueChangeUsername($event)"
       ></shared-input>
 
@@ -27,11 +28,12 @@
         [minlength]="3"
         [placeholder]="'Contraseña'"
         [setFocus]="setFocusPassword"
+        (resetFocus)="resetAllFocus()"
         (controlValueChange)="controlValueChangePassword($event)"
       ></shared-input>
 
       <div class="btn-iniciar-sesion">
-        <shared-button 
+        <shared-button
           [label]="'Iniciar sesión'"
           (click)="signIn()"
           [isLoading]="isLoading">

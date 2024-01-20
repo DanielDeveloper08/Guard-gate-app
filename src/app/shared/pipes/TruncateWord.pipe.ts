@@ -7,7 +7,7 @@ export class TruncateWordPipe implements PipeTransform {
 
   transform(inputString: string, maxLength: number): string {
     if (inputString.length > maxLength) {
-      return inputString.substring(0, maxLength) + '...';
+      return inputString.substring(0, maxLength) + '..';
     }
     return inputString;
   }

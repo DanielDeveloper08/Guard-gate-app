@@ -56,7 +56,6 @@ export class ScannerVisitComponent implements OnInit {
         'googleBarcodeScannerModuleInstallProgress',
         (event) => {
           this._ngZone.run(() => {
-            console.log('googleBarcodeScannerModuleInstallProgress', event);
             const { state, progress } = event;
             this.formGroup.patchValue({
               googleBarcodeScannerModuleInstallState: state,
@@ -143,9 +142,7 @@ export class ScannerVisitComponent implements OnInit {
   showFormDetail(visitor: IVisitorDetail , readOnly?:boolean) {
     if(readOnly) visitor.readOnly = true;
     this.visitorSelected = visitor;
-    console.log(this.visitorSelected)
     this._cdr.detectChanges();
-
   }
 
   resetVisitor(saveData: boolean | void){

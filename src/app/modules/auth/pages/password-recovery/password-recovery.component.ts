@@ -50,11 +50,12 @@ export class PasswordRecoveryComponent implements OnInit {
   ngOnInit() {}
 
   recoveryPassword() {
-    this.isLoadingRecoveryPassword = true;
     this.showNewPassword = false;
     if (this.username.value === '' || this.username.value === null) {
       this.inputUsername.setFocus();
     } else {
+      this.isLoadingRecoveryPassword = true;
+
       const usernameData: IRecoveryRequest = {
         username: this.username.value.trim(),
       };
@@ -72,6 +73,10 @@ export class PasswordRecoveryComponent implements OnInit {
         },
       });
     }
+  }
+
+  resetAllFocus(){
+    this.setFocus=false;
   }
 
   goToLogin() {

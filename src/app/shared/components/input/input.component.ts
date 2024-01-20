@@ -31,6 +31,8 @@ export class InputComponent {
   @Input() labelPosition: string = '';
   @Input() validators: ValidatorFn[] = [];
   @Output() visibilityChanged = new EventEmitter<boolean>();
+  @Output() resetFocus = new EventEmitter<void>();
+
   @ViewChild('inputTag', { static: false }) inputTag!: IonInput;
   @Output() controlValueChange: EventEmitter<FormControl> = new EventEmitter<FormControl>();
 
@@ -42,6 +44,8 @@ export class InputComponent {
     this.formControl.setValidators(this.validators);
     this.formControl.valueChanges.subscribe( change => {
       this.controlValueChange.emit(this.formControl);
+      if(change == '') this.resetFocus.emit();
+
       this.validatePattern(change);
     })
   }

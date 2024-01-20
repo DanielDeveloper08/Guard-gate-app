@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-
 import { NavController } from '@ionic/angular';
 import { LoginService } from '../../services/login.service';
 import { ToastService } from 'src/app/shared/services';
@@ -66,18 +65,24 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  resetAllFocus(){
+    this.setFocusUsername = false;
+    this.setFocusPassword = false;
+  }
+
   async signIn() {
-    this.isLoading = true;
     const credentials: ILoginRequest = {
       username: this.signInForm.get('username')?.value,
       password: this.signInForm.get('password')?.value,
     };
 
+    console.log(credentials)
     if (credentials.username === '') {
       this.setFocusUsername = true;
     } else if (credentials.password === '') {
       this.setFocusPassword = true;
     } else {
+      this.isLoading = true;
       this._loginService.signIn(credentials).subscribe({
         next: (res) => {
           if (res.data.user) {

@@ -13,8 +13,6 @@ export class SelectDateComponent implements OnInit {
   datesBeforeToday: string[] = [];
 
   ngOnInit() {
-    const now = new Date();
-
     const nowInEcuador = new Date();
     const year = nowInEcuador.getFullYear();
     const month = String(nowInEcuador.getMonth() + 1).padStart(2, '0');
