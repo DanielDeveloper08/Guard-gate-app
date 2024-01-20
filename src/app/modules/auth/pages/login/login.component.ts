@@ -33,8 +33,14 @@ export class LoginComponent implements OnInit {
 
   isMobile: boolean = false;
 
-  constructor(private platform: Platform){
-    this.platform.ready().then(()=>this.isMobile = this.platform.is('android') || this.platform.is('ios'));
+  constructor(private platform: Platform) {
+    this.platform
+      .ready()
+      .then(
+        () =>
+          (this.isMobile =
+            this.platform.is('android') || this.platform.is('ios'))
+      );
   }
 
   ngOnInit() {
@@ -77,28 +83,31 @@ export class LoginComponent implements OnInit {
           if (res.data.user) {
             const { token, user } = res.data;
 
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
-
             let navigatePath: string;
 
             switch (user.role) {
               case RoleTypeEnum.OPERATIONAL:
                 navigatePath = '/guard-gate/tabs/scanner';
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(user));
                 break;
-
-              default:
+              case RoleTypeEnum.RESIDENT:
                 navigatePath = '/guard-gate';
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(user));
+                break;
+              default:
+                navigatePath = '/login';
             }
 
             this._navCtrl.navigateRoot(navigatePath);
             this.isLoading = false;
           }
         },
-        error: (err:any) => {
+        error: (err: any) => {
           this.isLoading = false;
           this._toastService.showError(err.error.message, Position.Top);
-        }
+        },
       });
     }
   }
