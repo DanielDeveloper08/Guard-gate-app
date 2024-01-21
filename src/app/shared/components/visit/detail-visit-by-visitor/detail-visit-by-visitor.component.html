@@ -24,6 +24,13 @@
           <span class="identication">CI: {{visitor?.docNumber}}</span>
         </div>
       </div>
+      <div class="entryDate">
+        <div class="title-detail">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span>Fecha de entrada</span>
+        </div>
+        <span class="date">{{visitor?.entryDate! | customDate}}</span>
+      </div>
       <div class="body-detail">
         <div class="title-detail">
           <ion-icon name="images-outline"></ion-icon>
