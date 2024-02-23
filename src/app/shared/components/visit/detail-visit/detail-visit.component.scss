@@ -117,9 +117,23 @@ ion-modal {
             justify-content: space-between;
             align-items: center;
 
-            ion-icon {
+            .detail-icon {
               color: var(--silver-700);
               font-size: 1.5rem;
+              margin-left: 1rem;
+            }
+
+
+            .status-icon-yes{
+              color: var(--color-green-400);
+              font-size: 1.5rem;
+              font-weight: 600;
+            }
+
+            .status-icon-no{
+              color: var( --mandy-600);
+              font-size: 1.5rem;
+              font-weight: 600;
             }
 
             .item-left{

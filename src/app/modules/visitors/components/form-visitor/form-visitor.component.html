@@ -68,7 +68,7 @@
     (focusout)="controlFocusout($event, 'surnames')"
   ></shared-input>
 
-  <div class="label">Cédula</div>
+  <div class="label">Identificación</div>
   <span
     *ngIf="
       visitorForm.controls['docNumber'].touched &&
@@ -95,7 +95,7 @@
     [pattern]="'^[0-9]*$'"
     [maxlength]="10"
     [minlength]="10"
-    [placeholder]="'Cédula'"
+    [placeholder]="'Identificación'"
     [value]="visitorForm.get('docNumber')?.value"
     [disabled]="disabled"
     (controlValueChange)="controlValueChangeDocnumber($event)"

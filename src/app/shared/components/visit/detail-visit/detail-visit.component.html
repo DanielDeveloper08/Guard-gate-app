@@ -16,7 +16,9 @@
           <ion-icon name="people-circle-outline"></ion-icon>
         </div>
         <div class="reason-visit">
-          <span class="reason-title">{{ selectedVisit.reason! | camelCase }}</span>
+          <span class="reason-title">{{
+            selectedVisit.reason! | camelCase
+          }}</span>
         </div>
       </div>
       <div class="range-date">
@@ -40,11 +42,15 @@
               [ngClass]="{
                 cancel: selectedVisit.status == statusVisit.CANCELLED,
                 pending: selectedVisit.status == statusVisit.PENDING,
-                progress: selectedVisit.status == statusVisit.IN_PROGRESS ,
+                progress: selectedVisit.status == statusVisit.IN_PROGRESS,
                 complete: selectedVisit.status == statusVisit.FULFILLED
               }"
             >
-              {{ selectedVisit.status | camelCase }}</span
+              {{
+                selectedVisit.status == "EN CURSO"
+                  ? "En vigencia"
+                  : selectedVisit.status
+              }}</span
             >
           </div>
           <div class="list-visitors">
@@ -62,15 +68,24 @@
                 ></shared-avatar>
                 <span>{{ visitor.names }} {{ visitor.surnames }}</span>
               </div>
-
-              <ion-icon
-                *ngIf="
-                  selectedVisit.status != pendingState &&
-                  visitor.hasEntered != null
-                "
-                name="caret-forward-outline"
-                (click)="openDetailVisitor(visitor)"
-              ></ion-icon>
+              <div>
+                <ion-icon
+                  *ngIf="visitor.hasEntered != null"
+                  name="ellipse"
+                  [class]="
+                    visitor.hasEntered ? 'status-icon-yes' : 'status-icon-no'
+                  "
+                ></ion-icon>
+                <ion-icon
+                  *ngIf="
+                    selectedVisit.status != pendingState &&
+                    visitor.hasEntered != null
+                  "
+                  name="eye-outline"
+                  class="detail-icon"
+                  (click)="openDetailVisitor(visitor)"
+                ></ion-icon>
+              </div>
             </div>
           </div>
         </div>

@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   Barcode,
   BarcodeFormat,
@@ -12,10 +20,11 @@ import { ModalService } from '../../services/modal.service';
 @Component({
   selector: 'shared-scanner',
   templateUrl: './scanner.component.html',
-  styleUrls: ['./scanner.component.scss']
+  styleUrls: ['./scanner.component.scss'],
 })
-export class ScannerSharedComponent implements OnInit, AfterViewInit, OnDestroy {
-
+export class ScannerSharedComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   public formats: BarcodeFormat[] = [BarcodeFormat.QrCode];
   public lensFacing: LensFacing = LensFacing.Back;
 
@@ -67,7 +76,6 @@ export class ScannerSharedComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   private async startScan(): Promise<void> {
-    // Hide everything behind the modal (see `src/theme/variables.scss`)
     document.querySelector('body')?.classList.add('barcode-scanning-active');
 
     const options: StartScanOptions = {
@@ -141,5 +149,4 @@ export class ScannerSharedComponent implements OnInit, AfterViewInit, OnDestroy 
 
     await BarcodeScanner.stopScan();
   }
-
 }

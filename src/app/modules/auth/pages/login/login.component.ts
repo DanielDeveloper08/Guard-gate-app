@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  resetAllFocus(){
+  resetAllFocus() {
     this.setFocusUsername = false;
     this.setFocusPassword = false;
   }
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
       password: this.signInForm.get('password')?.value,
     };
 
-    console.log(credentials)
+    console.log(credentials);
     if (credentials.username === '') {
       this.setFocusUsername = true;
     } else if (credentials.password === '') {
@@ -103,6 +103,10 @@ export class LoginComponent implements OnInit {
                 break;
               default:
                 navigatePath = '/login';
+                this._toastService.showError(
+                  'Usuario y/o contraseña incorrecta',
+                  Position.Top
+                );
             }
 
             this._navCtrl.navigateRoot(navigatePath);

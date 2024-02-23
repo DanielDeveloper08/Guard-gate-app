@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, NgZone, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CameraService } from '../../services/camera.service';
 import { ScannerSharedComponent } from 'src/app/shared/components/scanner/scanner.component';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -12,7 +18,10 @@ import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { Position } from 'src/app/shared/interfaces';
 import { VisitService } from '../../../visit/services/visit.service';
-import { IVisitDetail, IVisitorDetail } from '../../../visit/interfaces/visit.interface';
+import {
+  IVisitDetail,
+  IVisitorDetail,
+} from '../../../visit/interfaces/visit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EncryptorService } from 'src/app/shared/services/encryptor.service';
 import { VisitStatusEnum } from 'src/app/shared/interfaces/general.interface';
@@ -66,7 +75,6 @@ export class ScannerVisitComponent implements OnInit {
       );
     });
 
-    this.getVisitById(110)
     this.checkAndRequestPermissions();
     BarcodeScanner.checkPermissions().then((result) => {
       this.isPermissionGranted = result.camera === 'granted';
@@ -81,7 +89,7 @@ export class ScannerVisitComponent implements OnInit {
     }
   }
 
-  finish(){
+  finish() {
     this.visitData = null;
     this.idVisitScanner = '';
   }
@@ -106,7 +114,9 @@ export class ScannerVisitComponent implements OnInit {
     element.onDidDismiss().then((result) => {
       const barcode: Barcode | undefined = result.data?.barcode;
       if (barcode) {
-        const dataDecrypt = this._encryptorService.decrypt(barcode.displayValue);
+        const dataDecrypt = this._encryptorService.decrypt(
+          barcode.displayValue
+        );
         if (!dataDecrypt.includes(environment.QR_PREFIX)) {
           this._toast.showError('Código QR no válido', Position.Top);
           return;
@@ -131,23 +141,22 @@ export class ScannerVisitComponent implements OnInit {
             personId: 0,
             residencyId: res.data.idResidency,
             town: res.data.town,
-            urbanization: res.data.urbanization
+            urbanization: res.data.urbanization,
           },
-          surnames: ""
-        }
+          surnames: '',
+        };
       },
-      error: (err: HttpErrorResponse) => {
-      },
+      error: (err: HttpErrorResponse) => {},
     });
   }
 
-  showFormDetail(visitor: IVisitorDetail , readOnly?:boolean) {
-    if(readOnly) visitor.readOnly = true;
+  showFormDetail(visitor: IVisitorDetail, readOnly?: boolean) {
+    if (readOnly) visitor.readOnly = true;
     this.visitorSelected = visitor;
     this._cdr.detectChanges();
   }
 
-  resetVisitor(saveData: boolean | void){
+  resetVisitor(saveData: boolean | void) {
     this.visitorSelected = null;
     saveData && this.getVisitById(parseInt(this.idVisitScanner, 10));
   }
