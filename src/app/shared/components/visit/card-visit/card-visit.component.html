@@ -9,7 +9,9 @@
       <!-- Right column - Visitor information -->
       <div class="detail-visit">
         <ion-row>
-          <ion-label class="name">{{visit.reason || "Visita general" | camelCase}}</ion-label>
+          <ion-label class="name">{{
+            visit.reason || "Visita general" | camelCase
+          }}</ion-label>
         </ion-row>
         <ion-row>
           <ion-label class="label">Inicio:</ion-label>
@@ -17,7 +19,11 @@
         </ion-row>
         <ion-row>
           <ion-label class="label">Estado:</ion-label>
-          <ion-label>{{ visit.status | camelCase }}</ion-label>
+          <ion-label>{{
+            visit.status == "EN CURSO"
+              ? "En vigencia"
+              : (visit.status | camelCase)
+          }}</ion-label>
         </ion-row>
       </div>
       <div class="action-visit" (click)="openModal(visit)">
@@ -26,5 +32,3 @@
     </div>
   </ion-card-content>
 </ion-card>
-
-

@@ -36,7 +36,9 @@ import { ToastService } from 'src/app/shared/services';
 export class FormDetailVisitComponent implements OnInit {
   @Input() idVisit!: IVisitDetail | null;
   @Input() visitor!: IVisitorDetail | null;
-  @Output() reset: EventEmitter<boolean | void> = new EventEmitter<boolean | void>();
+  @Output() reset: EventEmitter<boolean | void> = new EventEmitter<
+    boolean | void
+  >();
 
   private _visitService = inject(VisitService);
   private _formBuilder = inject(FormBuilder);
@@ -70,7 +72,7 @@ export class FormDetailVisitComponent implements OnInit {
       this.isLoadingImage = value;
     });
 
-    if(this.visitorSelected.readOnly){
+    if (this.visitorSelected.readOnly) {
       this.setDataForm();
     }
   }
@@ -81,10 +83,15 @@ export class FormDetailVisitComponent implements OnInit {
     }
   }
 
-  setDataForm(){
-    if (this.detailVisitForm) { // Verifica si el formulario está definido
-      this.detailVisitForm.get('observation')?.setValue(this.visitorSelected?.observation);
-      this.detailVisitForm.get('carPlate')?.setValue(this.visitorSelected?.carPlate);
+  setDataForm() {
+    if (this.detailVisitForm) {
+      // Verifica si el formulario está definido
+      this.detailVisitForm
+        .get('observation')
+        ?.setValue(this.visitorSelected?.observation);
+      this.detailVisitForm
+        .get('carPlate')
+        ?.setValue(this.visitorSelected?.carPlate);
 
       if (this.visitorSelected?.photos) {
         const urlArray = JSON.parse(this.visitorSelected.photos);
@@ -111,7 +118,7 @@ export class FormDetailVisitComponent implements OnInit {
     this.detailVisitForm.setControl('carPlate', formControl);
   }
 
-  closeModalVisitors(saveData?:boolean) {
+  closeModalVisitors(saveData?: boolean) {
     this._scannerService.resetPhotos();
     this.modal.dismiss();
     this.reset.emit(saveData);
@@ -134,6 +141,16 @@ export class FormDetailVisitComponent implements OnInit {
 
     if (this.photos.length === 0) {
       this.showErrorImages = true;
+      this.isLoadingSaveDetail = false;
+      return;
+    }
+
+    if (!isEnteredValue) {
+      this._toastService.showError(
+        'Por favor ingrese una observación',
+        Position.Top
+      );
+      this.isLoadingSaveDetail = false;
       return;
     }
 

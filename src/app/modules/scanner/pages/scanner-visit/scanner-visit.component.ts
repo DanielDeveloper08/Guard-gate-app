@@ -26,6 +26,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { EncryptorService } from 'src/app/shared/services/encryptor.service';
 import { VisitStatusEnum } from 'src/app/shared/interfaces/general.interface';
 import { IMainHome } from 'src/app/modules/home/interfaces/home.interface';
+import { UrbanizationService } from 'src/app/shared/services/urbanization.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-scanner',
@@ -39,6 +41,7 @@ export class ScannerVisitComponent implements OnInit {
   private _visitService = inject(VisitService);
   private _cdr = inject(ChangeDetectorRef);
   private _encryptorService = inject(EncryptorService);
+  private _urbanizationService = inject(UrbanizationService);
 
   public isSupported = false;
   public isPermissionGranted = false;
@@ -74,6 +77,8 @@ export class ScannerVisitComponent implements OnInit {
         }
       );
     });
+
+    this.getVisitById(144);
 
     this.checkAndRequestPermissions();
     BarcodeScanner.checkPermissions().then((result) => {
@@ -129,19 +134,24 @@ export class ScannerVisitComponent implements OnInit {
   }
 
   getVisitById(idVisit: number) {
-    this._visitService.getVisitById(idVisit).subscribe({
+    const combinedObservables = forkJoin({
+      obs1: this._visitService.getVisitById(idVisit),
+      obs2: this._urbanizationService.getUrbanization(),
+    });
+
+    combinedObservables.subscribe({
       next: (res) => {
-        this.visitData = res.data;
+        this.visitData = res.obs1.data;
         this.residence = {
           id: 0,
-          names: res.data.generatedBy,
+          names: res.obs1.data.generatedBy,
           residence: {
-            block: res.data.block,
+            block: res.obs1.data.block,
             isMain: false,
             personId: 0,
-            residencyId: res.data.idResidency,
-            town: res.data.town,
-            urbanization: res.data.urbanization,
+            residencyId: res.obs1.data.idResidency,
+            town: res.obs1.data.town,
+            urbanization: res.obs2.data.name,
           },
           surnames: '',
         };
