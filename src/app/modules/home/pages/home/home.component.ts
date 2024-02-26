@@ -15,6 +15,8 @@ import {
 import { ToastService } from 'src/app/shared/services';
 import { Position } from 'src/app/shared/interfaces';
 import { IVisitor } from 'src/app/modules/visitors/interfaces/visitor.interface';
+import { UrbanizationService } from 'src/app/shared/services/urbanization.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +27,7 @@ export class HomeComponent implements OnInit {
   private _residenceService = inject(ResidenceService);
   private _homeService = inject(HomeService);
   private _toastService = inject(ToastService);
+  private _urbanizationService = inject(UrbanizationService);
 
   visitors: IFrequentVisitor[] = [];
   pendingVisits: IVisit[] = [];
@@ -53,18 +56,26 @@ export class HomeComponent implements OnInit {
   }
 
   getResidences() {
+    const combinedObservables = forkJoin({
+      obs1: this._residenceService.getResidencesByUser(),
+      obs2: this._urbanizationService.getUrbanization(),
+    });
+
     this.isLoadingResidences = true;
-    this._residenceService.getResidencesByUser().subscribe({
+    combinedObservables.subscribe({
       next: (res) => {
         this.isLoadingResidences = false;
         const home: IMainHome = {
-          id: res.data.id,
-          names: res.data.names,
-          surnames: res.data.surnames,
+          id: res.obs1.data.id,
+          names: res.obs1.data.names,
+          surnames: res.obs1.data.surnames,
           residence:
-            res.data.residences.find((residence) => residence.isMain)! ?? null,
+            res.obs1.data.residences.find((residence) => residence.isMain)! ??
+            null,
         };
+        home.residence.urbanization = res.obs2.data.name;
         this.mainResidence = home;
+
         localStorage.setItem('mainResidence', JSON.stringify(home.residence));
       },
       error: (err: HttpErrorResponse) => {
@@ -77,8 +88,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ionViewWillLeave(){
-    this.lastVisits= [];
+  ionViewWillLeave() {
+    this.lastVisits = [];
   }
 
   getSummaryData() {
@@ -100,10 +111,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
-
   transformLastVisit(dataVisist: IVisitDetail[]) {
-
     const lastVisitsData: ILastVisitsTransformed[] = [];
     dataVisist.map((visit) => {
       visit.visitors.map((visitor) => {
